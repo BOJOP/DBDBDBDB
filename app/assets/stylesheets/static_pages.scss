@@ -1,0 +1,34 @@
+h1{
+ 	font-size: 80px;
+	text-align: center;
+	color: #176db3;
+	font-family: verdana, arial, helvetica, sans-serif;
+  margin-bottom: 5px;
+	-webkit-margin-before: 0px;
+	-webkit-margin-after: 0px;	
+}
+
+img{
+    width:740px;
+    height: auto;
+    display: block;
+  	margin-left: auto;
+ 	margin-right: auto;
+}
+
+.main{
+	width: 1200px;
+	height: 100%;
+  	display: block;
+  	margin-left: auto;
+ 	margin-right: auto;
+}
+.counter{
+	width: 25%;
+	display: inline-block;
+}
+.countdown{
+	width: 1000px;
+    display: block;
+  	margin-left: auto;
+}
