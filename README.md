@@ -1,7 +1,7 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project is term project of DB MGT SYS DESIGN course
+
 
 Things you may want to cover:
 
