@@ -1,0 +1,28 @@
+<%= form_for(personnel) do |f| %>
+  
+  <%= render 'shared/error_messages', personnel: personnel %>
+
+  <div class="field">
+    <%= f.label :id %>
+    <%= f.text_field :id, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.email_field :email, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <%= f.password_field :password, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, "Confirmation" %>
+    <%= f.password_field :password_confirmation, class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+  </div>
+<% end %>
