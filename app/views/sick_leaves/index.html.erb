@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Sick Leaves</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sick_leaves.each do |sick_leafe| %>
+      <tr>
+        <td><%= link_to 'Show', sick_leafe %></td>
+        <td><%= link_to 'Edit', edit_sick_leafe_path(sick_leafe) %></td>
+        <td><%= link_to 'Destroy', sick_leafe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sick Leafe', new_sick_leafe_path %>

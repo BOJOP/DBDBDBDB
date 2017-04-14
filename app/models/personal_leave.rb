@@ -1,0 +1,2 @@
+class PersonalLeave < ApplicationRecord
+end

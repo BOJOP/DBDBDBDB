@@ -1,0 +1,2 @@
+module LogBreaksHelper
+end

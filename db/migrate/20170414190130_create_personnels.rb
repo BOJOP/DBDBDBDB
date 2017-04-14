@@ -13,8 +13,8 @@ class CreatePersonnels < ActiveRecord::Migration[5.0]
       t.string :password_digest
       t.string :remember_digest
       
-      t.integer :manage_department_id
-      t.integer :workin_department_id
+      t.references :manage_department
+      t.references :workin_department
 
       t.timestamps
     end

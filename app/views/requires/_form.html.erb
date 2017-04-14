@@ -1,0 +1,17 @@
+<%= form_for(require) do |f| %>
+  <% if require.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(require.errors.count, "error") %> prohibited this require from being saved:</h2>
+
+      <ul>
+      <% require.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,17 @@
+<%= form_for(personal_leafe) do |f| %>
+  <% if personal_leafe.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(personal_leafe.errors.count, "error") %> prohibited this personal_leafe from being saved:</h2>
+
+      <ul>
+      <% personal_leafe.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

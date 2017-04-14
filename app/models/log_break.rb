@@ -1,0 +1,2 @@
+class LogBreak < ApplicationRecord
+end

@@ -1,0 +1,17 @@
+<%= form_for(sick_leafe) do |f| %>
+  <% if sick_leafe.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(sick_leafe.errors.count, "error") %> prohibited this sick_leafe from being saved:</h2>
+
+      <ul>
+      <% sick_leafe.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

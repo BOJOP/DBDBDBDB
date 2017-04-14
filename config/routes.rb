@@ -1,4 +1,26 @@
 Rails.application.routes.draw do
+  resources :course_categories
+  resources :belong_tos
+  resources :groups
+  resources :advisors
+  resources :log_breaks
+  resources :rules
+  resources :personal_leaves
+  resources :sick_leaves
+  resources :leaves
+  resources :competitions
+  resources :activities
+  resources :portfolios
+  resources :gpas
+  resources :students
+  resources :schedules
+  resources :time_slots
+  resources :enrollments
+  resources :sections
+  resources :requires
+  resources :courses
+  resources :curriculums
+  resources :departments
   resources :personnels
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
  

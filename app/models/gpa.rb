@@ -1,0 +1,2 @@
+class Gpa < ApplicationRecord
+end
