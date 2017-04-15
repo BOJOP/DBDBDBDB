@@ -18,4 +18,33 @@ module ApplicationHelper
   def store_location
     session[:forwarding_url] = request.original_url if request.get?
   end
+  
+  def controller?(*controller)
+    if controller.include?(params[:controller])
+      return 'active'
+    else 
+      return ''
+    end
+  end
+  
+  def action?(*action)
+  
+    if action.include?(params[:action])
+      return 'active'
+    else 
+      return ''
+    end
+  end
+  
+  def controller_data?()
+    controller = ["personnels","groups", "students", "departments", "courses", "groups", "rules", "leaves", "portfolios", "time_slots"]
+    
+    if controller.include?(params[:controller])
+      return 'active'
+    else 
+      return ''
+    end
+  
+  end
+  
 end

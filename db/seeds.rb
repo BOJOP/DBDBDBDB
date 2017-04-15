@@ -9,4 +9,8 @@
 
 personnel = Personnel.create(id: '1234567890', email: 'root@cu.com', role: 'I', password: 'dbdbdbdb')
 
-puts personnel.errors.messages
+for i in 0..25
+  personnel = Personnel.create(id: '12' + i.to_s, email: 'test' + i.to_s + '@cu.com' , role: 'I', password: 'dbdbdbdb')
+  puts personnel.errors.messages
+end
+

@@ -2,7 +2,7 @@
   <%= gravatar_for personnel, size: 50 %>
   <%= link_to personnel.id, personnel %>
   <% if !current_personnel?(personnel) %>
-    | <%= link_to "delete", user, method: :delete, data: { confirm: "You sure?" } %>
+    | <%= link_to "delete", personnel, method: :delete, data: { confirm: "You sure?" } %>
   <% end %>
 </li>
 

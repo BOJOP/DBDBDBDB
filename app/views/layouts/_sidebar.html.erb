@@ -13,23 +13,23 @@
       </span>
     </div>
   </li>
-  <li class="bold"><a class="waves-effect waves-teal" href="#!">Summary group</a></li>
-  <li class="bold"><a class="waves-effect waves-teal"  href="#!">Summary individual</a></li>
+  <li class="bold<%= controller?('viewgroup') %>"><a class="waves-effect waves-teal" href="#!">Summary group</a></li>
+  <li class="bold <%= controller?('viewindiv') %>"><a class="waves-effect waves-teal"  href="#!">Summary individual</a></li>
   <li class="no-padding">
-    <ul class="collapsible collapsible-accordion">
+    <ul class="collapsible collapsible-accordion" data-collapsible="accordion">
       <li class="bold">
-        <a class="collapsible-header waves-effect waves-teal">Manage data</a>
+        <a class="collapsible-header waves-effect waves-teal <%= controller_data?() %>">Manage data</a>
         <div class="collapsible-body">
           <ul>
-            <li><a class="waves-effect waves-teal"  href="/personnels">Personnel</a></li>
-            <li><a class="waves-effect waves-teal"  href="/students">Student</a></li>
-            <li><a class="waves-effect waves-teal"  href="/departments">Department</a></li>
-            <li><a class="waves-effect waves-teal"  href="/course">Course</a></li>
-            <li><a class="waves-effect waves-teal"  href="/groups">Group</a></li>
-            <li><a class="waves-effect waves-teal"  href="/rules">Rule</a></li>
-            <li><a class="waves-effect waves-teal"  href="/leaves">Leave</a></li>
-            <li><a class="waves-effect waves-teal"  href="/portfolios">Portfolio</a></li>
-            <li><a class="waves-effect waves-teal"  href="/time_slots">Time slot</a></li>
+            <li class="<%= controller?('personnels') %>"><a class="waves-effect waves-teal"  href="/personnels">Personnel</a></li>
+            <li class="<%= controller?('students') %>"><a class="waves-effect waves-teal"  href="/students">Student</a></li>
+            <li class="<%= controller?('departments') %>"><a class="waves-effect waves-teal"  href="/departments">Department</a></li>
+            <li class="<%= controller?('courses') %>"><a class="waves-effect waves-teal"  href="/courses">Course</a></li>
+            <li class="<%= controller?('groups') %>"><a class="waves-effect waves-teal"  href="/groups">Group</a></li>
+            <li class="<%= controller?('rules') %>"><a class="waves-effect waves-teal"  href="/rules">Rule</a></li>
+            <li class="<%= controller?('leaves') %>"><a class="waves-effect waves-teal"  href="/leaves">Leave</a></li>
+            <li class="<%= controller?('portfolios') %>"><a class="waves-effect waves-teal"  href="/portfolios">Portfolio</a></li>
+            <li class="<%= controller?('time_slots') %>"><a class="waves-effect waves-teal"  href="/time_slots">Time slot</a></li>
           </ul>
         </div>
       </li>
