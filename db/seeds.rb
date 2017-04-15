@@ -7,7 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-#personnel = Personnel.create(id: '1234567890', email: 'root@cu.com', role: 'I', password: 'dbdbdbdb')
 #student = Student.create(id: '1234567890', email: 'aaa@bbb.ccc', curriculum_id: '1234567890')
 
 #Student_create
@@ -94,7 +93,6 @@ Student.create(id: "731054021", first_name: 'ธารา', last_name: 'ธร�
 Student.create(id: "730456521", first_name: 'ภาสกร', last_name: 'เฮงประเสริฐ', picture: 'pic_url_here', ssn: '10000000080', birth_date:'5-31-1995', gender: 'Male', enroll_year: '2014', status: 'normal', email: 'premmii.em@gmail.com', curriculum_id: '5')
 Student.create(id: "731005321", first_name: 'กษิดิศ', last_name: 'เอี่ยมทอง', picture: 'pic_url_here', ssn: '10000000081', birth_date:'6-14-1996', gender: 'Male', enroll_year: '2014', status: 'normal', email: 'kasidit@outlook.com', curriculum_id: '5')
 Student.create(id: "731058621", first_name: 'ธีรพจน์', last_name: 'แซ่ลิน', picture: 'pic_url_here', ssn: '10000000082', birth_date:'1-4-1996', gender: 'Male', enroll_year: '2014', status: 'normal', email: 'ropcj@hotmail.com', curriculum_id: '5')
-Student.create(id: "731058621", first_name: 'ธีรพจน์', last_name: 'แซ่ลิน', picture: 'pic_url_here', ssn: '10000000083', birth_date:'1-4-1996', gender: 'Male', enroll_year: '2014', status: 'normal', email: 'ropcj@hotmail.com', curriculum_id: '5')
 Student.create(id: "731062021", first_name: 'นพวิทย์', last_name: 'ไทยรุ่งโรจน์', picture: 'pic_url_here', ssn: '10000000084', birth_date:'6-9-1996', gender: 'Male', enroll_year: '2014', status: 'normal', email: 'pee.mamypoko@gmail.com', curriculum_id: '5')
 Student.create(id: "731083221", first_name: 'พีรวุฒิ', last_name: 'เหลืองเรืองโรจน์', picture: 'pic_url_here', ssn: '10000000085', birth_date:'12-21-1995', gender: 'Male', enroll_year: '2014', status: 'normal', email: 'pee.luang45@gmail.com', curriculum_id: '5')
 Student.create(id: "731105421", first_name: 'ศุภวิชญ์', last_name: 'คงธนาฤทธิ์', picture: 'pic_url_here', ssn: '10000000086', birth_date:'1-11-1996', gender: 'Male', enroll_year: '2014', status: 'normal', email: 'flukyy_supp@hotmail.com', curriculum_id: '5')
@@ -131,14 +129,21 @@ Student.create(id: "730400321", first_name: 'พิชไนย', last_name: '�
 Student.create(id: "731114021", first_name: 'อัมรินทร์', last_name: 'เจตน์ฐากูร', picture: 'pic_url_here', ssn: '10000000117', birth_date:'12-9-1995', gender: 'Male', enroll_year: '2014', status: 'normal', email: 'ammarinjtk@outlook.com', curriculum_id: '5')
 Student.create(id: "731025921", first_name: 'ชัยภัทร', last_name: 'จุลศรี', picture: 'pic_url_here', ssn: '10000000118', birth_date:'12-24-1995', gender: 'Male', enroll_year: '2014', status: 'normal', email: 'adelaide.8000@gmail.com', curriculum_id: '5')
 Student.create(id: "730059021", first_name: 'คณิน', last_name: 'ศุภสัจญาณกุล', picture: 'pic_url_here', ssn: '10000000119', birth_date:'9-20-1996', gender: 'Male', enroll_year: '2014', status: 'normal', email: 'oak_maplestory@hotmail.com', curriculum_id: '5')
-Student.create(id: "731008221", first_name: 'กิติพงษ์', last_name: 'ศิริเรืองสกุล', picture: 'pic_url_here', ssn: '10000000120', birth_date:'2-2-1996', gender: 'Male', enroll_year: '2014', status: 'Dropped', email: 'kittipong1996@hotmail.com', curriculum_id: '5')
+Student.create(id: "731008221", first_name: 'กิติพงษ์', last_name: 'ศิริเรืองสกุล', picture: 'pic_url_here', ssn: '10000000120', birth_date:'2-2-1996', gender: 'Male', enroll_year: '2014', status: 'normal', email: 'kittipong1996@hotmail.com', curriculum_id: '5')
 Student.create(id: "731071721", first_name: 'ปธานิน', last_name: 'โลกโบว์', picture: 'pic_url_here', ssn: '10000000121', birth_date:'3-16-1996', gender: 'Male', enroll_year: '2014', status: 'normal', email: 'oatoat555@gmail.com', curriculum_id: '5')
 Student.create(id: "730657321", first_name: 'เสฏฐวุฒิ', last_name: 'อดิศัยสกุลเดช', picture: 'pic_url_here', ssn: '10000000122', birth_date:'10-17-1996', gender: 'Male', enroll_year: '2014', status: 'normal', email: 'settavut_ham@outlook.com', curriculum_id: '5')
 Student.create(id: "731067221", first_name: 'นิธิรันดร์', last_name: 'นุ่มนนท์', picture: 'pic_url_here', ssn: '10000000123', birth_date:'8-16-1995', gender: 'Male', enroll_year: '2014', status: 'normal', email: 'nithirun1995@gmail.com', curriculum_id: '5')#
 
 #Personnel_create
+personnel = Personnel.create(id: '1234567890', email: 'root@cu.com', role: 'I', password: 'dbdbdbdb')
 for i in 0..25
   personnel = Personnel.create(id: '12' + i.to_s, email: 'test' + i.to_s + '@cu.com' , role: 'I', password: 'dbdbdbdb')
   puts personnel.errors.messages
+end
+
+
+for i in 0..25
+  department = Department.create(name: 'test_de' + i.to_s)
+  puts department.errors.messages
 end
 

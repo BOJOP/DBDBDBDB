@@ -6,7 +6,9 @@ class PersonnelsController < ApplicationController
   # GET /personnels
   # GET /personnels.json
   def index
-    @personnels = Personnel.all.paginate(page: params[:page])
+    @max_page = (Personnel.all.count / 15.0).ceil
+    @personnels = Personnel.all.paginate(page: params[:page], per_page: 15)
+    @departments = Department.all
   end
 
   # GET /personnels/1

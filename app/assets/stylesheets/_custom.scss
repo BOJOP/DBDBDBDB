@@ -1,0 +1,33 @@
+.pagination {
+  li {
+    display: inline-block;
+    border-radius: 2px;
+    text-align: center;
+    vertical-align: top;
+    height: 30px;
+    font-size: 1.2rem;
+    padding: 0 10px;
+    line-height: 30px;
+  }
+}
+
+.modal {
+  &.modal-fixed-header {
+    padding: 0;
+    height: 70%;
+    .modal-header {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      position: absolute;
+      top: 0;
+      border-radius: 0 0 2px 2px;
+      padding: 4px 6px;
+      height: 56px;
+      width: 100%;
+    }
+    .modal-content {
+      margin-top: 56px;
+      margin-bottom: 56px;
+      height: calc(100% - 112px);
+    }
+  }
+}

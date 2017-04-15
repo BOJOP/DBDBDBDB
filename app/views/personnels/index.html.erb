@@ -1,11 +1,173 @@
 <% provide(:title, 'All personnels') %>
 
-<h1>All Personnels</h1>
+<h4>All Personnels</h4>
+<hr>
 
-<%= will_paginate %>
 
-<ul class="personnels">
-  <%= render @personnels %>
-</ul>
+<div id="pagination-long"></div>
 
-<%= will_paginate %>
+<table class="responsive-table striped" id="personnels-list">
+  <thead>
+    <th>name</th>
+    <th>email</th>
+    <th>gender</th>
+    <th></th>
+  </head>
+  <tbody>
+  </tbody>
+</table>
+
+<div id="modal-add" class="modal modal-fixed-footer modal-fixed-header">
+  <%= form_for(:personnel) do |f| %>
+    <div class="modal-header">
+      <h5>Add personnel</h5>
+    </div>
+    <div class="modal-content">
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="first_name" name="personnel[first_name]" type="text" class="validate">
+          <label for="first_name">First Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="last_name" name="personnel[last_name]" type="text" class="validate">
+          <label for="last_name">Last Name</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" name="personnel[email]" type="email" class="validate">
+          <label for="email">E-mail</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="password" name="personnel[password]" type="password" class="validate">
+          <label for="password">Password</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="password_confirmation" name="personnel[password_confirmation]" type="password" class="validate">
+          <label for="password_confirmation">Password confirmation</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s6">
+          <input type="text" name="department" id="department" class="autocomplete">
+          <label for="department">Department</label>
+        </div>
+        <div class="input-field col s6">
+          <input type="checkbox" name="manager" class="filled-in" id="manager">
+          <label for="manager">Manager</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="ssn" name="personnel[ssn]" type="text" class="validate">
+          <label for="ssn">SSN</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="birth_date" name="personnel[birth_date]" type="date" class="datepicker">
+          <label for="birth_date" class="active">Birth date</label>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input name="gender" type="radio" id="male" />
+          <label for="male">Male</label>
+          <input name="gender" type="radio" id="female" />
+          <label for="female">Female</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input name="role" type="radio" id="staff" />
+          <label for="staff">Staff</label>
+          <input name="role" type="radio" id="instructor" />
+          <label for="instructor">Instructor</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <div class="file-field input-field">
+            <div class="btn">
+              <span>Picture</span>
+              <input type="file" name="picture">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Add</a>
+      <a class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
+    </div>
+  <% end %>
+</div>
+
+<div class="fixed-action-btn horizontal">
+  <a data-target="modal-add" class="btn btn-floating btn-large waves-effect waves-light red">
+    <i class="material-icons">add</i>
+  </a>
+</div>
+
+<script>
+  $(function() {
+      $('input.autocomplete').autocomplete({
+        data: {
+          <% @departments.each do |dep| %>
+            "<%= dep.name %>":null,
+          <% end %>
+        },
+        limit: 10,
+        onAutocomplete: function(val){
+        },
+        minLength: 1,
+      });
+
+      $('#pagination-long').materializePagination({
+          align: 'center',
+          lastPage: <%= @max_page %>,
+          firstPage: 1,
+          useUrlParameter: false,
+          onClickCallback: function(requestedPage) {
+            $.ajax({
+              url: '/personnels.json',
+              data: {
+                page: requestedPage
+              },
+              method: "GET",
+            }).done(function(datas){
+
+              list = $('#personnels-list').find("tbody");
+
+              list.html("");
+
+              datas.forEach(function(data) {
+                html = "<tr>";
+                html += "<td>" + (data["first_name"] || '') + (data["last_name"] || '') + "</td>";
+                html += "<td>" + (data["email"] || '') + "</td>";
+                html += "<td>" + (data["gender"] || '') + "</td>";
+                html += "<td>";
+                html += "<a href='/personnels/" + data.id + "'><i class='material-icons'>mode_edit</i></a>";
+                html += "<a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/personnels/" + data.id + "'><i class='material-icons'>thumb_down</i></a>";
+                html += "</td>";
+                html += "</tr>";
+                list.append(html);
+
+              });
+            });
+          }
+      });
+  });
+</script>
