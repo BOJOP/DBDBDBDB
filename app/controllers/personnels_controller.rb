@@ -74,7 +74,7 @@ class PersonnelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def personnel_params
-      params.fetch(:personnel, {}).permit(:id, :email, :password, :password_confirmation)
+      params.fetch(:personnel, {}).permit(:id, :email, :password, :password_confirmation, :role, :first_name, :last_name)
     end
     
 end

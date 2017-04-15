@@ -33,24 +33,25 @@
           <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
         <% end %>
 
-        <%= yield %> 
+        <%= yield %>
       </div>
+      <br>  <br>  <br>
     </main>
-    
+
     <footer>
       <%= render 'layouts/footer' %>
       <div class="container">
         <%= debug(params) if Rails.env.development? %>
-      <div class="container">
+      </div>
     </footer>
-        
+
     <script>
     $( document ).ready(function() {
       $(".button-collapse").sideNav({
         menuWidth: 300,
         closeOnClick: true
       });
-      
+
       $(".collapsible").collapsible();
       $(".modal").modal();
       $(".datepicker").pickadate({
