@@ -1,4 +1,7 @@
 class StaticPagesController < ApplicationController
+
+   before_action :logged_in_personnel
+
   def index
     @end_time = Time.new(2017,5,1)
     @start_time = Time.now

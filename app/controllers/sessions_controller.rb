@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def new
+    render layout: "layouts/free"
   end
 
   def create
@@ -12,6 +13,7 @@ class SessionsController < ApplicationController
       flash.now[:danger] = "Invalid email/password combination"
       render 'new'
     end
+    
   end
 
   def destroy

@@ -75,14 +75,4 @@ class PersonnelsController < ApplicationController
       params.fetch(:personnel, {}).permit(:id, :email, :password, :password_confirmation)
     end
     
-    
-    # confirms a logged-in personnel.
-    def logged_in_personnel
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in."
-        redirect_to login_url
-      end
-    end
-    
 end

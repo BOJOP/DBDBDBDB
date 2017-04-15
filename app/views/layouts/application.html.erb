@@ -12,26 +12,42 @@
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <script>
-    $( document ).ready(function() {
-      $(".dropdown-button").dropdown();
-    })
-    </script>
   </head>
 
   <body>
 
-    <%= render 'layouts/header' %>
-    <div class="container">
-      <% flash.each do |message_type, message| %>
-        <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
-      <% end %>
+    <header>
+      <%= render 'layouts/header' %>
+      <div class="container">
+        <a href="#" data-activates="slide-out" class="button-collapse top-nav full hide-on-large-only">
+          <i class="material-icons">menu</i>
+        </a>
+      </div>
+      <%= render 'layouts/sidebar' %>
+    </header>
 
-      <%= yield %>
-      
-      
-    </div>
-    <%= render 'layouts/footer' %>
-    <%= debug(params) if Rails.env.development? %>
+    <main>
+      <div class="container">
+        <% flash.each do |message_type, message| %>
+          <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+        <% end %>
+
+        <%= yield %> 
+      </div>
+    </main>
+    
+    <footer>
+      <%= render 'layouts/footer' %>
+      <%= debug(params) if Rails.env.development? %>
+    </footer>
+        
+    <script>
+    $( document ).ready(function() {
+      $(".button-collapse").sideNav({
+        menuWidth: 300,
+        closeOnClick: true
+      });
+    })
+    </script>
   </body>
 </html>

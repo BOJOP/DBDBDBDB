@@ -5,7 +5,7 @@
 @import "materialize/components/mixins";
 @import "materialize/components/color";
 $primary-color: color("blue", "lighten-2") !default;
-$secondary-color: color("yellow", "base") !default;
+// $secondary-color: color("yellow", "base") !default;
 
 // Variables;
 @import "materialize/components/variables";
@@ -46,3 +46,7 @@ $secondary-color: color("yellow", "base") !default;
 @import "materialize/components/date_picker/default.time";
 
 @import "materialize/extras/nouislider";
+
+@import "materialize";
+
+@import "style";
