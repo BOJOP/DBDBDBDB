@@ -1,5 +1,9 @@
-@import "bootstrap-sprockets";
-@import "bootstrap";
+@import "materialize";
+
+nav {
+  @extend .grey;
+  @extend .darken-1;
+}
 
 /* mixins, variables, etc. */
 $light-gray: #777;
@@ -57,6 +61,7 @@ h1 {
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
+  @extend .black-text;
 }
 
 h2 {
@@ -65,7 +70,7 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: $light-gray;
+  @extend .black-text;
 }
 
 p {
@@ -82,14 +87,9 @@ p {
   font-size: 1.7em;
   color: #fff;
   text-transform: uppercase;
-  letter-spacing: -1px;
+  letter-spacing: 1px;
   padding-top: 9px;
-  font-weight: bold;
-
-  &:hover {
-    color: #fff;
-    text-decoration: none;
-  }
+  font-weight: regular;
 }
 
 
@@ -188,7 +188,7 @@ input {
 }
 
 .field_with_errors {
-  @extend .has-error;
+  /*@extend .has-error;*/
   .form-control {
     color: $state-danger-text;
   }
