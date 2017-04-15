@@ -8,9 +8,11 @@
 
 
 personnel = Personnel.create(id: '1234567890', email: 'root@cu.com', role: 'I', password: 'dbdbdbdb')
+student = Student.create(id: "1234567890", email: 'aaa@bbb.ccc', curriculum_id: "1234567890")
 
 for i in 0..25
   personnel = Personnel.create(id: '12' + i.to_s, email: 'test' + i.to_s + '@cu.com' , role: 'I', password: 'dbdbdbdb')
   puts personnel.errors.messages
 end
 
+#puts personnel.errors.messages

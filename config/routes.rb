@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   resources :curriculums
   resources :departments
   resources :personnels
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
  
   root 'static_pages#index'
@@ -33,4 +34,6 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
+  get '/searchindiv', to: 'viewindiv#new'
+  post '/searchindiv', to: 'viewindiv#search'
 end
