@@ -8,5 +8,6 @@
 
 
 personnel = Personnel.create(id: '1234567890', email: 'root@cu.com', role: 'I', password: 'dbdbdbdb')
+student = Student.create(id: "1234567890", email: 'aaa@bbb.ccc', curriculum_id: "1234567890")
 
-puts personnel.errors.messages
+#puts personnel.errors.messages
