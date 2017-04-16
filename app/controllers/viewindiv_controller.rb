@@ -36,16 +36,32 @@ class ViewindivController < ApplicationController
 
   	if !params[:searchinput][:gpax_min].nil? && !params[:searchinput][:gpax_min].blank?
   		@Gpax = Gpa.find_by_sql("SELECT SUM(credit*gpa)/SUM(credit) as gpax, student_id FROM gpas GROUP BY student_id")
-  		puts @Gpax.length
   		@Gpax.each do |row|
-  			puts "Start"
-  			puts row[:gpax], params[:searchinput][:gpax_min].to_i*100
-  			if row[:gpax] < params[:searchinput][:gpax_min].to_i*100 && !@search_result.find_by(row[:student_id]).nil?
-  				@search_result.find_by(row[:student_id]).delete()
+
+  			if row[:gpax] < params[:searchinput][:gpax_min].to_f*100 && !@search_result.find_by(id: row[:student_id]).nil?
+          @search_result = @search_result.where.not("students.id = \'"+row[:student_id]+"\'")
   			end
-  		end  		
-  		#@search_result = @search_result.where(gpax_min: params[:searchinput][:gpax_min])
+  		end
   	end
+
+    if !params[:searchinput][:gpax_max].nil? && !params[:searchinput][:gpax_max].blank?
+      @Gpax = Gpa.find_by_sql("SELECT SUM(credit*gpa)/SUM(credit) as gpax, student_id FROM gpas GROUP BY student_id")
+      @Gpax.each do |row|
+        if row[:gpax] > params[:searchinput][:gpax_max].to_f*100 && !@search_result.find_by(id: row[:student_id]).nil?
+          puts row[:gpax]
+          @search_result = @search_result.where.not("students.id = \'"+row[:student_id]+"\'")
+        end
+      end
+    end
+
+    #Leave more than
+
+    #Leave less than
+
+    #Leave type
+
+    #in Semester
+
   	render 'new'
   end
 end
