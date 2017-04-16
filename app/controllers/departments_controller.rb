@@ -16,6 +16,9 @@ class DepartmentsController < ApplicationController
   # GET /departments/1
   # GET /departments/1.json
   def show
+    @curriculums = Curriculum.where(department_id: @department.id);
+    @numOfStudents = Student.where("enroll_year > ? ", Date.today.year-9).where(curriculum_id: @curriculums.to_a).select("COUNT(*) as num, enroll_year as year").group("enroll_year")
+
 		respond_to do |format|
 			format.html { render :show }
 			format.json { render json: Oj.dump(@department) }
