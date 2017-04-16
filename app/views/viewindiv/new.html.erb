@@ -9,7 +9,7 @@
             <i class="material-icons prefix">account_circle</i>
             <input type="number" class="validate" name="searchinput[id]">
             <label for="icon_account_circle">Student ID (try 1234567890)</label>
-          </div>       
+          </div>
         </div>
 
         <div class="row">
@@ -19,24 +19,21 @@
         </div>
       <% end %>
   </div>
-  
+
   <% if !@search_result.nil? and @search_result.size>0 %>
-  	
+
   	<table class="striped bordered">
       <thead>
          <tr><th>SID</th><th>Email</th></tr>
       </thead>
-      <% @search_result.each do |row| %>
-      	<tbody>
-         <tr>
-			<%= content_tag(:td, row.id) %>
-			<%= content_tag(:td, row.email) %>
-		</tr>
-      	</tbody>
-
-	  <% end %>
-      
-  	</table>
-	  
+    	<tbody>
+        <% @search_result.each do |row| %>
+           <tr>
+ 		         <%= content_tag(:td, row.id) %>
+	           <%= content_tag(:td, row.email) %>
+           </tr>
+         <% end %>
+	    </tbody>
+    </table>
   <% end %>
 </div>

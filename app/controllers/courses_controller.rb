@@ -4,7 +4,8 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.all
+    @max_page = (Course.all.count / 15.0).ceil
+    @courses = Course.all.paginate(page: params[:page], per_page: 15)
   end
 
   # GET /courses/1

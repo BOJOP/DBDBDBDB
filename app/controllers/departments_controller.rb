@@ -4,7 +4,8 @@ class DepartmentsController < ApplicationController
   # GET /departments
   # GET /departments.json
   def index
-    @departments = Department.all
+    @max_page = (Department.all.count / 15.0).ceil
+    @departments = Department.all.paginate(page: params[:page], per_page: 15)
   end
 
   # GET /departments/1

@@ -4,7 +4,8 @@ class LeavesController < ApplicationController
   # GET /leaves
   # GET /leaves.json
   def index
-    @leaves = Leave.all
+    @max_page = (Leave.all.count / 15.0).ceil
+    @leaves = Leave.all.paginate(page: params[:page], per_page: 15)
   end
 
   # GET /leaves/1

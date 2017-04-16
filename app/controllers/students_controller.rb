@@ -4,7 +4,8 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
-    @students = Student.all
+    @max_page = (Student.all.count / 15.0).ceil
+    @students = Student.all.paginate(page: params[:page], per_page: 15)
   end
 
   # GET /students/1

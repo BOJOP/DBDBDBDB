@@ -4,7 +4,8 @@ class RulesController < ApplicationController
   # GET /rules
   # GET /rules.json
   def index
-    @rules = Rule.all
+    @max_page = (Rule.all.count / 15.0).ceil
+    @rules = Rule.all.paginate(page: params[:page], per_page: 15)
   end
 
   # GET /rules/1
