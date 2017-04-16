@@ -15,6 +15,12 @@ class StudentsController < ApplicationController
   # GET /students/1
   # GET /students/1.json
   def show
+
+    @student = Student.find(params[:id])
+    @gpa = Gpa.where(student_id:@student.id)
+    @gpax = Gpa.find_by_sql("SELECT SUM(credit*gpa)/SUM(credit) as gpax FROM gpas WHERE student_id = \'"+params[:id]+"\'")
+
+
     respond_to do |format|
       format.html { render :show }
       format.json { render json: Oj.dump(@student) }

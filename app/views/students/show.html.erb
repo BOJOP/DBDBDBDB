@@ -1,4 +1,146 @@
+<div class="row">
+	 <div class="col s6">
+	 <div class="container">
+	 	<img class="materialboxed" src="https://cdn.psychologytoday.com/sites/default/files/field_blog_entry_images/Donald_Trump_%2814235998650%29_%28cropped%29.jpg" height="60%" width="60%">
+	 </div>
+	 </div>
+	 <div class="col s6">
+	 	<div class="container">
+	 	<table class="bordered highlight">  
 
+	        <tbody>
+	          <tr>
+	            <th>First Name</th>
+	            <td><%= @student.first_name %></td>  
+	          </tr>
 
-<%= link_to 'Edit', edit_student_path(@student) %> |
-<%= link_to 'Back', students_path %>
+	          <tr>
+	          	<th>Last Name</th>
+	            <td><%= @student.last_name %></td>  
+	          </tr>
+
+	          <tr>
+	          	<th>SSN</th>
+	            <td><%= @student.ssn %></td>  
+	          </tr>
+
+	          <tr>
+	          	<th>Birthdate</th>
+	            <td><%= @student.birth_date %></td>  
+	          </tr>
+
+	          <tr>
+	          	<th>Gender</th>
+	            <td><%= @student.gender %></td>  
+	          </tr>
+
+	          <tr>
+	          	<th>Year of enrollment</th>
+	            <td><%= @student.enroll_year %></td>  
+	          </tr>
+
+	          <tr>
+	          	<th>Status</th>
+	            <td><%= @student.status %></td>  
+	          </tr>
+
+	          <tr>
+	          	<th>Email</th>
+	            <td><%= @student.email %></td>  
+	          </tr>
+
+	          <tr>
+	          	<th>Curriculum</th>
+	            <td><%= Curriculum.find(@student.curriculum_id).name %></td>  
+	          </tr>
+
+	        </tbody>
+	    </table>
+	    </div>
+
+	 </div>
+</div>
+<div class="row">
+	 <div class="col s6">
+	 	<div class="container">
+		 	<table class="striped highlight">  
+			 	<thead>
+			 		<th>Year</th>
+			 		<th>Semester</th>
+			 		<th>GPA</th>
+			 		<th>credit</th>
+			 	</thead>
+		        <tbody>
+			        <% @gpa.each do |gpa| %>
+			        	<tr>
+			            	<td><%= gpa.year  %></td>  
+			            	<td><%= gpa.semester %> <%= "(Summer)" if gpa.semester == 3 %></td>  
+			            	<td><%= gpa.gpa.to_f/100 %></td>  
+			            	<td><%= gpa.credit %></td> 
+			          	</tr>
+			        <% end %>
+		        </tbody>
+		        <tfoot>
+			 		<th>Total</th>
+			 		<th></th>
+			 		<th><%= @gpax[0][:gpax].to_f/100 %></th>
+			 		<th><%= @gpa.sum(:credit) %></th>
+			 	</tfoot>
+		    </table>
+	    </div>
+	 </div>
+	 <div class="col s6">
+		 	<canvas id="myChart" width="800" height="800"></canvas>
+	 </div>
+</div>
+
+<script>
+	var ctx = document.getElementById("myChart");
+	var myChart = new Chart(ctx, {
+	    type: 'line',
+	    data: {
+	        labels: [
+	        	<% @gpa.reverse_each do |gpa| %>
+	        		<%= "," if gpa != @gpa.last %>
+	        		<%= raw "\""+gpa.year.to_s+"-"+gpa.semester.to_s+"\"" %>
+	        	<% end %>
+	        	],
+	        datasets: [{
+	            label: 'GPA',
+	            data: [
+	            	<% @gpa.reverse_each do |gpa| %>
+	            		<%= "," if gpa != @gpa.last %>
+	        			<%= raw gpa.gpa.to_f/100 %>
+	        		<% end %>
+	            ],
+	            fill: false,
+	            lineTension: 0.1,
+	            backgroundColor: "rgba(75,192,192,0.4)",
+	            borderColor: "rgba(75,192,192,1)",
+	            borderCapStyle: 'butt',
+	            borderDash: [],
+	            borderDashOffset: 0.0,
+	            borderJoinStyle: 'miter',
+	            pointBorderColor: "rgba(75,192,192,1)",
+	            pointBackgroundColor: "#fff",
+	            pointBorderWidth: 1,
+	            pointHoverRadius: 5,
+	            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+	            pointHoverBorderColor: "rgba(220,220,220,1)",
+	            pointHoverBorderWidth: 2,
+	            pointRadius: 1,
+	            pointHitRadius: 10,
+	            spanGaps: false,
+	        }]
+	    },
+	    options: {
+	        scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero:true
+	                }
+	            }]
+	        }
+	    }
+	});
+</script>

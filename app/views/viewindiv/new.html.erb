@@ -41,12 +41,12 @@
             <label for="icon_account_circle">Finish Curriculum ? (yes/no)</label>
           </div>
           <div class="input-field col s4">
-              <input type="number" class="validate" name="searchinput[gpax_min]">
+              <input type="number" step="0.01" class="validate" name="searchinput[gpax_min]">
               <label for="icon_account_circle">gpax more than</label>
             </div>
 
             <div class="input-field col s4">
-              <input type="number" class="validate" name="searchinput[gpax_max]">
+              <input type="number" step="0.01" class="validate" name="searchinput[gpax_max]">
               <label for="icon_account_circle">gpax less than</label>
             </div>
           </div>
@@ -94,8 +94,13 @@
     	<tbody>
         <% @search_result.each do |row| %>
            <tr>
+             <%= content_tag(:td, content_tag(:a, "view profile", href:student_path(row))) %>
  		         <%= content_tag(:td, row.id) %>
-	           <%= content_tag(:td, row.email) %>
+	           <%= content_tag(:td, row.first_name) %>
+             <%= content_tag(:td, row.last_name) %>
+             <%= content_tag(:td, row.email) %>
+             <%= content_tag(:td, row.status) %>
+             <%= content_tag(:td, row.gender) %>
            </tr>
          <% end %>
 	    </tbody>
