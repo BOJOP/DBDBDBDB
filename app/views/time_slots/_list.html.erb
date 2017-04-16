@@ -26,11 +26,14 @@
 						{ "data": "day" },
 						{ "data": "start",
 							"render": function(data) {
-						console.log(data);
-								return moment(data, "yyyy-MM-dd'T'HH:mm:ss'Z'").format('HH:MM');
+								return moment.utc(data).format('HH:mm');
 							} 
 						},
-						{ "data": "end" },
+						{ "data": "end",
+							"render": function(data) {
+								return moment.utc(data).format('HH:mm');
+							} 
+						},
 						{
 							"orderable": false,
 							"render": function(data, type, row) {
