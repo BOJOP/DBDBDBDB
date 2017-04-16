@@ -6,10 +6,10 @@
       </div>
       <img class="circle" src="<%= image_path('person.png') %>" width="50" height="50">
       <span class="white-text name">
-        test name
+        <%= (@current_personnel.first_name || "") + (@current_personnel.last_name || "") %>&nbsp;
       </span>
       <span class="white-text email">
-        test email
+        <%= @current_personnel.email %>
       </span>
     </div>
   </li>

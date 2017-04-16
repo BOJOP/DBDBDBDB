@@ -1,55 +1,115 @@
-
 <h5> <%= "Department: " + @department.name + "(" + @department.id.to_s + ")" %></h5>
 <hr>
 <div class="row">
-  <div class="col s12 m8 l8">
+  <div class="col s12 m6 l6">
     <div class="card">
-      sxsxsxsxs<br>
-      sxsaxasxas<br>
-      xasx<br>
-      asx<br>
-      as<br>
-      xsa<br>
-      x
+      <div class="border-space">
+        <b>Student enroll</b><hr>
+        <canvas id="chartNumYear"></canvas>
+      </div>
     </div>
   </div>
-  <div class="col s12 m8 l4">
+
+  <div class="col s12 m6 l6">
     <div class="card">
-      sxsxsxsxsx
+      <div class="border-space">
+        <b>Student in each curriculum</b><hr>
+        <canvas id="chartNumCurriculum"></canvas>
+      </div>
     </div>
   </div>
 </div>
 
 <div class="row">
+  <div class="col s12 m4 l4">
+    <div class="card">
+      <div class="border-space">
+        <table class="bordered">
+          <thead>
+            <th>Status</th>
+            <th>person(s)</th>
+          </thead>
+          <tbody>
+            <% @numStudentStatus.each do |status| %>
+              <tr>
+                <td><%= status.status %></td>
+                <td><%= status.num %></th>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!--
   <div class="col s6 m6 l3">
     <div class="card">
       sxsxsxs
     </div>
-  </div>
-  <div class="col s6 m6 l3">
-    <div class="card">
-      sxsxsxs
-    </div>
-  </div>
-  <div class="col s6 m6 l3">
-    <div class="card">
-      sxsxsxs
-    </div>
-  </div>
-  <div class="col s6 m6 l3">
-    <div class="card">
-      sxsxsxs
-    </div>
-  </div>
+  </div>!-->
 </div>
 
 
 <%= link_to 'Edit', edit_department_path(@department) %> |
 <%= link_to 'Back', departments_path %>
 
-
 <script>
-  $(function(){
-
-  });
+	$(function() {
+    var year = new Chart($("#chartNumYear"), {
+		    type: 'bar',
+		    data: {
+		        labels: [
+  		        	<% @numStudentYear.each do |year| %>
+  		        		'<%= year.year.to_s %>',
+                <% end %>
+		        ],
+		        datasets: [{
+		            label: 'Year',
+		            data: [
+                    <% @numStudentYear.each do |year| %>
+                      '<%= year.num.to_s %>',
+                    <% end %>
+		            ],
+		            backgroundColor: [
+                  <% @numStudentYear.each do |year| %>
+                    "rgba(<%= rand(255).to_s + ',' + rand(255).to_s + ',' + (255-year.num).to_s %>,0.6)",
+                  <% end %>
+                ],
+		        }]
+		    },
+        options: {
+            legend: {
+                display: false
+            }
+        }
+		});
+    var curriculum = new Chart($("#chartNumCurriculum"), {
+        type: 'bar',
+        data: {
+            labels: [
+                <% @numStudentCurriculum.each do |curriculum| %>
+                  '<%= curriculum.name %>',
+                <% end %>
+            ],
+            datasets: [{
+                label: 'Year',
+                data: [
+                    <% @numStudentCurriculum.each do |curriculum| %>
+                      '<%= curriculum.num.to_s %>',
+                    <% end %>
+                ],
+                backgroundColor: [
+                  <% @numStudentCurriculum.each do |curriculum| %>
+                    "rgba(<%= rand(255).to_s + ',' + rand(255).to_s + ',' + (255-curriculum.num).to_s %>,0.6)",
+                  <% end %>
+                ],
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            }
+        }
+    });
+	});
 </script>
