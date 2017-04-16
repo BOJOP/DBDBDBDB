@@ -2,14 +2,79 @@
 <h1>Search Students</h1>
 <div class="row">
   <div class="col-md-3 ">
+  <h4> Filter by </h4>
 	<%= form_for(:viewindiv, url: searchindiv_path) do |f| %>
-
+        <h6> Personal Info </h6>
         <div class="row">
+
           <div class="input-field col s4">
-            <i class="material-icons prefix">account_circle</i>
             <input type="number" class="validate" name="searchinput[id]">
-            <label for="icon_account_circle">Student ID (try 1234567890)</label>
+            <label for="icon_account_circle">Student ID</label>
           </div>
+
+          <div class="input-field col s4">
+            <input type="text" class="validate" name="searchinput[first_name]">
+            <label for="icon_account_circle">First Name</label>
+          </div>
+
+          <div class="input-field col s4">
+            <input type="text" class="validate" name="searchinput[last_name]">
+            <label for="icon_account_circle">Last Name</label>
+          </div>
+
+          <div class="input-field col s4">
+            <input type="number" class="validate" name="searchinput[advisor_id]">
+            <label for="icon_account_circle">Advised By (ins.ID)</label>
+          </div>
+
+          <div class="input-field col s4">
+            <input type="text" class="validate" name="searchinput[status]">
+            <label for="icon_account_circle">Status(Study Abroad/Jailed)</label>
+          </div>
+
+        </div>
+
+        <h6> Academic Info </h6>
+        <div class="row">
+        <div class="input-field col s4">
+            <input type="text" class="validate" name="searchinput[isFinishStudy]">
+            <label for="icon_account_circle">Finish Curriculum ? (yes/no)</label>
+          </div>
+          <div class="input-field col s4">
+              <input type="number" class="validate" name="searchinput[gpa_min]">
+              <label for="icon_account_circle">GPA more than</label>
+            </div>
+
+            <div class="input-field col s4">
+              <input type="number" class="validate" name="searchinput[gpa_max]">
+              <label for="icon_account_circle">GPA less than</label>
+            </div>
+          </div>
+        </div>
+
+        <h6> Leave Info </h6>
+        <div class="row">
+            <div class="input-field col s4">
+              <input type="number" class="validate" name="searchinput[sick_count_min]">
+              <label for="icon_account_circle">Leave more than</label>
+            </div>
+
+            <div class="input-field col s4">
+              <input type="number" class="validate" name="searchinput[sick_count_max]">
+              <label for="icon_account_circle">Leave less than</label>
+            </div>
+
+            <div class="input-field col s4">
+              <input type="number" class="validate" name="searchinput[leave_type]">
+              <label for="icon_account_circle">Leave type</label>
+            </div>
+
+            <div class="input-field col s4">
+              <input type="number" class="validate" name="searchinput[sick_term]">
+              <label for="icon_account_circle">in Semester (2014/3)</label>
+            </div>
+
+
         </div>
 
         <div class="row">
