@@ -41,13 +41,13 @@
             <label for="icon_account_circle">Finish Curriculum ? (yes/no)</label>
           </div>
           <div class="input-field col s4">
-              <input type="number" class="validate" name="searchinput[gpa_min]">
-              <label for="icon_account_circle">GPA more than</label>
+              <input type="number" class="validate" name="searchinput[gpax_min]">
+              <label for="icon_account_circle">gpax more than</label>
             </div>
 
             <div class="input-field col s4">
-              <input type="number" class="validate" name="searchinput[gpa_max]">
-              <label for="icon_account_circle">GPA less than</label>
+              <input type="number" class="validate" name="searchinput[gpax_max]">
+              <label for="icon_account_circle">gpax less than</label>
             </div>
           </div>
         </div>
@@ -86,7 +86,7 @@
   </div>
 
   <% if !@search_result.nil? and @search_result.size>0 %>
-
+    <h4> Number of results: <%= @search_result.size %> </h4>
   	<table class="striped bordered">
       <thead>
          <tr><th>SID</th><th>Email</th></tr>
