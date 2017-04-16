@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20170416165547) do
   end
 
   create_table "advisors", force: :cascade do |t|
-    t.integer  "student_id",   null: false
+    t.string   "student_id",   null: false
     t.integer  "personnel_id", null: false
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20170416165547) do
   end
 
   create_table "belong_tos", force: :cascade do |t|
-    t.integer  "student_id", null: false
+    t.string   "student_id", null: false
     t.integer  "group_id",   null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 20170416165547) do
   create_table "enrollments", force: :cascade do |t|
     t.integer  "grade"
     t.integer  "section_id", null: false
-    t.integer  "student_id", null: false
+    t.string   "student_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["section_id"], name: "index_enrollments_on_section_id", using: :btree
@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(version: 20170416165547) do
     t.integer  "semester",   null: false
     t.integer  "credit",     null: false
     t.integer  "gpa"
-    t.integer  "student_id", null: false
+    t.string   "student_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["student_id"], name: "index_gpas_on_student_id", using: :btree
@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 20170416165547) do
     t.string   "remark"
     t.datetime "when",       null: false
     t.integer  "rule_id",    null: false
-    t.integer  "student_id", null: false
+    t.string   "student_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["rule_id"], name: "index_log_breaks_on_rule_id", using: :btree

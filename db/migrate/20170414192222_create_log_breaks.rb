@@ -11,5 +11,8 @@ class CreateLogBreaks < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
+		
+		change_column :log_breaks, :student_id, :string
+		
   end
 end

@@ -11,5 +11,8 @@ class CreateGpas < ActiveRecord::Migration[5.0]
       
       t.timestamps
     end
+			
+		change_column :gpas, :student_id, :string
+
   end
 end

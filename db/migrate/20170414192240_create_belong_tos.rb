@@ -7,5 +7,8 @@ class CreateBelongTos < ActiveRecord::Migration[5.0]
       
       t.timestamps
     end
+		
+		change_column :belong_tos, :student_id, :string
+
   end
 end

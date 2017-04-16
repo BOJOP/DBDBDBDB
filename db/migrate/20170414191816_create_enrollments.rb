@@ -9,5 +9,7 @@ class CreateEnrollments < ActiveRecord::Migration[5.0]
       
       t.timestamps
     end
+		
+		change_column :enrollments, :student_id, :string
   end
 end
