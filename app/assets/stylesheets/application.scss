@@ -17,6 +17,17 @@ $primary-color: color("blue", "lighten-2") !default;
 // Reset
 @import "materialize/components/normalize";
 
+
+/** clockpicker */
+// Variables;
+@import "components/variables";
+
+//primary
+@import "components/primary";
+
+//dark
+@import "components/dark";
+
 // materialize/components
 @import "materialize/components/global";
 @import "materialize/components/badges";

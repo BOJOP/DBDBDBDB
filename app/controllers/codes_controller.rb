@@ -16,7 +16,7 @@ class CodesController < ApplicationController
   # GET /codes/1.json
   def show
 		respond_to do |format|
-			format.html { render :index }
+			format.html { render :show }
 			format.json { render json: Oj.dump(@code) }
 		end
   end

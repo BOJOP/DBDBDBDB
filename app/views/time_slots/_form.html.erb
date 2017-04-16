@@ -1,17 +1,37 @@
-<%= form_for(time_slot) do |f| %>
-  <% if time_slot.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(time_slot.errors.count, "error") %> prohibited this time_slot from being saved:</h2>
-
-      <ul>
-      <% time_slot.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
+<div class="row">
+  <div class="input-field col s6">
+    <input id="id" name="time_slot[id]" type="text" class="validate" value="<%= time_slot.id %>">
+    <label for="id" class="active">Id</label>
   </div>
-<% end %>
+  <div class="input-field col s6">
+    <input id="day" name="time_slot[day]" type="text" class="validate" value="<%= time_slot.day %>" placeholder="Monday, Tuesday, ...">
+    <label for="day" class="active">Day</label>
+  </div>
+</div>
+<div class="row">
+  <div class="input-field col s6">
+    <input id="start" name="time_slot[start]" type="text" class="timepicker">
+    <label for="start" class="active">Start time</label>
+  </div>
+  <div class="input-field col s6">
+    <input id="end" name="time_slot[end]" type="text" class="timepicker">
+    <label for="end" class="active">End time</label>
+  </div>
+</div>
+
+<script>
+	$(function() {
+		$('#start').pickatime({
+			autoclose: false,
+			twelvehour: false,
+			default: '<%= time_slot.start %>'
+		});	
+		$('#end').pickatime({
+			autoclose: false,
+			twelvehour: false,
+			default: '<%= time_slot.end %>'
+		});	
+	});
+	
+	
+</script>

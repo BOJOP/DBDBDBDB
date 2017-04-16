@@ -5,11 +5,11 @@ class TimeSlotsController < ApplicationController
   # GET /time_slots
   # GET /time_slots.json
   def index
-    @timeSlots = TimeSlot.all
+    @time_slots = TimeSlot.all
 
 		respond_to do |format|
 			format.html { render :index }
-			format.json { render json: Oj.dump(@timeSlots) }
+			format.json { render json: Oj.dump(@time_slots) }
 		end
   end
 
@@ -18,7 +18,7 @@ class TimeSlotsController < ApplicationController
   def show
     respond_to do |format|
       format.html { render :index }
-      format.json { render json: Oj.dump(@timeSlot) }
+      format.json { render json: Oj.dump(@time_slot) }
     end
   end
 
@@ -79,6 +79,6 @@ class TimeSlotsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def time_slot_params
-      params.fetch(:time_slot, {})
+      params.fetch(:time_slot, {}).permit(:id, :day, :start, :end)
     end
 end

@@ -79,6 +79,6 @@ class RulesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def rule_params
-      params.fetch(:rule, {})
+      params.fetch(:rule, {}).permit(:id, :rule_detail, :behavior_score_reduction)
     end
 end

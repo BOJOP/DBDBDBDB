@@ -1,11 +1,11 @@
 
 <div id="modal-add" class="modal modal-fixed-footer modal-fixed-header">
-  <%= form_for(:course) do |f| %>
+  <%= form_for(:time_slot) do |f| %>
     <div class="modal-header">
-      <h5>Add course</h5>
+      <h5>Add time_slot</h5>
     </div>
     <div class="modal-content">
-      <%= render 'form', course: Course.new %>
+      <%= render 'form', time_slot: TimeSlot.new %>
     </div>
     <div class="modal-footer">
       <button type="submit" class="waves-effect waves-green btn-flat">Add</button>
@@ -19,19 +19,3 @@
     <i class="material-icons">add</i>
   </a>
 </div>
-
-<script>
-  $(function() {
-      $('input.autocomplete').autocomplete({
-        data: {
-          <% departments.each do |dep| %>
-            "<%= dep.name %>":null,
-          <% end %>
-        },
-        limit: 10,
-        onAutocomplete: function(val){
-        },
-        minLength: 1,
-      });
-  });
-</script>

@@ -1,17 +1,16 @@
-<%= form_for(rule) do |f| %>
-  <% if rule.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(rule.errors.count, "error") %> prohibited this rule from being saved:</h2>
-
-      <ul>
-      <% rule.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
+<div class="row">
+  <div class="input-field col s6">
+    <input id="id" name="rule[id]" type="text" class="validate" value="<%= rule.id %>">
+    <label for="id" class="active">Id</label>
   </div>
-<% end %>
+  <div class="input-field col s6">
+    <input id="score" name="rule[behavior_score_reduction]" type="number" class="validate" value="<%= rule.behavior_score_reduction %>">
+    <label for="score" class="active">score reduce</label>
+</div>
+<div class="row">
+  <div class="input-field col s12">
+    <input id="detail" name="rule[rule_detail]" type="text" class="validate" value="<%= rule.id %>">
+    <label for="detail" class="active">Rule</label>
+  </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<table id="list" class="bordered highlight" cellspacing="0" width="100%">
+	<thead>
+			<tr>
+					<th>Id</th>
+					<th>Day</th>
+					<th>Start time</th>
+					<th>End time</th>
+					<th></th>
+			</tr>
+	</thead>
+</table>
+
+
+<script>
+  $(function() {
+      $('#list').DataTable({
+				"pageLength": 15,
+				"bLengthChange": false,
+        "ajax": {
+					"url": "/time_slots.json",
+					"dataSrc": ""
+        },
+        "deferRender": true,
+				"columns": [
+						{ "data": "id" },
+						{ "data": "day" },
+						{ "data": "start",
+							"render": function(data) {
+						console.log(data);
+								return moment(data, "yyyy-MM-dd'T'HH:mm:ss'Z'").format('HH:MM');
+							} 
+						},
+						{ "data": "end" },
+						{
+							"orderable": false,
+							"render": function(data, type, row) {
+								return "<a href='/time_slots/" + row.id + "'><i class='material-icons'>description</i></a>&nbsp;&nbsp;&nbsp;"+
+                 			 "<a href='/time_slots/" + row.id + "/edit'><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;"+
+                			 "<a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/time_slots/" + row.id + "'><i class='material-icons'>delete</i></a>";
+							}
+						}
+        ]
+			});
+  });
+</script>

@@ -1,27 +1,20 @@
-<% provide(:title, 'profile') %>
+<% provide(:title, 'course') %>
 
-<div class="row">
-  <aside class="col-md-4">
-    <section class="personnel_info">
-      <h1>
-        <%= gravatar_for @personnel %> 
-        <%= @personnel.email %>
-      </h1>
-    </section>
-  </aside>
-</div>
-
-<p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Id:</strong>
-  <%= @personnel.id %>
+  <strong>Code:</strong>
+  <%= @course.code_id %>
 </p>
 
 <p>
-  <strong>Email:</strong>
-  <%= @personnel.email %>
+  <strong>Name:</strong>
+  <%= @course.name %>
 </p>
 
-<%= link_to 'Edit', edit_personnel_path(@personnel) %> |
-<%= link_to 'Back', personnels_path %>
+<p>
+  <strong>Credit:</strong>
+  <%= @course.credit %>
+</p>
+
+<%= link_to 'Edit', edit_course_path(@course) %> |
+<%= link_to 'Back', courses_path %>

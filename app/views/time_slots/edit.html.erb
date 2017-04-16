@@ -1,6 +1,13 @@
-<h1>Editing Time Slot</h1>
+<% provide(:title, "Edit time slot") %>
+<h4>Update time slot</h4>
+<hr><br>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@time_slot) do |f| %>
+      <%= render 'form', time_slot: @time_slot %>
+      <button type="submit" class="waves-effect waves-green btn" style="float:right;">Update</button>
+    <% end %>
+  </div>
+</div>
 
-<%= render 'form', time_slot: @time_slot %>
-
-<%= link_to 'Show', @time_slot %> |
 <%= link_to 'Back', time_slots_path %>

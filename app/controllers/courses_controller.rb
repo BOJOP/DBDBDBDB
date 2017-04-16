@@ -6,7 +6,7 @@ class CoursesController < ApplicationController
   # GET /courses.json
   def index
     @courses = Course.all
-
+    @departments = Department.all
 		respond_to do |format|
 			format.html { render :index }
 			format.json { render json: Oj.dump(@courses) }
@@ -17,7 +17,7 @@ class CoursesController < ApplicationController
   # GET /courses/1.json
   def show
 		respond_to do |format|
-			format.html { render :index }
+			format.html { render :show }
 			format.json { render json: Oj.dump(@course) }
 		end
   end

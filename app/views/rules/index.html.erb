@@ -1,25 +1,8 @@
-<p id="notice"><%= notice %></p>
+<% provide(:title, 'All Rules') %>
 
-<h1>Rules</h1>
+<h4>All Rules</h4>
+<hr>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<%= render 'list' %>
 
-  <tbody>
-    <% @rules.each do |rule| %>
-      <tr>
-        <td><%= link_to 'Show', rule %></td>
-        <td><%= link_to 'Edit', edit_rule_path(rule) %></td>
-        <td><%= link_to 'Destroy', rule, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Rule', new_rule_path %>
+<%= render 'modalNew' %>

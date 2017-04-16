@@ -1,17 +1,12 @@
-<%= form_for(group) do |f| %>
-  <% if group.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h2>
-
-      <ul>
-      <% group.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
+<div class="row">
+  <div class="input-field col s6">
+    <input id="id" name="group[id]" type="text" class="validate" value="<%= group.id %>">
+    <label for="id" class="active">Id</label>
   </div>
-<% end %>
+</div>
+<div class="row">
+  <div class="input-field col s6">
+    <input id="name" name="group[name]" type="text" class="validate" value="<%= group.name %>">
+    <label for="name" class="active">Name</label>
+  </div>
+</div>
