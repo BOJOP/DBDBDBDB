@@ -37,7 +37,7 @@ module ApplicationHelper
   end
   
   def controller_data?()
-    controller = ["personnels","groups", "students", "departments", "courses", "groups", "rules", "leaves", "time_slots"]
+    controller = ["personnels","groups", "departments", "courses", "groups", "rules", "leaves", "time_slots"]
     
     if controller.include?(params[:controller])
       return 'active'

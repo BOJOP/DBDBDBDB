@@ -6,15 +6,24 @@ class PersonnelsController < ApplicationController
   # GET /personnels
   # GET /personnels.json
   def index
-    @max_page = (Personnel.all.count / 15.0).ceil
-    @personnels = Personnel.all.paginate(page: params[:page], per_page: 15)
+    @personnels = Personnel.all
     @departments = Department.all
+
+		respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@personnels.select([:id, :first_name, :last_name, :email, :gender])) }
+		end
   end
 
   # GET /personnels/1
   # GET /personnels/1.json
   def show
     @personnels = Personnel.find(params[:id])
+		respond_to do |format|
+			format.html { render :show }
+			format.json { render json: Oj.dump(@personnels) }
+		end
+
   end
 
   # GET /personnels/new
@@ -76,5 +85,6 @@ class PersonnelsController < ApplicationController
     def personnel_params
       params.fetch(:personnel, {}).permit(:id, :email, :password, :password_confirmation, :role, :first_name, :last_name)
     end
-    
+		
+
 end

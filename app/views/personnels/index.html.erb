@@ -3,61 +3,6 @@
 <h4>All Personnels</h4>
 <hr>
 
-
-<div id="pagination-long"></div>
-
-<table class="responsive-table striped" id="personnels-list">
-  <thead>
-    <th>name</th>
-    <th>email</th>
-    <th>gender</th>
-    <th></th>
-  </head>
-  <tbody>
-  </tbody>
-</table>
+<%= render 'personnelsList' %>
 
 <%= render 'modalNew', departments: @departments %>
-
-<script>
-  $(function() {
-      $('#pagination-long').html("");
-      $('#pagination-long').materializePagination({
-          align: 'center',
-          lastPage: <%= @max_page %>,
-          firstPage: 1,
-          useUrlParameter: false,
-          onClickCallback: function(requestedPage) {
-            list = $('#personnels-list').find("tbody");
-
-            list.html("");
-            list.append("<tr><td colspan='4'><div class='progress'> <div class='indeterminate'></div> </div></td></tr>");
-
-            $.ajax({
-              url: '/personnels.json',
-              data: {
-                page: requestedPage
-              },
-              method: "GET",
-            }).done(function(datas){
-
-              list.html("");
-              datas.forEach(function(data) {
-                html = "<tr>";
-                html += "<td>" + (data["first_name"] || '') + " " + (data["last_name"] || '') + "</td>";
-                html += "<td>" + (data["email"] || '') + "</td>";
-                html += "<td>" + (data["gender"] || '') + "</td>";
-                html += "<td>";
-                html += "<a href='/personnels/" + data.id + "'><i class='material-icons'>description</i></a>&nbsp;&nbsp;&nbsp;";
-                html += "<a href='/personnels/" + data.id + "/edit'><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;";
-                html += "<a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/personnels/" + data.id + "'><i class='material-icons'>delete</i></a>";
-                html += "</td>";
-                html += "</tr>";
-                list.append(html);
-
-              });
-            });
-          }
-      });
-  });
-</script>
