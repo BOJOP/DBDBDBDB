@@ -16,5 +16,7 @@ class CreateStudents < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
+		
+		change_column :students, :id, :string
   end
 end
