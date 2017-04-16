@@ -1,16 +1,25 @@
 class DepartmentsController < ApplicationController
   before_action :set_department, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /departments
   # GET /departments.json
   def index
-    @max_page = (Department.all.count / 15.0).ceil
-    @departments = Department.all.paginate(page: params[:page], per_page: 15)
+    @departments = Department.all
+
+		respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@departments) }
+		end
   end
 
   # GET /departments/1
   # GET /departments/1.json
   def show
+		respond_to do |format|
+			format.html { render :show }
+			format.json { render json: Oj.dump(@department) }
+		end
   end
 
   # GET /departments/new
@@ -70,6 +79,6 @@ class DepartmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def department_params
-      params.fetch(:department, {})
+      params.fetch(:department, {}).permit(:id, :name)
     end
 end

@@ -1,15 +1,24 @@
 class SickLeavesController < ApplicationController
   before_action :set_sick_leafe, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /sick_leaves
   # GET /sick_leaves.json
   def index
     @sick_leaves = SickLeave.all
+    respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@sick_leaves) }
+		end
   end
 
   # GET /sick_leaves/1
   # GET /sick_leaves/1.json
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: Oj.dump(@sick_leave) }
+    end
   end
 
   # GET /sick_leaves/new

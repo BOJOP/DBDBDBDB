@@ -1,17 +1,17 @@
 <div class="row">
   <div class="input-field col s6">
-    <input id="first_name" name="personnel[first_name]" type="text" class="validate">
+    <input id="first_name" name="personnel[first_name]" type="text" class="validate" value="<%= personnel.first_name %>">
     <label for="first_name">First Name</label>
   </div>
   <div class="input-field col s6">
-    <input id="last_name" name="personnel[last_name]" type="text" class="validate">
+    <input id="last_name" name="personnel[last_name]" type="text" class="validate" value="<%= personnel.last_name %>">
     <label for="last_name">Last Name</label>
   </div>
 </div>
 
 <div class="row">
   <div class="input-field col s12">
-    <input id="email" name="personnel[email]" type="email" class="validate" required>
+    <input id="email" name="personnel[email]" type="email" class="validate" required value="<%= personnel.email %>">
     <label for="email">E-mail</label>
   </div>
 </div>
@@ -40,7 +40,7 @@
 
 <div class="row">
   <div class="input-field col s6">
-    <input id="ssn" name="personnel[ssn]" type="text" class="validate">
+    <input id="ssn" name="personnel[ssn]" type="text" class="validate" value="<%= personnel.ssn %>">
     <label for="ssn">SSN</label>
   </div>
   <div class="input-field col s6">

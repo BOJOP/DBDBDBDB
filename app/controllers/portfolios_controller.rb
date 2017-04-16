@@ -1,15 +1,24 @@
 class PortfoliosController < ApplicationController
   before_action :set_portfolio, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /portfolios
   # GET /portfolios.json
   def index
     @portfolios = Portfolio.all
+    respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@portfolios) }
+		end
   end
 
   # GET /portfolios/1
   # GET /portfolios/1.json
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: Oj.dump(@portfolio) }
+    end
   end
 
   # GET /portfolios/new

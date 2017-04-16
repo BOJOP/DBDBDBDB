@@ -1,15 +1,24 @@
 class BelongTosController < ApplicationController
   before_action :set_belong_to, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /belong_tos
   # GET /belong_tos.json
   def index
     @belong_tos = BelongTo.all
+    respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@belong_tos) }
+		end
   end
 
   # GET /belong_tos/1
   # GET /belong_tos/1.json
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: Oj.dump(@belong_to) }
+    end
   end
 
   # GET /belong_tos/new

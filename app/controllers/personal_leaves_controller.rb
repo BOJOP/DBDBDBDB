@@ -1,15 +1,24 @@
 class PersonalLeavesController < ApplicationController
   before_action :set_personal_leafe, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /personal_leaves
   # GET /personal_leaves.json
   def index
     @personal_leaves = PersonalLeave.all
+    respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@personal_leaves) }
+		end
   end
 
   # GET /personal_leaves/1
   # GET /personal_leaves/1.json
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: Oj.dump(@personal_leave) }
+    end
   end
 
   # GET /personal_leaves/new

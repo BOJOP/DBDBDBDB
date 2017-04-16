@@ -1,16 +1,25 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /groups
   # GET /groups.json
   def index
-    @max_page = (Group.all.count / 15.0).ceil
-    @groups = Group.all.paginate(page: params[:page], per_page: 15)
+    @groups = Group.all
+
+		respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@groups) }
+		end
   end
 
   # GET /groups/1
   # GET /groups/1.json
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: Oj.dump(@group) }
+    end
   end
 
   # GET /groups/new

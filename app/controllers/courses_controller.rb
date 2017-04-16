@@ -1,16 +1,25 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /courses
   # GET /courses.json
   def index
-    @max_page = (Course.all.count / 15.0).ceil
-    @courses = Course.all.paginate(page: params[:page], per_page: 15)
+    @courses = Course.all
+
+		respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@courses) }
+		end
   end
 
   # GET /courses/1
   # GET /courses/1.json
   def show
+		respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@course) }
+		end
   end
 
   # GET /courses/new
@@ -70,6 +79,6 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.fetch(:course, {})
+      params.fetch(:course, {}).permit(:name, :course_category_id, :credit)
     end
 end

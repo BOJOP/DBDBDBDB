@@ -1,17 +1,13 @@
-<%= form_for(department) do |f| %>
-  <% if department.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(department.errors.count, "error") %> prohibited this department from being saved:</h2>
-
-      <ul>
-      <% department.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
+<div class="row">
+  <div class="input-field col s6">
+    <input id="id" name="department[id]" type="text" class="validate" value="<%= department.id %>">
+    <label for="id">Code</label>
   </div>
-<% end %>
+</div>
+<div class="row">
+  <div class="input-field col s6">
+    <input id="name" name="department[name]" type="text" class="validate" value="<%= department.name %>">
+    <label for="name">Name</label>
+  </div>
+</div>
+

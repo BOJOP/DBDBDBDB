@@ -1,15 +1,24 @@
 class AdvisorsController < ApplicationController
   before_action :set_advisor, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /advisors
   # GET /advisors.json
   def index
     @advisors = Advisor.all
+    respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@advisors) }
+		end
   end
 
   # GET /advisors/1
   # GET /advisors/1.json
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: Oj.dump(@advisor) }
+    end
   end
 
   # GET /advisors/new

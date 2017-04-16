@@ -1,6 +1,13 @@
-<h1>Editing Department</h1>
+<% provide(:title, "Edit department") %>
+<h4>Update department</h4>
+<hr><br>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@department) do |f| %>
+      <%= render 'form', department: @department %>
+      <button type="submit" class="waves-effect waves-green btn" style="float:right;">Update</button>
+    <% end %>
+  </div>
+</div>
 
-<%= render 'form', department: @department %>
-
-<%= link_to 'Show', @department %> |
 <%= link_to 'Back', departments_path %>

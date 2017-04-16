@@ -1,15 +1,24 @@
 class RequiresController < ApplicationController
   before_action :set_require, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /requires
   # GET /requires.json
   def index
     @requires = Require.all
+    respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@requires) }
+		end
   end
 
   # GET /requires/1
   # GET /requires/1.json
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: Oj.dump(@require) }
+    end
   end
 
   # GET /requires/new

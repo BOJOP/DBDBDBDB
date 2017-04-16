@@ -1,0 +1,36 @@
+<table id="list" class="bordered highlight" cellspacing="0" width="100%">
+	<thead>
+			<tr>
+					<th>Code</th>
+					<th>Name</th>
+					<th></th>
+			</tr>
+	</thead>
+</table>
+
+
+<script>
+  $(function() {
+      $('#list').DataTable({
+				"pageLength": 15,
+				"bLengthChange": false,
+        "ajax": {
+					"url": "/departments.json",
+					"dataSrc": ""
+        },
+        "deferRender": true,
+				"columns": [
+						{ "data": "id" },
+						{ "data": "name" },
+						{
+							"orderable": false,
+							"render": function(data, type, row) {
+								return "<a href='/departments/" + row.id + "'><i class='material-icons'>description</i></a>&nbsp;&nbsp;&nbsp;"+
+                 			 "<a href='/departments/" + row.id + "/edit'><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;"+
+                			 "<a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/departments/" + row.id + "'><i class='material-icons'>delete</i></a>";
+							}
+						}
+        ]
+			});
+  });
+</script>

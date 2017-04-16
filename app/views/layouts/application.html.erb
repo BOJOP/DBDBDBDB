@@ -46,21 +46,22 @@
     </footer>
 
     <script>
-    $( document ).ready(function() {
-      $(".button-collapse").sideNav({
-        menuWidth: 300,
-        closeOnClick: true
-      });
+			$( document ).ready(function() {
+				$(".button-collapse").sideNav({
+					menuWidth: 300,
+					closeOnClick: true
+				});
 
-      $(".collapsible").collapsible();
-      $(".modal").modal();
-      $(".datepicker").pickadate({
-        selectMonths: true,
-        selectYears: 25
-      });
+				$(".collapsible").collapsible();
+				$(".modal").modal();
+				$(".datepicker").pickadate({
+					selectMonths: true,
+					selectYears: 25
+				});
 
-      $(".dropdown-button").dropdown();
-    })
+				$(".dropdown-button").dropdown();
+			})
     </script>
+		<%= render 'shared/error_messages' %>
   </body>
 </html>

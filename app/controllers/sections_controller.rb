@@ -1,15 +1,24 @@
 class SectionsController < ApplicationController
   before_action :set_section, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /sections
   # GET /sections.json
   def index
     @sections = Section.all
+    respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@sections) }
+		end
   end
 
   # GET /sections/1
   # GET /sections/1.json
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: Oj.dump(@section) }
+    end
   end
 
   # GET /sections/new

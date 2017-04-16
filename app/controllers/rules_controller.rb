@@ -1,16 +1,25 @@
 class RulesController < ApplicationController
   before_action :set_rule, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /rules
   # GET /rules.json
   def index
-    @max_page = (Rule.all.count / 15.0).ceil
-    @rules = Rule.all.paginate(page: params[:page], per_page: 15)
+    @rules = Rule.all
+
+		respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@rules) }
+		end
   end
 
   # GET /rules/1
   # GET /rules/1.json
   def show
+		respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@rule) }
+		end
   end
 
   # GET /rules/new

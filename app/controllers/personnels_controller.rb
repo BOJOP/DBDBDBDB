@@ -1,7 +1,7 @@
 class PersonnelsController < ApplicationController
 
   before_action :set_personnel, only: [:show, :edit, :update, :destroy]
-  before_action :logged_in_personnel, only: [:index, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /personnels
   # GET /personnels.json
@@ -18,12 +18,10 @@ class PersonnelsController < ApplicationController
   # GET /personnels/1
   # GET /personnels/1.json
   def show
-    @personnels = Personnel.find(params[:id])
 		respond_to do |format|
 			format.html { render :show }
-			format.json { render json: Oj.dump(@personnels) }
+			format.json { render json: Oj.dump(@personnel) }
 		end
-
   end
 
   # GET /personnels/new
@@ -85,6 +83,6 @@ class PersonnelsController < ApplicationController
     def personnel_params
       params.fetch(:personnel, {}).permit(:id, :email, :password, :password_confirmation, :role, :first_name, :last_name)
     end
-		
+
 
 end

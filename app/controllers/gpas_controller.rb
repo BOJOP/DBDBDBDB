@@ -1,15 +1,24 @@
 class GpasController < ApplicationController
   before_action :set_gpa, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /gpas
   # GET /gpas.json
   def index
     @gpas = Gpa.all
+    respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@gpas) }
+		end
   end
 
   # GET /gpas/1
   # GET /gpas/1.json
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: Oj.dump(@gpa) }
+    end
   end
 
   # GET /gpas/new

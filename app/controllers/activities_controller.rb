@@ -1,15 +1,24 @@
 class ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /activities
   # GET /activities.json
   def index
     @activities = Activity.all
+    respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@activities) }
+		end
   end
 
   # GET /activities/1
   # GET /activities/1.json
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: Oj.dump(@activity) }
+    end
   end
 
   # GET /activities/new

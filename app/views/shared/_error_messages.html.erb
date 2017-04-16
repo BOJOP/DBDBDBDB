@@ -1,14 +1,7 @@
-<% if personnel.errors.any? %>
-  <div id="error_explanation">
-    <div class="alert alert-danger">
-      The form contains <%= pluralize(personnel.errors.count, "error") %> 
-    </div>
-
-    <ul>
-      <% personnel.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div> 
-<% end %>
-
+<script>
+	$(function(){
+		<% flash.each do |key, value| %>
+			Materialize.toast("<%= value %>",4000);
+		<% end %>	
+	});
+</script>

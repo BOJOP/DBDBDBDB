@@ -1,15 +1,25 @@
 class TimeSlotsController < ApplicationController
   before_action :set_time_slot, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /time_slots
   # GET /time_slots.json
   def index
-    @time_slots = TimeSlot.all
+    @timeSlots = TimeSlot.all
+
+		respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@timeSlots) }
+		end
   end
 
   # GET /time_slots/1
   # GET /time_slots/1.json
   def show
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: Oj.dump(@timeSlot) }
+    end
   end
 
   # GET /time_slots/new

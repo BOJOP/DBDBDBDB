@@ -1,4 +1,6 @@
 class ViewindivController < ApplicationController
+  before_action :logged_in_personnel
+
   def new
   end
 

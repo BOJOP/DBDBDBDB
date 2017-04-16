@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :codes
   resources :course_categories
   resources :belong_tos
   resources :groups

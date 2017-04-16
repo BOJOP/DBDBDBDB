@@ -1,15 +1,24 @@
 class LogBreaksController < ApplicationController
   before_action :set_log_break, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /log_breaks
   # GET /log_breaks.json
   def index
     @log_breaks = LogBreak.all
+    respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@log_breaks) }
+		end
   end
 
   # GET /log_breaks/1
   # GET /log_breaks/1.json
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: Oj.dump(@log_break) }
+    end
   end
 
   # GET /log_breaks/new

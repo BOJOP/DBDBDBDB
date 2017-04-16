@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       log_in personnel
       redirect_back_or personnel
     else
-      flash.now[:danger] = "Invalid email/password combination"
+      flash.now[:danger] = "Invalid email/password"
       render 'new', layout: "layouts/free"
     end
     

@@ -1,16 +1,24 @@
 class LeavesController < ApplicationController
   before_action :set_leafe, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /leaves
   # GET /leaves.json
   def index
-    @max_page = (Leave.all.count / 15.0).ceil
-    @leaves = Leave.all.paginate(page: params[:page], per_page: 15)
+    @leaves = Leave.all
+    respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@leaves) }
+		end
   end
 
   # GET /leaves/1
   # GET /leaves/1.json
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: Oj.dump(@leave) }
+    end
   end
 
   # GET /leaves/new

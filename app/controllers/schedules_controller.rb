@@ -1,15 +1,24 @@
 class SchedulesController < ApplicationController
   before_action :set_schedule, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /schedules
   # GET /schedules.json
   def index
     @schedules = Schedule.all
+    respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@schedules) }
+		end
   end
 
   # GET /schedules/1
   # GET /schedules/1.json
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: Oj.dump(@schedule) }
+    end
   end
 
   # GET /schedules/new

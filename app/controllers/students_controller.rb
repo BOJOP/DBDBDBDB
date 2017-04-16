@@ -1,16 +1,24 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /students
   # GET /students.json
   def index
-    @max_page = (Student.all.count / 15.0).ceil
-    @students = Student.all.paginate(page: params[:page], per_page: 15)
+    @students = Student.all
+    respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@students) }
+		end
   end
 
   # GET /students/1
   # GET /students/1.json
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: Oj.dump(@student) }
+    end
   end
 
   # GET /students/new

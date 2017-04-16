@@ -3,8 +3,7 @@ class CreateCourses < ActiveRecord::Migration[5.0]
     create_table :courses do |t|
       t.string :name, null: false
 
-      t.references :department, null: false
-      t.references :course_category, null: false
+      t.references :code, null: false
 
       t.integer :credit
 

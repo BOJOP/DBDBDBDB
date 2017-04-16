@@ -1,15 +1,24 @@
 class CurriculumsController < ApplicationController
   before_action :set_curriculum, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /curriculums
   # GET /curriculums.json
   def index
     @curriculums = Curriculum.all
+    respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@curriculums) }
+		end
   end
 
   # GET /curriculums/1
   # GET /curriculums/1.json
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: Oj.dump(@curriculum) }
+    end
   end
 
   # GET /curriculums/new

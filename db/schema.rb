@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170414192259) do
+ActiveRecord::Schema.define(version: 20170416165547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,14 @@ ActiveRecord::Schema.define(version: 20170414192259) do
     t.index ["student_id"], name: "index_belong_tos_on_student_id", using: :btree
   end
 
+  create_table "codes", force: :cascade do |t|
+    t.string   "category"
+    t.integer  "department_id", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["department_id"], name: "index_codes_on_department_id", using: :btree
+  end
+
   create_table "competitions", force: :cascade do |t|
     t.string   "award",        null: false
     t.integer  "portfolio_id", null: false
@@ -50,22 +58,13 @@ ActiveRecord::Schema.define(version: 20170414192259) do
     t.index ["portfolio_id"], name: "index_competitions_on_portfolio_id", using: :btree
   end
 
-  create_table "course_categories", force: :cascade do |t|
-    t.string   "code",       null: false
-    t.string   "category",   null: false
+  create_table "courses", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.integer  "code_id",    null: false
+    t.integer  "credit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "courses", force: :cascade do |t|
-    t.string   "name",               null: false
-    t.integer  "department_id",      null: false
-    t.integer  "course_category_id", null: false
-    t.integer  "credit"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.index ["course_category_id"], name: "index_courses_on_course_category_id", using: :btree
-    t.index ["department_id"], name: "index_courses_on_department_id", using: :btree
+    t.index ["code_id"], name: "index_courses_on_code_id", using: :btree
   end
 
   create_table "curriculums", force: :cascade do |t|

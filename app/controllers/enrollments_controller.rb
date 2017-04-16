@@ -1,15 +1,24 @@
 class EnrollmentsController < ApplicationController
   before_action :set_enrollment, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_personnel
 
   # GET /enrollments
   # GET /enrollments.json
   def index
     @enrollments = Enrollment.all
+    respond_to do |format|
+			format.html { render :index }
+			format.json { render json: Oj.dump(@enrollments) }
+		end
   end
 
   # GET /enrollments/1
   # GET /enrollments/1.json
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: Oj.dump(@enrollment) }
+    end
   end
 
   # GET /enrollments/new
