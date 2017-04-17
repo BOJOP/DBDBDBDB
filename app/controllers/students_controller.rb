@@ -76,8 +76,7 @@ class StudentsController < ApplicationController
       @required_subject_arr.push([subject, subject_detail])
     end
 
-    @enrolled_course = 
-Enrollment.joins("INNER JOIN sections ON enrollments.section_id = sections.id").select("sections.course_id, enrollments.grade, enrollments.student_id").order("sections.course_id")
+    @enrolled_course = Enrollment.joins("INNER JOIN sections ON enrollments.section_id = sections.id").select("sections.course_id, enrollments.grade, enrollments.student_id").order("sections.course_id")
 
     respond_to do |format|
       format.html { render :show }
