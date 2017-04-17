@@ -19,6 +19,13 @@ class StudentsController < ApplicationController
     #Get student
     @student = Student.find(params[:id])
 
+    @advisor_name_arr = Array.new
+    @advisor = Advisor.where(student_id: @student.id)
+    @advisor.each do |adv|
+      x = Personnel.find_by(id: adv.personnel_id)
+      @advisor_name_arr.push(x)
+    end
+
     #Academic Info
     @gpa = Gpa.where(student_id:@student.id)
     @gpax = Gpa.find_by_sql("SELECT SUM(credit*gpa)/SUM(credit) as gpax FROM gpas WHERE student_id = \'"+params[:id]+"\'")
@@ -87,7 +94,7 @@ Enrollment.joins("INNER JOIN sections ON enrollments.section_id = sections.id").
 
   def save
 
-      #Get student
+    #Get student
     @student = Student.find('5731002421')
 
     #Academic Info

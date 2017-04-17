@@ -66,6 +66,10 @@
 	            <td><%= Curriculum.find(@student.curriculum_id).name %></td>
 	          </tr>
 
+	          <th rowspan = <%= "\""+@advisor_name_arr.length.to_s+"\"" %>>Advisor</th>
+	            <td><%= @advisor_name_arr[0].first_name if @advisor_name_arr.length > 0 %></td>
+	          </tr>
+
 	        </tbody>
 	    </table>
 	    </div>
