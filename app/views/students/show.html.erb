@@ -74,7 +74,7 @@
 </div>
 
 <div class="container">
-<ul class="collapsible" data-collapsible="accordion">
+<ul class="collapsible" data-collapsible="expandable">
     <li>
     	<div class="collapsible-header"><i class="material-icons">class</i>Academic Info</div>
     	<div class="collapsible-body">
@@ -121,6 +121,42 @@
 	    	</span>
     	</div>
     </li>
+
+	<li>
+		<div class="collapsible-header"><i class="material-icons">assignment</i>Curriculum Info</div>
+		<div class="collapsible-body">
+
+			<span>
+				<div class="row">
+					 <div class="col s12">
+					 	<div class="container">
+						 	<table class="striped highlight">
+							 	<thead>
+							 		<th>Date</th>
+							 		<th>Remark</th>
+
+							 		<th>Rule Detail</th>
+							 		<th>Score Reduced</th>
+							 	</thead>
+						        <tbody>
+							        <% @breaking_arr.each do |_break| %>
+							        	<tr>
+							            	<td><%= _break[0].when  %></td>
+							            	<td><%= _break[0].remark %></td>
+							            	<td><%= _break[1].rule_detail %></td>
+							            	<td><%= _break[1].behavior_score_reduction  %></td>
+							          	</tr>
+							        <% end %>
+						        </tbody>
+						    </table>
+					    </div>
+					 </div>
+				</div>
+    		</span>
+
+		</div>
+    </li>
+
     <li>
     	<div class="collapsible-header"><i class="material-icons">work</i>Leave Info</div>
     	<div class="collapsible-body">
