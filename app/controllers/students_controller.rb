@@ -16,7 +16,6 @@ class StudentsController < ApplicationController
   # GET /students/1.json
   def show
 
-
     #Get student
     @student = Student.find(params[:id])
 
@@ -69,6 +68,16 @@ class StudentsController < ApplicationController
       @breaking_arr.push([_break, rule])
     end
 
+    #Curriculum
+    @required_subject = Require.where(curriculum_id: @student.curriculum_id).order(:course_id)
+    @required_subject_arr = Array.new
+    @required_subject.each do |subject|
+      subject_detail = Course.find_by(id: subject.course_id)
+      @required_subject_arr.push([subject, subject_detail])
+    end
+
+    @enrolled_course = 
+Enrollment.joins("INNER JOIN sections ON enrollments.section_id = sections.id").select("sections.course_id, enrollments.grade, enrollments.student_id").order("sections.course_id")
 
     respond_to do |format|
       format.html { render :show }
