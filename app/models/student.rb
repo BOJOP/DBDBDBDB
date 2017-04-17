@@ -16,13 +16,9 @@ class Student < ApplicationRecord
 	    end
 	end
 
-	def getGpax
-		@Gpax = Gpa.find_by_sql("SELECT SUM(credit*gpa)/SUM(credit) as gpax, student_id FROM gpas GROUP BY student_id")
-		@Gpax.each do |row|
+	def gpax
 
-  			if row.student_id == self.id
-  				return row.gpax
-  			end
-  		end
+		@gpax = Gpa.find_by_sql("SELECT SUM(credit*gpa)/SUM(credit) as gpax FROM gpas WHERE student_id = '" + self.id + "'")
+		@gpax.first.gpax.round(2)
 	end
 end

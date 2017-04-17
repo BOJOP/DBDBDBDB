@@ -4,6 +4,7 @@
 
 <%= form_for(:personnel, url: "/personnel_pdf") do |f| %>
   <div class="row">
+    <input type="text" name="id" value="<%= @personnel.id %>" hidden />
     <button class="btn waves-effect waves-light" type="submit" name="action" style="float:right;">
       Print
     </button>
@@ -63,7 +64,7 @@
     </div>
   </div>
 </div>
-
+<br>
 <div class="container">
   <ul class="collapsible" data-collapsible="expandable">
 
@@ -127,7 +128,7 @@
                         <td><%= student.email %></td>
                         <td><%= student.gender  %></td>
                         <td><%= student.status  %></td>
-                      <!--  <td><%= student.gpax  %></td>-->
+                        <td><%= student.gpax  %></td>
                         <td>
                           <a href='/students/<%= student.id %>'><i class='material-icons'>description</i></a>&nbsp;&nbsp;&nbsp;
                           <a href='/students/<%= student.id %>/edit'><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;
