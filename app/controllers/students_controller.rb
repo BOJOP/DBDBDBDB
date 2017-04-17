@@ -61,6 +61,14 @@ class StudentsController < ApplicationController
       end
     end
 
+    #LogBreak
+    @breaking_arr = Array.new
+    @breaking = LogBreak.where(student_id: @student.id)
+    @breaking.each do |_break|
+      rule = Rule.find_by(id: _break.rule_id)
+      @breaking_arr.push([_break, rule])
+    end
+
 
     respond_to do |format|
       format.html { render :show }
