@@ -27,7 +27,7 @@ class StudentsController < ApplicationController
     #Group Info
     @in_group = BelongTo.where(student_id: @student.id)
 
-    #Leave Info    
+    #Leave Info
     @personal_leave_arr = Array.new
     @sick_leave_arr = Array.new
 
@@ -36,9 +36,9 @@ class StudentsController < ApplicationController
       @leave.each do |leave|
         personal_leave = PersonalLeave.where(leave_id:leave.id).first
         sick_leave = SickLeave.where(leave_id:leave.id).first
-        if !personal_leave.nil?   
-          @personal_leave_arr.push([leave, personal_leave]) 
-        else 
+        if !personal_leave.nil?
+          @personal_leave_arr.push([leave, personal_leave])
+        else
           @sick_leave_arr.push([leave, sick_leave])
         end
       end
@@ -53,9 +53,9 @@ class StudentsController < ApplicationController
       @portfolio.each do |port|
         competition_portfolio = Competition.where(portfolio_id:port.id).first
         activity_portfolio = Activity.where(portfolio_id:port.id).first
-        if !competition_portfolio.nil?   
-          @competition_portfolio_arr.push([port, competition_portfolio]) 
-        else 
+        if !competition_portfolio.nil?
+          @competition_portfolio_arr.push([port, competition_portfolio])
+        else
           @activity_portfolio_arr.push([port, activity_portfolio])
         end
       end
@@ -90,7 +90,7 @@ class StudentsController < ApplicationController
 
     puts "NO. OF GROUP: " + @in_group.count.to_s
 
-    #Leave Info    
+    #Leave Info
     @personal_leave_arr = Array.new
     @sick_leave_arr = Array.new
 
@@ -104,9 +104,9 @@ class StudentsController < ApplicationController
         puts personal_leave
         puts sick_leave
         puts "END LEAVING TYPE"
-        if !personal_leave.nil?   
-          @personal_leave_arr.push([leave, personal_leave]) 
-        else 
+        if !personal_leave.nil?
+          @personal_leave_arr.push([leave, personal_leave])
+        else
           @sick_leave_arr.push([leave, sick_leave])
         end
       end
