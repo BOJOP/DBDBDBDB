@@ -1,3 +1,7 @@
+tr {
+    page-break-inside: avoid;
+}
+
 .pagination {
   li {
     display: inline-block;

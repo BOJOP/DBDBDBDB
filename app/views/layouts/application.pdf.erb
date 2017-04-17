@@ -1,18 +1,30 @@
-<%= form_for(:student, url: "/student_pdf") do |f| %>
-         <div class="row">
-            <button class="btn waves-effect waves-light" type="submit" name="action" style="float:right;">
-              Print
-            </button>
-          </div>
+<%= wicked_pdf_javascript_include_tag "application.js" %>
+<%= wicked_pdf_stylesheet_link_tag "application.scss" -%>
+
+<%= wicked_pdf_stylesheet_link_tag "_custom.scss" -%>
+<%= wicked_pdf_stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+<%= wicked_pdf_javascript_include_tag "application", "data-turbolinks-track" => true %>
 
 
-<% end %>
+<html>
+  <head>
+    <meta charset='utf-8' />
+
+  </head>
+<body>
+    <div id="header">
+      <%= wicked_pdf_image_tag 'mysite.jpg' %>
+    </div>
+        <div id="content">
+      <%= yield %>
+    </div>
+
 
 <div class="container">
 <div class="row">
 	 <div class="col s6">
 	 <div class="container">
-	 	<img class="materialboxed" src="https://cdn.psychologytoday.com/sites/default/files/field_blog_entry_images/Donald_Trump_%2814235998650%29_%28cropped%29.jpg" height="60%" width="60%">
+	 	<%= wicked_pdf_image_tag "https://cdn.psychologytoday.com/sites/default/files/field_blog_entry_images/Donald_Trump_%2814235998650%29_%28cropped%29.jpg", :width=>"250", :height=>"350" %>
 	 </div>
 	 </div>
 	 <div class="col s6">
@@ -74,11 +86,6 @@
 </div>
 
 <div class="container">
-<ul class="collapsible" data-collapsible="accordion">
-    <li>
-    	<div class="collapsible-header"><i class="material-icons">class</i>Academic Info</div>
-    	<div class="collapsible-body">
-	    	<span>
 				<div class="row">
 					 <div class="col s6">
 					 	<div class="container">
@@ -108,26 +115,9 @@
 						    </table>
 					    </div>
 					 </div>
-					 <div class="row">
-						 <div class="col s6">
-							 	<canvas id="chartGrade" width="800" height="800"></canvas>
-						 </div>
-
-						 <div class="col s6">
-							 	<canvas id="chartGpax" width="800" height="800"></canvas>
-						 </div>
-					 </div>
 				</div>
-	    	</span>
-    	</div>
-    </li>
-    <li>
-    	<div class="collapsible-header"><i class="material-icons">work</i>Leave Info</div>
-    	<div class="collapsible-body">
-    		<span>
-    			
 				<div class="row">
-					 <div class="col s12">
+					 <div class="col s6">
 					 	<div class="container">
 					 		<h5> Sick Leave </h5>
 						 	<table class="striped highlight">
@@ -148,7 +138,7 @@
 						    </table>
 					    </div>
 					 </div>
-					 <div class="col s12">
+					 <div class="col s6">
 					 	<div class="container">
 					 		<h5> Personal Leave </h5>
 						 	<table class="striped highlight">
@@ -169,20 +159,19 @@
 						    </table>
 					    </div>
 					 </div>
-				</div>
-    		</span>
-    	</div>
-    </li>
-    <li>
-		<div class="collapsible-header"><i class="material-icons">star</i>Portfolio</div>
-		<div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-    </li>
-    <li>
-		<div class="collapsible-header"><i class="material-icons">whatshot</i>Rule-breaking Records</div>
-		<div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-    </li>
-</ul>
+				</div> 
 </div>
+					 <div class="row">
+						 <div class="col s6">
+							 	<canvas id="chartGrade" width="800" height="800"></canvas>
+						 </div>
+
+						 <div class="col s6">
+							 	<canvas id="chartGpax" width="800" height="800"></canvas>
+						 </div>
+					 </div>
+</body>
+</html>
 
 <script>
 	$(document).ready(function(){
