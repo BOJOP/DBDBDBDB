@@ -100,7 +100,7 @@
         <% @search_result.each do |row| %>
            <tr>
  		         <%= content_tag(:td, row.id) %>
-	           <%= content_tag(:td, row.first_name + row.last_name) %>
+	           <%= content_tag(:td, row.first_name + " " + row.last_name) %>
              <%= content_tag(:td, row.email) %>
              <%= content_tag(:td, row.gender) %>
              <%= content_tag(:td, row.status) %>
