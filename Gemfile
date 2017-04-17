@@ -7,6 +7,10 @@ end
 
 ruby '2.3.3'
 
+#For printing pdf
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.2'
