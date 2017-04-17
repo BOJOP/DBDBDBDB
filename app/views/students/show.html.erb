@@ -175,7 +175,61 @@
     </li>
     <li>
 		<div class="collapsible-header"><i class="material-icons">star</i>Portfolio</div>
-		<div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+		<div class="collapsible-body">
+			<span>
+				<div class="row">
+					 <div class="col s12">
+					 	<div class="container">
+					 		<h5> Activities </h5>
+						 	<table class="striped highlight">
+							 	<thead>
+							 		<th>Date</th>
+							 		<th>Duration (Day)</th>
+							 		<th>Explanation</th>
+							 		<th>Name</th>
+							 		<th>position</th>
+							 	</thead>
+						        <tbody>
+							        <% @activity_portfolio_arr.each do |portfolio| %>
+							        	<tr>
+							            	<td><%= portfolio[0].date  %></td>
+							            	<td><%= portfolio[1].duration %></td>
+							            	<td><%= portfolio[0].explanation %></td>
+							            	<td><%= portfolio[0].name  %></td>
+							            	<td><%= portfolio[1].position %></td>
+							          	</tr>
+							        <% end %>
+						        </tbody>
+						    </table>
+					    </div>
+					 </div>
+					 <div class="col s12">
+					 	<div class="container">
+					 		<h5> Competition </h5>
+						 	<table class="striped highlight">
+							 	<thead>
+							 		<th>Date</th>
+							 		<th>Explanation</th>
+							 		<th>Name</th>
+							 		<th>Award</th>
+							 	</thead>
+						        <tbody>
+							        <% @competition_portfolio_arr.each do |portfolio| %>
+							        	<tr>
+							            	<td><%= portfolio[0].date  %></td>
+							            	<td><%= portfolio[0].explanation %></td>
+							            	<td><%= portfolio[0].name  %></td>
+							            	<td><%= portfolio[1].award %></td>
+							          	</tr>
+							        <% end %>
+						        </tbody>
+						    </table>
+					    </div>
+					 </div>
+				</div>
+    		</span>
+
+		</div>
     </li>
     <li>
 		<div class="collapsible-header"><i class="material-icons">whatshot</i>Rule-breaking Records</div>

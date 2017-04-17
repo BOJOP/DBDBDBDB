@@ -27,22 +27,15 @@ class StudentsController < ApplicationController
     #Group Info
     @in_group = BelongTo.where(student_id: @student.id)
 
-    puts "NO. OF GROUP: " + @in_group.count.to_s
-
     #Leave Info    
     @personal_leave_arr = Array.new
     @sick_leave_arr = Array.new
 
     @in_group.each do |group|
       @leave = Leave.where(group_id: group.id).order(start_date: :desc)
-      puts "NO. OF LEAVING: " + @leave.count.to_s
       @leave.each do |leave|
         personal_leave = PersonalLeave.where(leave_id:leave.id).first
         sick_leave = SickLeave.where(leave_id:leave.id).first
-        puts "LEAVING TYPE: "
-        puts personal_leave
-        puts sick_leave
-        puts "END LEAVING TYPE"
         if !personal_leave.nil?   
           @personal_leave_arr.push([leave, personal_leave]) 
         else 
@@ -50,6 +43,24 @@ class StudentsController < ApplicationController
         end
       end
     end
+
+    #Portfolio
+    @competition_portfolio_arr = Array.new
+    @activity_portfolio_arr = Array.new
+
+    @in_group.each do |group|
+      @portfolio = Portfolio.where(group_id: group.id).order(date: :desc)
+      @portfolio.each do |port|
+        competition_portfolio = Competition.where(portfolio_id:port.id).first
+        activity_portfolio = Activity.where(portfolio_id:port.id).first
+        if !competition_portfolio.nil?   
+          @competition_portfolio_arr.push([port, competition_portfolio]) 
+        else 
+          @activity_portfolio_arr.push([port, activity_portfolio])
+        end
+      end
+    end
+
 
     respond_to do |format|
       format.html { render :show }
