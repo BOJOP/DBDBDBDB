@@ -127,7 +127,7 @@
                 label: 'Year',
                 data: [
                     <% @gpaxEachSemester.each do |gpax| %>
-                      '<%= gpax.gpax.to_s %>',
+                      '<%= sprintf("%.2f",gpax.gpax) %>',
                     <% end %>
                 ],
                 borderColor: "rgba(75,192,192,1)",

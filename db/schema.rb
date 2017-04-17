@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20170416165547) do
   end
 
   create_table "enrollments", force: :cascade do |t|
-    t.integer  "grade"
+    t.float    "grade"
     t.integer  "section_id", null: false
     t.string   "student_id", null: false
     t.datetime "created_at", null: false
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 20170416165547) do
     t.integer  "year",       null: false
     t.integer  "semester",   null: false
     t.integer  "credit",     null: false
-    t.integer  "gpa"
+    t.float    "gpa"
     t.string   "student_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

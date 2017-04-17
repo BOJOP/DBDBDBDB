@@ -22,7 +22,7 @@ class DepartmentsController < ApplicationController
     @numStudentStatus = Student.where(curriculum_id: @curriculums.to_a).select("COUNT(*) as num, status").group("status").order(status: :asc)
     @numStudentCurriculum= Curriculum.where(id: @curriculums.to_a).joins(:students).select("COUNT(*) as num, name").group("id").order(id: :asc)
 
-    @gpaxEachSemester =  Curriculum.where(curriculums: {id: @curriculums.to_a}).joins(:students).joins(:gpas).select("SUM(credit*gpa)/SUM(credit)/100.0 as gpax , year, semester").group("gpas.year","gpas.semester").order("gpas.year asc, gpas.semester asc")
+    @gpaxEachSemester =  Curriculum.where(curriculums: {id: @curriculums.to_a}).joins(:students).joins(:gpas).select("SUM(credit*gpa)/SUM(credit) as gpax , year, semester").group("gpas.year","gpas.semester").order("gpas.year asc, gpas.semester asc")
 
 		respond_to do |format|
 			format.html { render :show }

@@ -75,7 +75,7 @@
 			        	<tr>
 			            	<td><%= gpa.year  %></td>
 			            	<td><%= gpa.semester %> <%= "(Summer)" if gpa.semester == 3 %></td>
-			            	<td><%= gpa.gpa.to_f/100 %></td>
+			            	<td><%= sprintf("%.2f",gpa.gpa) %></td>
 			            	<td><%= gpa.credit %></td>
 			          	</tr>
 			        <% end %>
@@ -83,7 +83,7 @@
 		        <tfoot>
 			 		<th>Total</th>
 			 		<th></th>
-			 		<th><%= @gpax[0][:gpax].to_f/100 %></th>
+			 		<th><%= sprintf("%.2f",@gpax[0][:gpax]) %></th>
 			 		<th><%= @gpa.sum(:credit) %></th>
 			 	</tfoot>
 		    </table>
@@ -111,8 +111,8 @@
 		            data: [
 		            	<% @gpa.reverse_each do |gpa| %>
 		            		<%= "," if gpa != @gpa.last %>
-		        			<%= raw gpa.gpa.to_f/100 %>
-		        		<% end %>
+										<%= sprintf("%.2f",gpa.gpa) %>
+									<% end %>
 		            ],
 		            fill: false,
 		            lineTension: 0.1,
