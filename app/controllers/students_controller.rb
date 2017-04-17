@@ -15,10 +15,39 @@ class StudentsController < ApplicationController
   # GET /students/1
   # GET /students/1.json
   def show
-
+    #Get student
     @student = Student.find(params[:id])
+
+    #Academic Info
     @gpa = Gpa.where(student_id:@student.id)
     @gpax = Gpa.find_by_sql("SELECT SUM(credit*gpa)/SUM(credit) as gpax FROM gpas WHERE student_id = \'"+params[:id]+"\'")
+
+    #Group Info
+    @in_group = BelongTo.where(student_id: @student.id)
+
+    puts "NO. OF GROUP: " + @in_group.count.to_s
+
+    #Leave Info    
+    @personal_leave_arr = Array.new
+    @sick_leave_arr = Array.new
+
+    @in_group.each do |group|
+      @leave = Leave.where(group_id: group.id).order(start_date: :desc)
+      puts "NO. OF LEAVING: " + @leave.count.to_s
+      @leave.each do |leave|
+        personal_leave = PersonalLeave.where(leave_id:leave.id).first
+        sick_leave = SickLeave.where(leave_id:leave.id).first
+        puts "LEAVING TYPE: "
+        puts personal_leave
+        puts sick_leave
+        puts "END LEAVING TYPE"
+        if !personal_leave.nil?   
+          @personal_leave_arr.push([leave, personal_leave]) 
+        else 
+          @sick_leave_arr.push([leave, sick_leave])
+        end
+      end
+    end
 
     respond_to do |format|
       format.html { render :show }
