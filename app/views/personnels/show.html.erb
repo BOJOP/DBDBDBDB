@@ -11,58 +11,57 @@
 <% end %>
 
 <div class="container">
-<div class="row">
-	 <div class="col s6">
-	 <div class="container">
-	 	<img class="materialboxed" src="https://cdn.psychologytoday.com/sites/default/files/field_blog_entry_images/Donald_Trump_%2814235998650%29_%28cropped%29.jpg" height="100%" width="100%">
-	 </div>
-	 </div>
-	 <div class="col s6">
-	 	<div class="container">
-	 	<table class="bordered highlight">
+  <div class="row">
+    <div class="col s6">
+  	  <div class="container">
+  	  	<img class="materialboxed" src="https://cdn.psychologytoday.com/sites/default/files/field_blog_entry_images/Donald_Trump_%2814235998650%29_%28cropped%29.jpg" height="100%" width="100%">
+  	  </div>
+    </div>
+    <div class="col s6">
+   	  <div class="container">
+  	   	<table class="bordered highlight">
 
-	        <tbody>
-	          <tr>
-	            <th>Name</th>
-	            <td><%= (@personnel.first_name || "") + " " + (@personnel.last_name || "") %></td>
-	          </tr>
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <td><%= (@personnel.first_name || "") + " " + (@personnel.last_name || "") %></td>
+            </tr>
 
-	          <tr>
-	          	<th>SSN</th>
-	            <td><%= @personnel.ssn %></td>
-	          </tr>
+            <tr>
+            	<th>SSN</th>
+              <td><%= @personnel.ssn %></td>
+            </tr>
 
-	          <tr>
-	          	<th>Birthdate</th>
-	            <td><%= @personnel.birth_date %></td>
-	          </tr>
+            <tr>
+            	<th>Birthdate</th>
+              <td><%= @personnel.birth_date %></td>
+            </tr>
 
-	          <tr>
-	          	<th>Gender</th>
-	            <td><%= @personnel.gender %></td>
-	          </tr>
+            <tr>
+            	<th>Gender</th>
+              <td><%= @personnel.gender %></td>
+            </tr>
 
-	          <tr>
-	          	<th>Email</th>
-	            <td><%= @personnel.email %></td>
-	          </tr>
+            <tr>
+            	<th>Email</th>
+              <td><%= @personnel.email %></td>
+            </tr>
 
-	          <tr>
-	          	<th>Work in</th>
-	            <td><%= @workin %></td>
-	          </tr>
+            <tr>
+            	<th>Work in</th>
+              <td><%= @workin %></td>
+            </tr>
 
-	          <tr>
-	          	<th>Manage</th>
-	            <td><%= @manage %></td>
-	          </tr>
+            <tr>
+            	<th>Manage</th>
+              <td><%= @manage %></td>
+            </tr>
 
-	        </tbody>
-	    </table>
-	    </div>
-
-	 </div>
-</div>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="container">
@@ -128,7 +127,7 @@
                         <td><%= student.email %></td>
                         <td><%= student.gender  %></td>
                         <td><%= student.status  %></td>
-                        <td><%= student.gpax  %></td>
+                      <!--  <td><%= student.gpax  %></td>-->
                         <td>
                           <a href='/students/<%= student.id %>'><i class='material-icons'>description</i></a>&nbsp;&nbsp;&nbsp;
                           <a href='/students/<%= student.id %>/edit'><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;

@@ -12,301 +12,301 @@
 
 <div class="container">
   <div class="row">
-   <div class="col s6">
-     <div class="container">
-     	<img class="materialboxed" src="https://cdn.psychologytoday.com/sites/default/files/field_blog_entry_images/Donald_Trump_%2814235998650%29_%28cropped%29.jpg" height="100%" width="100%">
-     </div>
-   </div>
-   <div class="col s6">
-   	<div class="container">
-  	 	<table class="bordered highlight">
-        <tbody>
-          <tr>
-            <th>First Name</th>
-            <td><%= @student.first_name %></td>
-          </tr>
-
-          <tr>
-          	<th>Last Name</th>
-            <td><%= @student.last_name %></td>
-          </tr>
-
-          <tr>
-          	<th>SSN</th>
-            <td><%= @student.ssn %></td>
-          </tr>
-
-          <tr>
-          	<th>Birthdate</th>
-            <td><%= @student.birth_date %></td>
-          </tr>
-
-          <tr>
-          	<th>Gender</th>
-            <td><%= @student.gender %></td>
-          </tr>
-
-          <tr>
-          	<th>Year of enrollment</th>
-            <td><%= @student.enroll_year %></td>
-          </tr>
-
-          <tr>
-          	<th>Status</th>
-            <td><%= @student.status %></td>
-          </tr>
-
-          <tr>
-          	<th>Email</th>
-            <td><%= @student.email %></td>
-          </tr>
-
-          <tr>
-          	<th>Curriculum</th>
-            <td><%= Curriculum.find(@student.curriculum_id).name %></td>
-          </tr>
-
-        </tbody>
-      </table>
+    <div class="col s6">
+      <div class="container">
+      	<img class="materialboxed" src="https://cdn.psychologytoday.com/sites/default/files/field_blog_entry_images/Donald_Trump_%2814235998650%29_%28cropped%29.jpg" height="100%" width="100%">
+      </div>
     </div>
-   </div>
+    <div class="col s6">
+     	<div class="container">
+    	 	<table class="bordered highlight">
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <td><%= (@student.first_name || "") + " " + (@student.last_name || "") %></td>
+            </tr>
+
+            <tr>
+            	<th>SSN</th>
+              <td><%= @student.ssn %></td>
+            </tr>
+
+            <tr>
+            	<th>Birthdate</th>
+              <td><%= @student.birth_date %></td>
+            </tr>
+
+            <tr>
+            	<th>Gender</th>
+              <td><%= @student.gender %></td>
+            </tr>
+
+            <tr>
+            	<th>Year of enrollment</th>
+              <td><%= @student.enroll_year %></td>
+            </tr>
+
+            <tr>
+            	<th>Status</th>
+              <td><%= @student.status %></td>
+            </tr>
+
+            <tr>
+            	<th>Email</th>
+              <td><%= @student.email %></td>
+            </tr>
+
+            <tr>
+  	          <th>Curriculum</th>
+              <td><%= Curriculum.find(@student.curriculum_id).name %></td>
+            </tr>
+
+            <tr>
+  	          <th rowspan = <%= "\""+@advisor_name_arr.length.to_s+"\"" %>>Advisor</th>
+              <td><%= @advisor_name_arr[0].first_name if @advisor_name_arr.length > 0 %></td>
+            </tr>
+
+          </tbody>
+  	    </table>
+      </div>
+	  </div>
   </div>
 </div>
 
 <div class="container">
-<ul class="collapsible" data-collapsible="expandable">
-    <li>
-    	<div class="collapsible-header"><i class="material-icons">class</i>Academic Info</div>
-    	<div class="collapsible-body">
-	    	<span>
-				<div class="row">
-					 <div class="col s6">
-					 	<div class="container">
-						 	<table class="striped highlight">
-							 	<thead>
-							 		<th>Year</th>
-							 		<th>Semester</th>
-							 		<th>GPA</th>
-							 		<th>credit</th>
-							 	</thead>
-						        <tbody>
-							        <% @gpa.each do |gpa| %>
-							        	<tr>
-							            	<td><%= gpa.year  %></td>
-							            	<td><%= gpa.semester %> <%= "(Summer)" if gpa.semester == 3 %></td>
-							            	<td><%= sprintf("%.2f",gpa.gpa) %></td>
-							            	<td><%= gpa.credit %></td>
-							          	</tr>
-							        <% end %>
-						        </tbody>
-						        <tfoot>
-							 		<th>Total</th>
-							 		<th></th>
-							 		<th><%= sprintf("%.2f",@gpax[0][:gpax]) %></th>
-							 		<th><%= @gpa.sum(:credit) %></th>
-							 	</tfoot>
-						    </table>
-					    </div>
-					 </div>
-					 <div class="row">
-						 <div class="col s6">
-							 	<canvas id="chartGrade" width="800" height="800"></canvas>
-						 </div>
+  <ul class="collapsible" data-collapsible="expandable">
+      <li>
+      	<div class="collapsible-header"><i class="material-icons">class</i>Academic Info</div>
+      	<div class="collapsible-body">
+  	    	<span>
+  				<div class="row">
+  					 <div class="col s6">
+  					 	<div class="container">
+  						 	<table class="striped highlight">
+  							 	<thead>
+  							 		<th>Year</th>
+  							 		<th>Semester</th>
+  							 		<th>GPA</th>
+  							 		<th>credit</th>
+  							 	</thead>
+  						        <tbody>
+  							        <% @gpa.each do |gpa| %>
+  							        	<tr>
+  							            	<td><%= gpa.year  %></td>
+  							            	<td><%= gpa.semester %> <%= "(Summer)" if gpa.semester == 3 %></td>
+  							            	<td><%= sprintf("%.2f",gpa.gpa) %></td>
+  							            	<td><%= gpa.credit %></td>
+  							          	</tr>
+  							        <% end %>
+  						        </tbody>
+  						        <tfoot>
+  							 		<th>Total</th>
+  							 		<th></th>
+  							 		<th><%= sprintf("%.2f",@gpax[0][:gpax]) %></th>
+  							 		<th><%= @gpa.sum(:credit) %></th>
+  							 	</tfoot>
+  						    </table>
+  					    </div>
+  					 </div>
+  					 <div class="row">
+  						 <div class="col s6">
+  							 	<canvas id="chartGrade" width="800" height="800"></canvas>
+  						 </div>
 
-						 <div class="col s6">
-							 	<canvas id="chartGpax" width="800" height="800"></canvas>
-						 </div>
-					 </div>
-				</div>
-	    	</span>
-    	</div>
-    </li>
+  						 <div class="col s6">
+  							 	<canvas id="chartGpax" width="800" height="800"></canvas>
+  						 </div>
+  					 </div>
+  				</div>
+  	    	</span>
+      	</div>
+      </li>
 
-	<li>
-		<div class="collapsible-header"><i class="material-icons">assignment</i>Curriculum Info</div>
-		<div class="collapsible-body">
+  	<li>
+  		<div class="collapsible-header"><i class="material-icons">assignment</i>Curriculum Info</div>
+  		<div class="collapsible-body">
 
-			<span>
-				<div class="row">
-					 <div class="col s12">
-					 	<div class="container">
-						 	<table class="striped highlight">
-						 		<h5>Required Subject</h5>
-							 	<thead>
-							 		<th>Name</th>
-							 		<th>Code</th>
-							 		<th>Credit</th>
-							 		<th>Status</th>
-							 		<th>Grade</th>
-							 	</thead>
-						        <tbody>
-							        <% @required_subject_arr.each do |subject| %>
-							        	<tr>
-							            	<td><%= subject[1].name  %></td>
-							            	<td><%= subject[1].code_id %></td>
-							            	<td><%= subject[1].credit %></td>
-							            	<td>
-							            		<%= "Finished" if !@enrolled_course.where("student_id = \'#{@student.id}\' and course_id = #{subject[1].id} and not grade = 0").first.nil? %>
-							            		<%= "Unfinished" if @enrolled_course.where("student_id = \'#{@student.id}\' and course_id = #{subject[1].id} and not grade = 0").first.nil? %>
-							            	</td>
-							            	<td> <%= @enrolled_course.where("student_id = \'#{@student.id}\' and course_id = #{subject[1].id} and not grade = 0").first.grade if !@enrolled_course.where("student_id = \'#{@student.id}\' and course_id = #{subject[1].id} and not grade = 0").first.nil?  %> </td>
-							          	</tr>
-							        <% end %>
-						        </tbody>
-						    </table>
-					    </div>
-					 </div>
-				</div>
-    		</span>
+  			<span>
+  				<div class="row">
+  					 <div class="col s12">
+  					 	<div class="container">
+  						 	<table class="striped highlight">
+  						 		<h5>Required Subject</h5>
+  							 	<thead>
+  							 		<th>Name</th>
+  							 		<th>Code</th>
+  							 		<th>Credit</th>
+  							 		<th>Status</th>
+  							 		<th>Grade</th>
+  							 	</thead>
+  						        <tbody>
+  							        <% @required_subject_arr.each do |subject| %>
+  							        	<tr>
+  							            	<td><%= subject[1].name  %></td>
+  							            	<td><%= subject[1].code_id %></td>
+  							            	<td><%= subject[1].credit %></td>
+  							            	<td>
+  							            		<%= "Finished" if !@enrolled_course.where("student_id = \'#{@student.id}\' and course_id = #{subject[1].id} and not grade = 0").first.nil? %>
+  							            		<%= "Unfinished" if @enrolled_course.where("student_id = \'#{@student.id}\' and course_id = #{subject[1].id} and not grade = 0").first.nil? %>
+  							            	</td>
+  							            	<td> <%= @enrolled_course.where("student_id = \'#{@student.id}\' and course_id = #{subject[1].id} and not grade = 0").first.grade if !@enrolled_course.where("student_id = \'#{@student.id}\' and course_id = #{subject[1].id} and not grade = 0").first.nil?  %> </td>
+  							          	</tr>
+  							        <% end %>
+  						        </tbody>
+  						    </table>
+  					    </div>
+  					 </div>
+  				</div>
+      		</span>
 
-		</div>
-    </li>
+  		</div>
+      </li>
 
-    <li>
-    	<div class="collapsible-header"><i class="material-icons">work</i>Leave Info</div>
-    	<div class="collapsible-body">
-    		<span>
+      <li>
+      	<div class="collapsible-header"><i class="material-icons">work</i>Leave Info</div>
+      	<div class="collapsible-body">
+      		<span>
 
-				<div class="row">
-					 <div class="col s12">
-					 	<div class="container">
-					 		<h5> Sick Leave </h5>
-						 	<table class="striped highlight">
-							 	<thead>
-							 		<th>From</th>
-							 		<th>To</th>
-							 		<th>Reason</th>
-							 	</thead>
-						        <tbody>
-							        <% @sick_leave_arr.each do |leave| %>
-							        	<tr>
-							            	<td><%= leave[0].start_date  %></td>
-							            	<td><%= leave[0].end_date %></td>
-							            	<td><%= leave[1].reason %></td>
-							          	</tr>
-							        <% end %>
-						        </tbody>
-						    </table>
-					    </div>
-					 </div>
-					 <div class="col s12">
-					 	<div class="container">
-					 		<h5> Personal Leave </h5>
-						 	<table class="striped highlight">
-							 	<thead>
-							 		<th>From</th>
-							 		<th>To</th>
-							 		<th>Reason</th>
-							 	</thead>
-						        <tbody>
-							        <% @personal_leave_arr.each do |leave| %>
-							        	<tr>
-							            	<td><%= leave[0].start_date  %></td>
-							            	<td><%= leave[0].end_date %></td>
-							            	<td><%= leave[1].project_name %></td>
-							          	</tr>
-							        <% end %>
-						        </tbody>
-						    </table>
-					    </div>
-					 </div>
-				</div>
-    		</span>
-    	</div>
-    </li>
-    <li>
-		<div class="collapsible-header"><i class="material-icons">star</i>Portfolio</div>
-		<div class="collapsible-body">
-			<span>
-				<div class="row">
-					 <div class="col s12">
-					 	<div class="container">
-					 		<h5> Activities </h5>
-						 	<table class="striped highlight">
-							 	<thead>
-							 		<th>Date</th>
-							 		<th>Duration (Day)</th>
-							 		<th>Explanation</th>
-							 		<th>Name</th>
-							 		<th>position</th>
-							 	</thead>
-						        <tbody>
-							        <% @activity_portfolio_arr.each do |portfolio| %>
-							        	<tr>
-							            	<td><%= portfolio[0].date  %></td>
-							            	<td><%= portfolio[1].duration %></td>
-							            	<td><%= portfolio[0].explanation %></td>
-							            	<td><%= portfolio[0].name  %></td>
-							            	<td><%= portfolio[1].position %></td>
-							          	</tr>
-							        <% end %>
-						        </tbody>
-						    </table>
-					    </div>
-					 </div>
-					 <div class="col s12">
-					 	<div class="container">
-					 		<h5> Competition </h5>
-						 	<table class="striped highlight">
-							 	<thead>
-							 		<th>Date</th>
-							 		<th>Explanation</th>
-							 		<th>Name</th>
-							 		<th>Award</th>
-							 	</thead>
-						        <tbody>
-							        <% @competition_portfolio_arr.each do |portfolio| %>
-							        	<tr>
-							            	<td><%= portfolio[0].date  %></td>
-							            	<td><%= portfolio[0].explanation %></td>
-							            	<td><%= portfolio[0].name  %></td>
-							            	<td><%= portfolio[1].award %></td>
-							          	</tr>
-							        <% end %>
-						        </tbody>
-						    </table>
-					    </div>
-					 </div>
-				</div>
-    		</span>
+  				<div class="row">
+  					 <div class="col s12">
+  					 	<div class="container">
+  					 		<h5> Sick Leave </h5>
+  						 	<table class="striped highlight">
+  							 	<thead>
+  							 		<th>From</th>
+  							 		<th>To</th>
+  							 		<th>Reason</th>
+  							 	</thead>
+  						        <tbody>
+  							        <% @sick_leave_arr.each do |leave| %>
+  							        	<tr>
+  							            	<td><%= leave[0].start_date  %></td>
+  							            	<td><%= leave[0].end_date %></td>
+  							            	<td><%= leave[1].reason %></td>
+  							          	</tr>
+  							        <% end %>
+  						        </tbody>
+  						    </table>
+  					    </div>
+  					 </div>
+  					 <div class="col s12">
+  					 	<div class="container">
+  					 		<h5> Personal Leave </h5>
+  						 	<table class="striped highlight">
+  							 	<thead>
+  							 		<th>From</th>
+  							 		<th>To</th>
+  							 		<th>Reason</th>
+  							 	</thead>
+  						        <tbody>
+  							        <% @personal_leave_arr.each do |leave| %>
+  							        	<tr>
+  							            	<td><%= leave[0].start_date  %></td>
+  							            	<td><%= leave[0].end_date %></td>
+  							            	<td><%= leave[1].project_name %></td>
+  							          	</tr>
+  							        <% end %>
+  						        </tbody>
+  						    </table>
+  					    </div>
+  					 </div>
+  				</div>
+      		</span>
+      	</div>
+      </li>
+      <li>
+  		<div class="collapsible-header"><i class="material-icons">star</i>Portfolio</div>
+  		<div class="collapsible-body">
+  			<span>
+  				<div class="row">
+  					 <div class="col s12">
+  					 	<div class="container">
+  					 		<h5> Activities </h5>
+  						 	<table class="striped highlight">
+  							 	<thead>
+  							 		<th>Date</th>
+  							 		<th>Duration (Day)</th>
+  							 		<th>Explanation</th>
+  							 		<th>Name</th>
+  							 		<th>position</th>
+  							 	</thead>
+  						        <tbody>
+  							        <% @activity_portfolio_arr.each do |portfolio| %>
+  							        	<tr>
+  							            	<td><%= portfolio[0].date  %></td>
+  							            	<td><%= portfolio[1].duration %></td>
+  							            	<td><%= portfolio[0].explanation %></td>
+  							            	<td><%= portfolio[0].name  %></td>
+  							            	<td><%= portfolio[1].position %></td>
+  							          	</tr>
+  							        <% end %>
+  						        </tbody>
+  						    </table>
+  					    </div>
+  					 </div>
+  					 <div class="col s12">
+  					 	<div class="container">
+  					 		<h5> Competition </h5>
+  						 	<table class="striped highlight">
+  							 	<thead>
+  							 		<th>Date</th>
+  							 		<th>Explanation</th>
+  							 		<th>Name</th>
+  							 		<th>Award</th>
+  							 	</thead>
+  						        <tbody>
+  							        <% @competition_portfolio_arr.each do |portfolio| %>
+  							        	<tr>
+  							            	<td><%= portfolio[0].date  %></td>
+  							            	<td><%= portfolio[0].explanation %></td>
+  							            	<td><%= portfolio[0].name  %></td>
+  							            	<td><%= portfolio[1].award %></td>
+  							          	</tr>
+  							        <% end %>
+  						        </tbody>
+  						    </table>
+  					    </div>
+  					 </div>
+  				</div>
+      		</span>
 
-		</div>
-    </li>
-    <li>
-		<div class="collapsible-header"><i class="material-icons">whatshot</i>Rule-breaking Records</div>
-		<div class="collapsible-body">
+  		</div>
+      </li>
+      <li>
+  		<div class="collapsible-header"><i class="material-icons">whatshot</i>Rule-breaking Records</div>
+  		<div class="collapsible-body">
 
-			<span>
-				<div class="row">
-					 <div class="col s12">
-					 	<div class="container">
-						 	<table class="striped highlight">
-							 	<thead>
-							 		<th>Date</th>
-							 		<th>Remark</th>
+  			<span>
+  				<div class="row">
+  					 <div class="col s12">
+  					 	<div class="container">
+  						 	<table class="striped highlight">
+  							 	<thead>
+  							 		<th>Date</th>
+  							 		<th>Remark</th>
 
-							 		<th>Rule Detail</th>
-							 		<th>Score Reduced</th>
-							 	</thead>
-						        <tbody>
-							        <% @breaking_arr.each do |_break| %>
-							        	<tr>
-							            	<td><%= _break[0].when  %></td>
-							            	<td><%= _break[0].remark %></td>
-							            	<td><%= _break[1].rule_detail %></td>
-							            	<td><%= _break[1].behavior_score_reduction  %></td>
-							          	</tr>
-							        <% end %>
-						        </tbody>
-						    </table>
-					    </div>
-					 </div>
-				</div>
-    		</span>
+  							 		<th>Rule Detail</th>
+  							 		<th>Score Reduced</th>
+  							 	</thead>
+  						        <tbody>
+  							        <% @breaking_arr.each do |_break| %>
+  							        	<tr>
+  							            	<td><%= _break[0].when  %></td>
+  							            	<td><%= _break[0].remark %></td>
+  							            	<td><%= _break[1].rule_detail %></td>
+  							            	<td><%= _break[1].behavior_score_reduction  %></td>
+  							          	</tr>
+  							        <% end %>
+  						        </tbody>
+  						    </table>
+  					    </div>
+  					 </div>
+  				</div>
+      		</span>
 
-		</div>
-    </li>
-</ul>
+  		</div>
+      </li>
+  </ul>
 </div>
 
 <script>
