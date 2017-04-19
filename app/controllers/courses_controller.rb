@@ -13,9 +13,24 @@ class CoursesController < ApplicationController
 		end
   end
 
+
   # GET /courses/1
   # GET /courses/1.json
   def show
+    @colorList = [
+        '#f44336',
+        '#ff5722',
+        '#ff9800',
+        '#ffc107',
+        '#ffeb3b',
+        '#cddc39',
+        '#8bc34a',
+        '#4caf50',
+        '#009688',
+        '#00bcd4',
+        '#03a9f4',
+        '#2196f3']
+
     #List all year/sem
     @listYearSem = Section.select(:year, :semester)
                           .group(:year, :semester)

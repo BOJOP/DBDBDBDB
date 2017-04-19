@@ -52,31 +52,16 @@
 <div class="container">
 	<div class="card">
 	<div class="card-content">
-		<div class="container">
-		<a class="dropdown-button btn" data-activates="dropdown-menu-2">
-			  <%= @currentYearSem[:year].to_s + " / " + @currentYearSem[:semester].to_s %>
-			</a>
-			<ul id="dropdown-menu-2" class="dropdown-content">
 
-				<% @listYearSem.each do |cur| %>
-			  <li>
-			  	<%= link_to (cur.year.to_s + " / " + cur.semester.to_s), { :controller => "courses", :action => "show", year: cur.year, semester: cur.semester }  %>
-			  </li>
-			  	<% end %>
-			</ul>
-		</div>
 
-		<div id = "chooseSemYear" class = "input-field">
 			<div class="input-field col s12">
-			    <select>
-			      <option value="" disabled selected>Choose your option</option>
-			      <option value="1">Option 1</option>
-			      <option value="2">Option 2</option>
-			      <option value="3">Option 3</option>
+			    <select id="selectYearSemester" >
+			    	<% @listYearSem.each do |cur| %>
+				      <option value="<%= cur.year.to_s + "-" + cur.semester.to_s %>" <%= if cur.year==@currentYearSem[:year] and cur.semester == @currentYearSem[:semester] then "selected" else "" end %>><%= cur.year.to_s + "-" + cur.semester.to_s %></option>
+				  	<% end %>
 			    </select>
-			    <label>Materialize Select</label>
+			    <label>Choose year and semester</label>
 			</div>
-		</div>
 
 
 		<div class="container">
@@ -138,12 +123,19 @@
 	</div>
 </div>
 <script>
-
+	$(document).ready(function() {
+	    $('select').material_select();
+	});
 	$(".dropdown-button").dropdown();
 
 	$(document).ready(function(){
     	$('.collapsible').collapsible();
 	});
+	$('select').on('change', function() {
+	  var choose = this.value.split('-');
+
+	  window.location = '/courses/<%= @course.id %>?year=' + choose[0] + '&semester=' + choose[1];
+	})
 
 
 	$(function() {
@@ -153,43 +145,30 @@
 		    data: {
 		        labels: [
 		       			<% @StudentYearSem.each do |std| %>
-					      <%= raw "\"" + (std.year%100).to_s + " / " + std.semester.to_s + "\"," %>
+					      <%= raw "\"" + std.year.to_s + " / " + std.semester.to_s + "\"," %>
 					    <% end %>
 		        	],
 		        datasets: [{
-		            label: 'Count',
+		            label: 'Number of Students',
 		            data: [
 		            	<% @StudentYearSem.each do |std| %>
 					      <%= std.num.to_s + "," %>
 					    <% end %>
 		            ],
 		            backgroundColor: [
-		                '#f44336',
-		                '#ff5722',
-		                '#ff9800',
-		                '#ffc107',
-		                '#ffeb3b',
-		                '#cddc39',
-		                '#8bc34a',
-		                '#4caf50',
-		                '#009688',
-		                '#00bcd4',
-		                '#03a9f4',
-		                '#2196f3',
+		            	<% stdCount = 0 %>
+		            	<% @StudentYearSem.each do |std| %>
+		            	  <%= raw "\"" + @colorList[stdCount % @colorList.length] + "\"," %>
+		            	  <% #puts "\"" + @colorList[stdCount % @colorList.length] + "\"," %>
+					      <% stdCount = stdCount + 1 %>
+					    <% end %>
 		            ],
 		            borderColor: [
-		                '#f44336',
-		                '#ff5722',
-		                '#ff9800',
-		                '#ffc107',
-		                '#ffeb3b',
-		                '#cddc39',
-		                '#8bc34a',
-		                '#4caf50',
-		                '#009688',
-		                '#00bcd4',
-		                '#03a9f4',
-		                '#2196f3',
+		            	<% stdCount = 0 %>
+		            	<% @StudentYearSem.each do |std| %>
+		            	  <%= raw "\"" + @colorList[stdCount % @colorList.length] + "\"," %>
+					      <% stdCount = stdCount + 1 %>
+					    <% end %>
 		            ],
 		            borderWidth: 1,
 		        }]
@@ -213,7 +192,7 @@
 		    data: {
 		        labels: [
 		       			<% @gradeAverage.each do |std| %>
-					      <%= raw "\"" + (std.year%100).to_s + " / " + std.semester.to_s + "\"," %>
+					      <%= raw "\"" + std.year.to_s + " / " + std.semester.to_s + "\"," %>
 					    <% end %>
 		        	],
 		        datasets: [{
