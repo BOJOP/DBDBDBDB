@@ -22,6 +22,17 @@ change "brown" to something of your choosing
   background-color: #f06292;
 }
 
+ul.side-nav.fixed li.active {
+    background-color: #f06292;
+    a {
+      color: white;
+    }
+}
+
+.side-nav .userView {
+  margin-bottom: 0px;
+}
+
 
 .pagination {
   li {

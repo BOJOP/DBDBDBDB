@@ -9,8 +9,8 @@ class Personnel < ApplicationRecord
   has_many :sections
   has_many :courses, :through => :sections
 
-  belongs_to :departments, class_name: 'Department', foreign_key: 'workin_department_id'
-  belongs_to :departments, class_name: 'Department', foreign_key: 'manage_department_id'
+  belongs_to :workin, class_name: 'Department', foreign_key: 'workin_department_id'
+  belongs_to :manage, class_name: 'Department', foreign_key: 'manage_department_id'
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: {maximum: 255},

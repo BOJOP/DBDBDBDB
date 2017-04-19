@@ -23,8 +23,8 @@ class PersonnelsController < ApplicationController
     @students = @personnel.students;
 
     #Get department
-    @workin = if @personnel.workin_department_id.nil? then "" else @personnel.workin_department_id.name end
-    @manage = if @personnel.manage_department_id.nil? then "" else @personnel.manage_department_id.name end
+    @workin = if @personnel.workin.nil? then "" else @personnel.workin.name end
+    @manage = if @personnel.manage.nil? then "" else @personnel.manage.name end
 
 		respond_to do |format|
 			format.html { render :show }
@@ -38,8 +38,8 @@ class PersonnelsController < ApplicationController
     @students = @personnel.students;
 
     #Get department
-    @workin = if @personnel.workin_department_id.nil? then "" else @personnel.workin_department_id.name end
-    @manage = if @personnel.manage_department_id.nil? then "" else @personnel.manage_department_id.name end
+    @workin = if @personnel.workin.nil? then "" else @personnel.workin.name end
+    @manage = if @personnel.manage.nil? then "" else @personnel.manage.name end
 
     render  pdf: 'filename.pdf',
             template: 'personnels/show.pdf.erb',
