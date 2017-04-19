@@ -8,8 +8,23 @@
 // @import "materialize/components/prefixer";
 @import "materialize/components/mixins";
 @import "materialize/components/color";
-$primary-color: color("blue", "lighten-2") !default;
-// $secondary-color: color("yellow", "base") !default;
+//$primary-color: color("pink","lighten-1") !default;
+//$secondary-color: color("yellow", "base") !default;
+$primary-color: color("pink", "lighten-2") !default;
+$primary-color-light: false !default;
+$primary-color-dark: false !default;
+@if not $primary-color-light {
+  $primary-color-light: lighten($primary-color, 15%);
+}
+@if not $primary-color-dark {
+  $primary-color-dark: darken($primary-color, 15%);
+}
+$secondary-color: color("pink", "lighten-2") !default;
+$success-color: color("pink", "lighten-2") !default;
+$error-color: color("pink", "lighten-2") !default;
+
+$link-color: color("light-blue", "darken-1") !default;
+
 
 // Variables;
 @import "materialize/components/variables";
