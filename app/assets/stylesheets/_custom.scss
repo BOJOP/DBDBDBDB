@@ -2,6 +2,16 @@ tr {
     page-break-inside: avoid;
 }
 
+table.highlight tbody tr:hover {
+    background-color: #fffde7 !important;
+}
+table.striped tbody {
+    background-color: #ffffff !important;
+}
+table.striped > tbody > tr:nth-child(odd){
+    background-color: #fffde7 !important;
+}
+
 .pagination {
   li {
     display: inline-block;

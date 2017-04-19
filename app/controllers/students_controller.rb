@@ -12,9 +12,15 @@ class StudentsController < ApplicationController
 		end
   end
 
+
+
   # GET /students/1
   # GET /students/1.json
   def show
+
+#    Student.all.each do |std|
+#      std.updateData
+#    end
 
     @advisor_name_arr = Array.new
     @advisor = Advisor.where(student_id: @student.id)
@@ -24,7 +30,7 @@ class StudentsController < ApplicationController
     end
 
     #Academic Info
-    @gpa = Gpa.where(student_id:@student.id)
+    @gpa = Gpa.where(student_id:@student.id).order(year: :desc, semester: :desc)
     @gpax = Gpa.find_by_sql("SELECT SUM(credit*gpa)/SUM(credit) as gpax FROM gpas WHERE student_id = \'"+params[:id]+"\'")
 
     #Group Info
