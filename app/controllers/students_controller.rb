@@ -17,10 +17,19 @@ class StudentsController < ApplicationController
   # GET /students/1
   # GET /students/1.json
   def show
-
-#    Student.all.each do |std|
-#      std.updateData
-#    end
+    @colorList = [
+        '#f44336',
+        '#ff5722',
+        '#ff9800',
+        '#ffc107',
+        '#ffeb3b',
+        '#cddc39',
+        '#8bc34a',
+        '#4caf50',
+        '#009688',
+        '#00bcd4',
+        '#03a9f4',
+        '#2196f3']
 
     @advisor_name_arr = Array.new
     @advisor = Advisor.where(student_id: @student.id)
@@ -92,6 +101,8 @@ class StudentsController < ApplicationController
       format.html { render :show }
       format.json { render json: Oj.dump(@student) }
     end
+
+
   end
 
   def save

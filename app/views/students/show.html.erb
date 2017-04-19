@@ -317,10 +317,11 @@
 	$(function() {
 		var ctx = $("#chartGrade");
 		var myChart = new Chart(ctx, {
-		    type: 'line',
+		    type: 'bar',
 		    data: {
 		        labels: [
 		        	<% @gpa.reverse_each do |gpa| %>
+                <% next if gpa.credit == 0 %>
 		        		<%= "," if gpa != @gpa.last %>
 		        		<%= raw "\""+gpa.year.to_s+"-"+gpa.semester.to_s+"\"" %>
 		        	<% end %>
@@ -329,28 +330,26 @@
 		            label: 'GPA',
 		            data: [
 		            	<% @gpa.reverse_each do |gpa| %>
-		            		<%= "," if gpa != @gpa.last %>
-										<%= sprintf("%.2f",gpa.gpa) %>
+                    <% next if gpa.credit == 0 %>
+										<%= sprintf("%.2f,",gpa.gpa) %>
 									<% end %>
 		            ],
-		            fill: false,
-		            lineTension: 0.1,
-		            backgroundColor: "rgba(75,192,192,0.4)",
-		            borderColor: "rgba(75,192,192,1)",
-		            borderCapStyle: 'butt',
-		            borderDash: [],
-		            borderDashOffset: 0.0,
-		            borderJoinStyle: 'miter',
-		            pointBorderColor: "rgba(75,192,192,1)",
-		            pointBackgroundColor: "#fff",
-		            pointBorderWidth: 1,
-		            pointHoverRadius: 5,
-		            pointHoverBackgroundColor: "rgba(75,192,192,1)",
-		            pointHoverBorderColor: "rgba(220,220,220,1)",
-		            pointHoverBorderWidth: 2,
-		            pointRadius: 1,
-		            pointHitRadius: 10,
-		            spanGaps: false,
+                backgroundColor: [
+
+                  <% stdCount = 0 %>
+                  <% @gpa.each do |std| %>
+                    <%= raw "\"" + @colorList[stdCount % @colorList.length] + "\"," %>
+                  <% stdCount = stdCount + 1 %>
+                  <% end %>
+                ],
+                borderColor: [
+                  <% stdCount = 0 %>
+                  <% @gpa.each do |std| %>
+                    <%= raw "\"" + @colorList[stdCount % @colorList.length] + "\"," %>
+                  <% stdCount = stdCount + 1 %>
+                  <% end %>
+                ],
+                borderWidth: 1,
 		        }]
 		    },
 		    options: {
@@ -382,30 +381,30 @@
 		            	<% sum_credit = 0 %>
 		            	<% sum_raw_score = 0 %>
 		            	<% @gpa.reverse_each do |gpa| %>
-		            		<%= "," if gpa != @gpa.last %>
+
 		            					<% sum_raw_score = sum_raw_score + gpa.gpa * gpa.credit %>
 		            					<% sum_credit = sum_credit + gpa.credit %>
-										<%= sprintf("%.2f", 1.0 * sum_raw_score / sum_credit) %>
+										<%= sprintf("%.2f,", 1.0 * sum_raw_score / sum_credit) %>
 									<% end %>
 		            ],
-		            fill: false,
-		            lineTension: 0.1,
-		            backgroundColor: "rgba(75,192,192,0.4)",
-		            borderColor: "rgba(75,192,192,1)",
-		            borderCapStyle: 'butt',
-		            borderDash: [],
-		            borderDashOffset: 0.0,
-		            borderJoinStyle: 'miter',
-		            pointBorderColor: "rgba(75,192,192,1)",
-		            pointBackgroundColor: "#fff",
-		            pointBorderWidth: 1,
-		            pointHoverRadius: 5,
-		            pointHoverBackgroundColor: "rgba(75,192,192,1)",
-		            pointHoverBorderColor: "rgba(220,220,220,1)",
-		            pointHoverBorderWidth: 2,
-		            pointRadius: 1,
-		            pointHitRadius: 10,
-		            spanGaps: false,
+                fill: false,
+                lineTension: 0.5,
+                backgroundColor: "#ff9800",
+                borderColor: "#ff9800",
+                borderCapStyle: 'round',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'round',
+                pointBorderColor: "#e65100",
+                pointBackgroundColor: "#e65100",
+                pointBorderWidth: 0.01,
+                pointHoverRadius: 10,
+                pointHoverBackgroundColor: "#e65100",
+                pointHoverBorderColor: "#e65100",
+                pointHoverBorderWidth: 2,
+                pointRadius: 4,
+                pointHitRadius: 10,
+                spanGaps: false,
 		        }]
 		    },
 		    options: {
