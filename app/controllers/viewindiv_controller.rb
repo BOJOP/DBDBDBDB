@@ -6,11 +6,15 @@ class ViewindivController < ApplicationController
 
 
   def search
+#    puts "Update All"
+#    Student.all.each do |std|
+#      std.updateData
+#    end
+
   	@search_result = Student.all
-  	#@search_result = Student.find_by_sql("SELECT * FROM students INNER JOIN advisors ON advisors.student_id = students.id")
-  	#@search_result = Student.joins(:advisors)
-  	#puts @search_result.attribute_names
-  	#puts Student.attribute_names
+    puts "params[:searchinput][:status]"
+    puts params[:searchinput][:status]
+    puts "params[:searchinput][:status]"
 
   	if !params[:searchinput][:id].nil? && !params[:searchinput][:id].blank?
   		@search_result = @search_result.where("id LIKE :prefix", prefix: "#{params[:searchinput][:id]}%")
@@ -33,34 +37,26 @@ class ViewindivController < ApplicationController
   	end
 
   	#Finish Curriculum
+    if !(params[:searchinput][:gpax_min] == '2' and params[:searchinput][:gpax_max] == '2')
+      temp = @search_result
+      @search_result = []
+    	if !params[:searchinput][:gpax_min].nil? && !params[:searchinput][:gpax_min].blank?
 
-  	if !params[:searchinput][:gpax_min].nil? && !params[:searchinput][:gpax_min].blank?
-  		@Gpax = Gpa.find_by_sql("SELECT SUM(credit*gpa)/SUM(credit) as gpax, student_id FROM gpas GROUP BY student_id")
-  		@Gpax.each do |row|
+    		@Gpax = Gpa.find_by_sql("SELECT CASE WHEN SUM(credit)=0 then 0 ELSE SUM(credit*gpa)/SUM(credit) END as gpax, student_id FROM gpas GROUP BY student_id")
+    		@Gpax.each do |row|
 
-  			if row[:gpax] < params[:searchinput][:gpax_min].to_f*100 && !@search_result.find_by(id: row[:student_id]).nil?
-          @search_result = @search_result.where.not("students.id = \'"+row[:student_id]+"\'")
-  			end
-  		end
-  	end
+    			if row[:gpax] >= params[:searchinput][:gpax_min].to_f and row[:gpax] <= params[:searchinput][:gpax_max].to_f
+            temp2 = temp.find_by(id: row[:student_id])
+            @search_result.push(temp2) if !temp2.nil?
+    			end
+    		end
+    	end
 
-    if !params[:searchinput][:gpax_max].nil? && !params[:searchinput][:gpax_max].blank?
-      @Gpax = Gpa.find_by_sql("SELECT SUM(credit*gpa)/SUM(credit) as gpax, student_id FROM gpas GROUP BY student_id")
-      @Gpax.each do |row|
-        if row[:gpax] > params[:searchinput][:gpax_max].to_f*100 && !@search_result.find_by(id: row[:student_id]).nil?
-          puts row[:gpax]
-          @search_result = @search_result.where.not("students.id = \'"+row[:student_id]+"\'")
-        end
-      end
     end
 
-    #Leave more than
-
-    #Leave less than
-
-    #Leave type
-
-    #in Semester
+    if !params[:searchinput][:year].nil? && !params[:searchinput][:year].blank?
+      @search_result = @search_result.where(enroll_year: (DateTime.now.year - params[:searchinput][:year].to_i))
+    end
 
   	render 'new'
   end

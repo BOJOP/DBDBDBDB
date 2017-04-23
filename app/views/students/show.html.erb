@@ -81,7 +81,7 @@
       	<div class="collapsible-body">
   	    	<span>
   				<div class="row">
-  					 <div class="col s6">
+  					 <div class="col s12">
   					 	<div class="container">
   						 	<table class="striped highlight">
   							 	<thead>
@@ -92,6 +92,7 @@
   							 	</thead>
   						        <tbody>
   							        <% @gpa.each do |gpa| %>
+                          <% next if gpa.credit == 0 %>
   							        	<tr>
   							            	<td><%= gpa.year  %></td>
   							            	<td><%= gpa.semester %> <%= "(Summer)" if gpa.semester == 3 %></td>
@@ -143,14 +144,15 @@
   						        <tbody>
   							        <% @required_subject_arr.each do |subject| %>
   							        	<tr>
+                              <% puts subject[1].id %>
   							            	<td><%= subject[1].name  %></td>
   							            	<td><%= subject[1].code_id %></td>
   							            	<td><%= subject[1].credit %></td>
   							            	<td>
-  							            		<%= "Finished" if !@enrolled_course.where("student_id = \'#{@student.id}\' and course_id = #{subject[1].id} and not grade = 0").first.nil? %>
-  							            		<%= "Unfinished" if @enrolled_course.where("student_id = \'#{@student.id}\' and course_id = #{subject[1].id} and not grade = 0").first.nil? %>
+  							            		<%= "Finished" if !@enrolled_course.where("course_id = #{subject[1].id}").first.nil? %>
+  							            		<%= "Unfinished" if @enrolled_course.where("course_id = #{subject[1].id}").first.nil? %>
   							            	</td>
-  							            	<td> <%= @enrolled_course.where("student_id = \'#{@student.id}\' and course_id = #{subject[1].id} and not grade = 0").first.grade if !@enrolled_course.where("student_id = \'#{@student.id}\' and course_id = #{subject[1].id} and not grade = 0").first.nil?  %> </td>
+  							            	<td> <%= @enrolled_course.where("course_id = #{subject[1].id}").first.grade if !@enrolled_course.where("course_id = #{subject[1].id}").first.nil?  %> </td>
   							          	</tr>
   							        <% end %>
   						        </tbody>
@@ -179,13 +181,15 @@
   							 		<th>Reason</th>
   							 	</thead>
   						        <tbody>
-  							        <% @sick_leave_arr.each do |leave| %>
-  							        	<tr>
-  							            	<td><%= leave[0].start_date  %></td>
-  							            	<td><%= leave[0].end_date %></td>
-  							            	<td><%= leave[1].reason %></td>
-  							          	</tr>
-  							        <% end %>
+                        <% if @sick_leave_arr.length > 0 %>
+    							        <% @sick_leave_arr.each do |leave| %>
+    							        	<tr>
+    							            	<td><%= leave[0].start_date  %></td>
+    							            	<td><%= leave[0].end_date %></td>
+    							            	<td><%= leave[1].reason %></td>
+    							          	</tr>
+    							        <% end %>
+                        <% end %>
   						        </tbody>
   						    </table>
   					    </div>
@@ -200,6 +204,7 @@
   							 		<th>Reason</th>
   							 	</thead>
   						        <tbody>
+                        <% if @personal_leave_arr.length > 0 %>
   							        <% @personal_leave_arr.each do |leave| %>
   							        	<tr>
   							            	<td><%= leave[0].start_date  %></td>
@@ -207,6 +212,7 @@
   							            	<td><%= leave[1].project_name %></td>
   							          	</tr>
   							        <% end %>
+                        <% end %>
   						        </tbody>
   						    </table>
   					    </div>
@@ -232,15 +238,17 @@
   							 		<th>position</th>
   							 	</thead>
   						        <tbody>
-  							        <% @activity_portfolio_arr.each do |portfolio| %>
+                        <% if @activity_event_arr.length > 0 %>
+  							        <% @activity_event_arr.each do |event| %>
   							        	<tr>
-  							            	<td><%= portfolio[0].date  %></td>
-  							            	<td><%= portfolio[1].duration %></td>
-  							            	<td><%= portfolio[0].explanation %></td>
-  							            	<td><%= portfolio[0].name  %></td>
-  							            	<td><%= portfolio[1].position %></td>
+  							            	<td><%= event.date  %></td>
+  							            	<td><%= event.duration %></td>
+  							            	<td><%= event.explanation %></td>
+  							            	<td><%= event.name  %></td>
+  							            	<td><%= event.position %></td>
   							          	</tr>
   							        <% end %>
+                        <% end %>
   						        </tbody>
   						    </table>
   					    </div>
@@ -255,16 +263,18 @@
   							 		<th>Name</th>
   							 		<th>Award</th>
   							 	</thead>
-  						        <tbody>
-  							        <% @competition_portfolio_arr.each do |portfolio| %>
-  							        	<tr>
-  							            	<td><%= portfolio[0].date  %></td>
-  							            	<td><%= portfolio[0].explanation %></td>
-  							            	<td><%= portfolio[0].name  %></td>
-  							            	<td><%= portfolio[1].award %></td>
-  							          	</tr>
-  							        <% end %>
-  						        </tbody>
+                      <tbody>
+                        <% if !@competition.nil? %>
+                        <% @competition.each do |event| %>
+                          <tr>
+                              <td><%= event.date  %></td>
+                              <td><%= event.explanation %></td>
+                              <td><%= event.name  %></td>
+                              <td><%= event.award %></td>
+                            </tr>
+                        <% end %>
+                        <% end %>
+                      </tbody>
   						    </table>
   					    </div>
   					 </div>
@@ -322,8 +332,7 @@
 		        labels: [
 		        	<% @gpa.reverse_each do |gpa| %>
                 <% next if gpa.credit == 0 %>
-		        		<%= "," if gpa != @gpa.last %>
-		        		<%= raw "\""+gpa.year.to_s+"-"+gpa.semester.to_s+"\"" %>
+		        		<%= raw "\""+gpa.year.to_s+"-"+gpa.semester.to_s+"\"," %>
 		        	<% end %>
 		        	],
 		        datasets: [{
@@ -337,14 +346,16 @@
                 backgroundColor: [
 
                   <% stdCount = 0 %>
-                  <% @gpa.each do |std| %>
+                  <% @gpa.each do |gpa| %>
+                    <% next if gpa.credit == 0 %>
                     <%= raw "\"" + @colorList[stdCount % @colorList.length] + "\"," %>
                   <% stdCount = stdCount + 1 %>
                   <% end %>
                 ],
                 borderColor: [
                   <% stdCount = 0 %>
-                  <% @gpa.each do |std| %>
+                  <% @gpa.each do |gpa| %>
+                    <% next if gpa.credit == 0 %>
                     <%= raw "\"" + @colorList[stdCount % @colorList.length] + "\"," %>
                   <% stdCount = stdCount + 1 %>
                   <% end %>
@@ -371,8 +382,8 @@
 		    data: {
 		        labels: [
 		        	<% @gpa.reverse_each do |gpa| %>
-		        		<%= "," if gpa != @gpa.last %>
-		        		<%= raw ("\"" + gpa.year.to_s + "-" + gpa.semester.to_s + "\"") %>
+		        		<% next if gpa.credit == 0 %>
+		        		<%= raw ("\"" + gpa.year.to_s + "-" + gpa.semester.to_s + "\",") %>
 		        	<% end %>
 		        	],
 		        datasets: [{
@@ -381,9 +392,9 @@
 		            	<% sum_credit = 0 %>
 		            	<% sum_raw_score = 0 %>
 		            	<% @gpa.reverse_each do |gpa| %>
-
-		            					<% sum_raw_score = sum_raw_score + gpa.gpa * gpa.credit %>
-		            					<% sum_credit = sum_credit + gpa.credit %>
+                    <% next if gpa.credit == 0 %>
+          					<% sum_raw_score = sum_raw_score + gpa.gpa * gpa.credit %>
+          					<% sum_credit = sum_credit + gpa.credit %>
 										<%= sprintf("%.2f,", 1.0 * sum_raw_score / sum_credit) %>
 									<% end %>
 		            ],

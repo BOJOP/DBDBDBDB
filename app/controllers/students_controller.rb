@@ -29,7 +29,8 @@ class StudentsController < ApplicationController
         '#009688',
         '#00bcd4',
         '#03a9f4',
-        '#2196f3']
+        '#2196f3'
+    ]
 
     @advisor_name_arr = Array.new
     @advisor = Advisor.where(student_id: @student.id)
@@ -40,17 +41,23 @@ class StudentsController < ApplicationController
 
     #Academic Info
     @gpa = Gpa.where(student_id:@student.id).order(year: :desc, semester: :desc)
-    @gpax = Gpa.find_by_sql("SELECT SUM(credit*gpa)/SUM(credit) as gpax FROM gpas WHERE student_id = \'"+params[:id]+"\'")
+    @gpax = Gpa.find_by_sql("SELECT SUM(credit*gpa)/SUM(credit) as gpax 
+            FROM gpas WHERE student_id = \'"+params[:id]+"\'
+            HAVING SUM(credit) > 0")
+
+    if @gpax.first.nil?
+      @gpax = [{gpax: 0.0}]
+    end
 
     #Group Info
-    @in_group = BelongTo.where(student_id: @student.id)
+    @in_group = BelongTo.select(:group_id).where(student_id: @student.id)
 
     #Leave Info
     @personal_leave_arr = Array.new
     @sick_leave_arr = Array.new
 
     @in_group.each do |group|
-      @leave = Leave.where(group_id: group.id).order(start_date: :desc)
+      @leave = Leave.where(group_id: group.group_id).order(start_date: :desc)
       @leave.each do |leave|
         personal_leave = PersonalLeave.where(leave_id:leave.id).first
         sick_leave = SickLeave.where(leave_id:leave.id).first
@@ -62,20 +69,29 @@ class StudentsController < ApplicationController
       end
     end
 
-    #Portfolio
-    @competition_portfolio_arr = Array.new
-    @activity_portfolio_arr = Array.new
+    #Event
+    @competition_event_arr = Array.new
+    @activity_event_arr = Array.new
 
     @in_group.each do |group|
-      @portfolio = Portfolio.where(group_id: group.id).order(date: :desc)
-      @portfolio.each do |port|
-        competition_portfolio = Competition.where(portfolio_id:port.id).first
-        activity_portfolio = Activity.where(portfolio_id:port.id).first
-        if !competition_portfolio.nil?
-          @competition_portfolio_arr.push([port, competition_portfolio])
-        else
-          @activity_portfolio_arr.push([port, activity_portfolio])
-        end
+      @activity = Event.find_by_sql("
+                                SELECT *
+                                FROM events INNER JOIN participates
+                                ON participates.event_id = events.id
+                                WHERE participates.group_id = \'#{group.group_id}\'
+                                ORDER BY events.date DESC")
+      @activity.each do |act|
+        @activity_event_arr.push(act)
+      end
+
+      @competition = Event.find_by_sql("
+                                SELECT *
+                                FROM events INNER JOIN competes
+                                ON competes.event_id = events.id
+                                WHERE competes.group_id = \'#{group.group_id}\'
+                                ORDER BY events.date DESC")
+      @competition.each do |act|
+        @competition_event_arr.push(act)
       end
     end
 
@@ -92,10 +108,35 @@ class StudentsController < ApplicationController
     @required_subject_arr = Array.new
     @required_subject.each do |subject|
       subject_detail = Course.find_by(id: subject.course_id)
+      #puts "Require: "+ subject.course_id.to_s
       @required_subject_arr.push([subject, subject_detail])
     end
 
-    @enrolled_course = Enrollment.joins("INNER JOIN sections ON enrollments.section_id = sections.id").select("sections.course_id, enrollments.grade, enrollments.student_id").order("sections.course_id")
+    
+
+    @enrolled_course = Enrollment
+              .joins("INNER JOIN sections ON enrollments.section_id = sections.id")
+              .select("sections.course_id as course_id, enrollments.grade as grade, enrollments.student_id as student_id")
+              .where("enrollments.student_id = \'#{@student.id}\' and enrollments.grade > 0")
+              .order("sections.course_id")
+
+    @enrolled_course.each do |subject|
+      puts "learned "+ subject.course_id.to_s
+      #@enrolled_course.where("course_id = #{subject[1].id}").first.nil?
+    end
+
+    @temp = Enrollment
+              .select("*")
+              .where("enrollments.student_id = \'#{@student.id}\'")
+
+    @temp.each do |temp|
+      puts "Section ID " + temp.section_id.to_s
+    end    
+
+    @required_subject_arr.each do |subject|
+      puts "required "+ subject[1].id.to_s
+      @enrolled_course.where("course_id = #{subject[1].id}").first.nil?
+    end
 
     respond_to do |format|
       format.html { render :show }

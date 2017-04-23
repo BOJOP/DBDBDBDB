@@ -55,8 +55,8 @@
 
 
 			<div class="input-field col s12">
-			    <select id="selectYearSemester" >
-			    	<% @listYearSem.each do |cur| %>
+			    <select id="selectYearSemester" name="status" >
+			    	<% @gradeAverage.each do |cur| %>
 				      <option value="<%= cur.year.to_s + "-" + cur.semester.to_s %>" <%= if cur.year==@currentYearSem[:year] and cur.semester == @currentYearSem[:semester] then "selected" else "" end %>><%= cur.year.to_s + "-" + cur.semester.to_s %></option>
 				  	<% end %>
 			    </select>
@@ -159,7 +159,6 @@
 		            	<% stdCount = 0 %>
 		            	<% @StudentYearSem.each do |std| %>
 		            	  <%= raw "\"" + @colorList[stdCount % @colorList.length] + "\"," %>
-		            	  <% #puts "\"" + @colorList[stdCount % @colorList.length] + "\"," %>
 					      <% stdCount = stdCount + 1 %>
 					    <% end %>
 		            ],
