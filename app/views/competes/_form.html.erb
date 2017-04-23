@@ -1,0 +1,17 @@
+<%= form_for(compete) do |f| %>
+  <% if compete.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(compete.errors.count, "error") %> prohibited this compete from being saved:</h2>
+
+      <ul>
+      <% compete.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

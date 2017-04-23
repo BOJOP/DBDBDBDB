@@ -1,4 +1,4 @@
 class Section < ApplicationRecord
-  belongs_to :personnel
+  has_many :teaches
   belongs_to :course
 end

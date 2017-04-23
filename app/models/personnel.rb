@@ -6,7 +6,8 @@ class Personnel < ApplicationRecord
   has_many :advisors
   has_many :students, :through => :advisors
 
-  has_many :sections
+  has_many :teaches
+	has_many :sections, :through => :teaches
   has_many :courses, :through => :sections
 
   belongs_to :workin, class_name: 'Department', foreign_key: 'workin_department_id'

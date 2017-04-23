@@ -10,19 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170416165547) do
+ActiveRecord::Schema.define(version: 20170423131326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "activities", force: :cascade do |t|
-    t.string   "position",     null: false
-    t.integer  "duration",     null: false
-    t.integer  "portfolio_id", null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["portfolio_id"], name: "index_activities_on_portfolio_id", using: :btree
-  end
 
   create_table "advisors", force: :cascade do |t|
     t.string   "student_id",   null: false
@@ -50,12 +41,14 @@ ActiveRecord::Schema.define(version: 20170416165547) do
     t.index ["department_id"], name: "index_codes_on_department_id", using: :btree
   end
 
-  create_table "competitions", force: :cascade do |t|
-    t.string   "award",        null: false
-    t.integer  "portfolio_id", null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["portfolio_id"], name: "index_competitions_on_portfolio_id", using: :btree
+  create_table "competes", force: :cascade do |t|
+    t.integer  "group_id",   null: false
+    t.integer  "event_id",   null: false
+    t.string   "award"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_competes_on_event_id", using: :btree
+    t.index ["group_id"], name: "index_competes_on_group_id", using: :btree
   end
 
   create_table "courses", force: :cascade do |t|
@@ -90,6 +83,16 @@ ActiveRecord::Schema.define(version: 20170416165547) do
     t.datetime "updated_at", null: false
     t.index ["section_id"], name: "index_enrollments_on_section_id", using: :btree
     t.index ["student_id"], name: "index_enrollments_on_student_id", using: :btree
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.date     "date"
+    t.string   "explanation"
+    t.string   "name"
+    t.boolean  "isActivity"
+    t.boolean  "isCompetition"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "gpas", force: :cascade do |t|
@@ -129,6 +132,17 @@ ActiveRecord::Schema.define(version: 20170416165547) do
     t.index ["student_id"], name: "index_log_breaks_on_student_id", using: :btree
   end
 
+  create_table "participates", force: :cascade do |t|
+    t.integer  "group_id",   null: false
+    t.integer  "event_id",   null: false
+    t.string   "position"
+    t.integer  "duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_participates_on_event_id", using: :btree
+    t.index ["group_id"], name: "index_participates_on_group_id", using: :btree
+  end
+
   create_table "personal_leaves", force: :cascade do |t|
     t.string   "project_name", null: false
     t.integer  "leave_id",     null: false
@@ -157,16 +171,6 @@ ActiveRecord::Schema.define(version: 20170416165547) do
     t.index ["workin_department_id"], name: "index_personnels_on_workin_department_id", using: :btree
   end
 
-  create_table "portfolios", force: :cascade do |t|
-    t.date     "date",        null: false
-    t.string   "explanation"
-    t.string   "name",        null: false
-    t.integer  "group_id",    null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["group_id"], name: "index_portfolios_on_group_id", using: :btree
-  end
-
   create_table "requires", force: :cascade do |t|
     t.integer  "curriculum_id", null: false
     t.integer  "course_id",     null: false
@@ -193,15 +197,13 @@ ActiveRecord::Schema.define(version: 20170416165547) do
   end
 
   create_table "sections", force: :cascade do |t|
-    t.integer  "sec",          null: false
-    t.integer  "year",         null: false
-    t.integer  "semester",     null: false
-    t.integer  "course_id",    null: false
-    t.integer  "personnel_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "sec",        null: false
+    t.integer  "year",       null: false
+    t.integer  "semester",   null: false
+    t.integer  "course_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_sections_on_course_id", using: :btree
-    t.index ["personnel_id"], name: "index_sections_on_personnel_id", using: :btree
   end
 
   create_table "sick_leaves", force: :cascade do |t|
@@ -226,6 +228,15 @@ ActiveRecord::Schema.define(version: 20170416165547) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["curriculum_id"], name: "index_students_on_curriculum_id", using: :btree
+  end
+
+  create_table "teaches", force: :cascade do |t|
+    t.integer  "personnel_id", null: false
+    t.integer  "section_id",   null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["personnel_id"], name: "index_teaches_on_personnel_id", using: :btree
+    t.index ["section_id"], name: "index_teaches_on_section_id", using: :btree
   end
 
   create_table "time_slots", force: :cascade do |t|

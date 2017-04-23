@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Participates</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @participates.each do |participate| %>
+      <tr>
+        <td><%= link_to 'Show', participate %></td>
+        <td><%= link_to 'Edit', edit_participate_path(participate) %></td>
+        <td><%= link_to 'Destroy', participate, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Participate', new_participate_path %>

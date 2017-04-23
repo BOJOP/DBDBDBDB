@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :teaches
+  resources :events
+  resources :participates
+  resources :competes
   resources :codes
   resources :course_categories
   resources :belong_tos
