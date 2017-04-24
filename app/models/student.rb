@@ -1,5 +1,7 @@
 class Student < ApplicationRecord
 	has_many :advisors
+	has_many :belong_tos
+	has_many :groups, :through => :belong_tos
 	has_many :personnels, :through => :advisors
 
 	has_many :gpas
@@ -24,7 +26,7 @@ class Student < ApplicationRecord
 	    	credit = 0
 	    	@grade_table.each do |table|
 	    		#puts table[1].year.to_s + " " + table[1].semester.to_s + " " + table[0].grade.to_s
-	    		if table[1].year == grade.year && 
+	    		if table[1].year == grade.year &&
 	    			table[1].semester == grade.semester
 	    			#puts table[0].grade
 	    				if table[0].grade > 0

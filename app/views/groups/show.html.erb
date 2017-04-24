@@ -1,3 +1,58 @@
-
+<h3>Students in group</h3>
+<table id="list" class="bordered highlight" cellspacing="0" width="100%">
+	<thead>
+			<tr>
+					<th>Student Code</th>
+					<th>Name</th>
+          <th>E-mail</th>
+          <th>Gender</th>
+          <th>Status</th>
+					<th></th>
+			</tr>
+	</thead>
+  <tbody>
+    <% @students.each do |student| %>
+      <tr>
+        <td><%= student.id %></td>
+        <td><%= (student.first_name || "") + " " + (student.last_name || "") %></td>
+        <td><%= student.email %></td>
+        <td><%= student.gender  %></td>
+        <td><%= student.status  %></td>
+        <td>
+          <a href='/students/<%= student.id %>'><i class='material-icons'>description</i></a>&nbsp;&nbsp;&nbsp;
+          <a href='/students/<%= student.id %>/edit'><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;
+          <a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/students/<%= student.id %>'><i class='material-icons'>delete</i></a>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<h3>Group's leaves</h3>
+<table id="list" class="bordered highlight" cellspacing="0" width="100%">
+	<thead>
+			<tr>
+					<th>Leave Id</th>
+					<th>Start date</th>
+          <th>End date</th>
+					<th></th>
+			</tr>
+	</thead>
+  <tbody>
+    <% @leaves.each do |leave| %>
+      <tr>
+        <td><%= leave.id %></td>
+        <td><%= leave.start_date %></td>
+        <td><%= leave.end_date  %></td>
+        <td>
+          <a href='/leaves/<%= leave.id %>'><i class='material-icons'>description</i></a>&nbsp;&nbsp;&nbsp;
+          <a href='/leaves/<%= leave.id %>/edit'><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;
+          <a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/leaves/<%= leave.id %>'><i class='material-icons'>delete</i></a>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br><br>
 <%= link_to 'Edit', edit_group_path(@group) %> |
 <%= link_to 'Back', groups_path %>

@@ -1,0 +1,38 @@
+<table id="list" class="bordered highlight" cellspacing="0" width="100%">
+	<thead>
+			<tr>
+					<th></th>
+					<th>Name</th>
+					<th></th>
+			</tr>
+	</thead>
+</table>
+
+
+<script>
+  $(function() {
+		if ($('#list_wrapper').length == 0) {
+      $('#list').DataTable({
+				"pageLength": 15,
+				"bLengthChange": false,
+        "ajax": {
+					"url": "/groups.json",
+					"dataSrc": ""
+        },
+        "deferRender": true,
+				"columns": [
+						{ "data": "id" },
+						{ "data": "name" },
+						{
+							"orderable": false,
+							"render": function(data, type, row) {
+								return "<a href='/groups/" + row.id + "'><i class='material-icons'>description</i></a>&nbsp;&nbsp;&nbsp;"+
+                 			 "<a href='/groups/" + row.id + "/edit'><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;"+
+                			 "<a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/groups/" + row.id + "'><i class='material-icons'>delete</i></a>";
+							}
+						}
+        ]
+			});
+		}
+  });
+</script>

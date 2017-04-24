@@ -15,6 +15,7 @@
 # gem 'pg'
 #
 default: &default
+  # host: localhost # dont forget to clear before push to git
   adapter: postgresql
   encoding: unicode
   # For details on connection pooling, see rails configuration guide
@@ -23,6 +24,7 @@ default: &default
 
 development:
   <<: *default
+  # host: localhost
   database: organize_cu_development
   username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
