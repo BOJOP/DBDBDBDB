@@ -15,7 +15,7 @@
 
             <div class="input-field col s4 offset-s2">
               <select name="searchinput[status]" class="validate" value="">
-                <option value="" disabled  <%= @params.nil? ? "selected" : "" %>>Status</option>
+                <option value=""  <%= (@params.nil? or @params[:status].nil?) ? "selected" : "" %>>Status</option>
                 <option value="Exchange Program" <%= !@params.nil? and @params[:status]=="Exchange Program" ? "selected" : "" %>>Studying Abroad</option>
                 <option value="Studying" <%= !@params.nil? and @params[:status]=="Studying" ? "selected" : "" %>>Studying</option>
                 <option value="Graduated" <%= !@params.nil? and @params[:status]=="Graduated" ? "selected" : "" %>>Graduated</option>
@@ -26,12 +26,12 @@
 
           <div class="row">
             <div class="input-field col s4">
-              <input type="text" class="validate" name="searchinput[first_name]">
+              <input type="text" class="validate" name="searchinput[first_name]" value="<%= @params.nil? ? "" : @params[:first_name] %>">
               <label for="icon_account_circle">First Name</label>
             </div>
 
             <div class="input-field col s4 offset-s2">
-              <input type="text" class="validate" name="searchinput[last_name]">
+              <input type="text" class="validate" name="searchinput[last_name]"  value="<%= @params.nil? ? "" : @params[:last_name] %>">
               <label for="icon_account_circle">Last Name</label>
             </div>
           </div>
@@ -41,20 +41,20 @@
           <div class="row">
 
             <div class="input-field col s4">
-              <input type="number" class="validate" name="searchinput[advisor_id]">
+              <input type="number" class="validate" name="searchinput[advisor_id]" value="<%= @params.nil? ? "" : @params[:advisor_id] %>">
               <label for="icon_account_circle">Advised By (ins.ID)</label>
             </div>
 
             <div class="input-field col s4 offset-s2">
               <select name="searchinput[year]" class="validate">
-                <option value="" disabled selected>Year</option>
-                <option value="1">1st Year</option>
-                <option value="2">2nd Year</option>
-                <option value="3">3rd Year</option>
-                <option value="4">4th Year</option>
-                <option value="5">5th Year</option>
-                <option value="6">6th Year</option>
-                <option value="7">7th Year</option>
+                <option value="" <%= (@params.nil? or @params[:year].nil?) ? "selected" : "" %>>Year</option>
+                <option value="1" <%= !@params.nil? and @params[:year]=="1" ? "selected" : "" %>>1st Year</option>
+                <option value="2" <%= !@params.nil? and @params[:year]=="2" ? "selected" : "" %>>2nd Year</option>
+                <option value="3" <%= !@params.nil? and @params[:year]=="3" ? "selected" : "" %>>3rd Year</option>
+                <option value="4" <%= !@params.nil? and @params[:year]=="4" ? "selected" : "" %>>4th Year</option>
+                <option value="5" <%= !@params.nil? and @params[:year]=="5" ? "selected" : "" %>>5th Year</option>
+                <option value="6" <%= !@params.nil? and @params[:year]=="6" ? "selected" : "" %>>6th Year</option>
+                <option value="7" <%= !@params.nil? and @params[:year]=="7" ? "selected" : "" %>>7th Year</option>
               </select>
             </div>
           </div>
@@ -63,14 +63,14 @@
             <div class="input-field col s4">
               <label for="icon_account_circle">min GPAX</label>
               <br>
-              <input type="range" step="0.01" min="0.00" max="4.00" class="validate" name="searchinput[gpax_min]">
+              <input type="range" step="0.01" min="0.00" max="4.00" class="validate" name="searchinput[gpax_min]" value="<%= @params.nil? ? "" : @params[:gpax_min] %>">
 
             </div>
 
             <div class="input-field col s4 offset-s2">
               <label for="icon_account_circle">max GPAX</label>
               <br>
-              <input type="range" step="0.01" min="0.00" max="4.00" class="validate" name="searchinput[gpax_max]">
+              <input type="range" step="0.01" min="0.00" max="4.00" class="validate" name="searchinput[gpax_max]" value="<%= @params.nil? ? "" : @params[:gpax_max] %>">
 
             </div>
 
