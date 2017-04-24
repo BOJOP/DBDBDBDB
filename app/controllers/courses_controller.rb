@@ -42,19 +42,20 @@ class CoursesController < ApplicationController
     else
       @section_maxYearSem = @listYearSem.first
       @currentYearSem = {year: @section_maxYearSem.year, semester: @section_maxYearSem.semester}
+
     end
     @currentYearSem[:year] = @currentYearSem[:year].to_i
     @currentYearSem[:semester] = @currentYearSem[:semester].to_i
 
-    @section = Section.where(course_id: @course.id, 
+    @section = Section.where(course_id: @course.id,
                         year: @currentYearSem[:year],
                         semester: @currentYearSem[:semester])
-                      .order(sec: :asc, 
+                      .order(sec: :asc,
                         year: :desc,
                         semester: :desc)
 
-    @time = Schedule.find_by_sql("SELECT * 
-                                FROM schedules INNER JOIN time_slots 
+    @time = Schedule.find_by_sql("SELECT *
+                                FROM schedules INNER JOIN time_slots
                                 ON time_slots.id = schedules.time_slot_id")
 
     @code = Code.find_by_sql("SELECT departments.name as dep_name, codes.*
@@ -67,7 +68,7 @@ class CoursesController < ApplicationController
     puts 'end'
 
     @section.each do |sec|
-      if sec.course_id == @course.id 
+      if sec.course_id == @course.id
         puts sec.year.to_s + " " + sec.semester.to_s
       end
     end
@@ -106,7 +107,7 @@ class CoursesController < ApplicationController
     @gradeAlphabet = {4.0 => 'A', 3.5 => 'B+', 3.0 => 'B', 2.5 => 'C+', 2.0 => 'C', 1.5 => 'D+', 1.0 => 'D', 0.0 => 'F', -1.0 => 'W', -2.0 => 'I'}
     @gradeColor = {4.0 => '4caf50', 3.5 => '8bc34a', 3.0 => 'cddc39', 2.5 => 'ffeb3b', 2.0 => 'ffc107', 1.5 => 'ff9800', 1.0 => 'ff5722', 0.0 => 'f44336', -1.0 => 'W', -2.0 => 'I'}
 
-    @current_student_count = @StudentYearSem.select{ |std| 
+    @current_student_count = @StudentYearSem.select{ |std|
       (std.year == @currentYearSem[:year] and std.semester == @currentYearSem[:semester])
     }
     if(@current_student_count.length > 0)
@@ -115,7 +116,7 @@ class CoursesController < ApplicationController
       @current_student_count = 0
     end
 
-    @current_grade = @gradeAverage.select{ |std| 
+    @current_grade = @gradeAverage.select{ |std|
       (std.year == @currentYearSem[:year] and std.semester == @currentYearSem[:semester])
     }
     if(@current_grade.length > 0)

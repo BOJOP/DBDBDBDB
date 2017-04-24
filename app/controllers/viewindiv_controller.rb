@@ -12,9 +12,8 @@ class ViewindivController < ApplicationController
 #    end
 
   	@search_result = Student.all
-    puts "params[:searchinput][:status]"
-    puts params[:searchinput][:status]
-    puts "params[:searchinput][:status]"
+
+		@params = params[:searchinput];
 
   	if !params[:searchinput][:id].nil? && !params[:searchinput][:id].blank?
   		@search_result = @search_result.where("id LIKE :prefix", prefix: "#{params[:searchinput][:id]}%")
@@ -36,6 +35,10 @@ class ViewindivController < ApplicationController
   		@search_result = @search_result.where(status: params[:searchinput][:status])
   	end
 
+    if !params[:searchinput][:year].nil? && !params[:searchinput][:year].blank?
+      @search_result = @search_result.where(enroll_year: (DateTime.now.year - params[:searchinput][:year].to_i))
+    end
+
   	#Finish Curriculum
     if !(params[:searchinput][:gpax_min] == '2' and params[:searchinput][:gpax_max] == '2')
       temp = @search_result
@@ -52,10 +55,6 @@ class ViewindivController < ApplicationController
     		end
     	end
 
-    end
-
-    if !params[:searchinput][:year].nil? && !params[:searchinput][:year].blank?
-      @search_result = @search_result.where(enroll_year: (DateTime.now.year - params[:searchinput][:year].to_i))
     end
 
   	render 'new'
