@@ -8,5 +8,5 @@ class Group < ApplicationRecord
   has_many :competes
   has_many :events, :through => :competes
 
-  belongs_to :leave
+  has_many :leaves
 end

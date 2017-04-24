@@ -1,4 +1,4 @@
 class Participate < ApplicationRecord
-  belong_tos :group
-  belong_tos :event
+  belongs_to :group
+  belongs_to :event
 end
