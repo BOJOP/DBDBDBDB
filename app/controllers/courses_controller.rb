@@ -34,6 +34,7 @@ class CoursesController < ApplicationController
     #List all year/sem
     @listYearSem = Section.select(:year, :semester)
                           .group(:year, :semester)
+                          .where(course_id: @course.id)
                           .order(year: :desc, semester: :desc)
 
     #Currrent year/sem
@@ -42,6 +43,9 @@ class CoursesController < ApplicationController
     else
       @section_maxYearSem = @listYearSem.first
       @currentYearSem = {year: @section_maxYearSem.year, semester: @section_maxYearSem.semester}
+
+
+      puts "CURRENT YEAR SEM: " + @currentYearSem[:year].to_s + " " + @currentYearSem[:semester].to_s
 
     end
     @currentYearSem[:year] = @currentYearSem[:year].to_i
@@ -87,20 +91,21 @@ class CoursesController < ApplicationController
     @StudentYearSem = Enrollment.find_by_sql("
                             SELECT COUNT(*) as num, sections.year, sections.semester
                             FROM enrollments INNER JOIN sections ON sections.id = enrollments.section_id
+                            WHERE sections.course_id = \'#{@course.id}\'
                             GROUP BY sections.year, sections.semester
                             ORDER BY sections.year, sections.semester")
 
     @gradeAverage = Enrollment.find_by_sql("
                             SELECT SUM(enrollments.grade)/COUNT(*) as num, sections.year, sections.semester
                             FROM enrollments INNER JOIN sections ON sections.id = enrollments.section_id
-                            WHERE enrollments.grade IS NOT NULL
+                            WHERE enrollments.grade IS NOT NULL and sections.course_id = \'#{@course.id}\'
                             GROUP BY sections.year, sections.semester
                             ORDER BY sections.year, sections.semester")
 
     @gradeList = Enrollment.find_by_sql("
                             SELECT COUNT(*) as num, enrollments.grade
                             FROM enrollments INNER JOIN sections ON sections.id = enrollments.section_id
-                            WHERE enrollments.grade IS NOT NULL and sections.year = #{@currentYearSem[:year]} and sections.semester = #{@currentYearSem[:semester]}
+                            WHERE enrollments.grade IS NOT NULL and sections.year = #{@currentYearSem[:year]} and sections.semester = #{@currentYearSem[:semester]} and sections.course_id = \'#{@course.id}\'
                             GROUP BY enrollments.grade
                             ORDER BY enrollments.grade DESC")
 
