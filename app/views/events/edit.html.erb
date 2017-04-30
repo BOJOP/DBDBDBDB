@@ -1,6 +1,14 @@
-<h1>Editing Event</h1>
+<% provide(:title, "Edit event") %>
 
-<%= render 'form', event: @event %>
+<h5>Update event</h5>
+<hr><br>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@event) do |f| %>
+      <%= render 'form', event: @event %>
+      <button type="submit" class="waves-effect waves-green btn" style="float:right;">Update</button>
+    <% end %>
+  </div>
+</div>
 
-<%= link_to 'Show', @event %> |
 <%= link_to 'Back', events_path %>

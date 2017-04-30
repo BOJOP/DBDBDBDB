@@ -1,8 +1,12 @@
 <table id="list" class="bordered highlight" cellspacing="0" width="100%">
 	<thead>
 			<tr>
-					<th></th>
-					<th>Name</th>
+					<th>Id</th>
+					<th>date</th>
+					<th>explanation</th>
+					<th>name</th>
+					<th>activity</th>
+					<th>competition</th>
 					<th></th>
 			</tr>
 	</thead>
@@ -16,19 +20,43 @@
 				"pageLength": 15,
 				"bLengthChange": false,
         "ajax": {
-					"url": "/groups.json",
+					"url": "/events.json",
 					"dataSrc": ""
         },
         "deferRender": true,
 				"columns": [
 						{ "data": "id" },
+						{ "data": "date",
+							"render": function(data) {
+								return moment.utc(data).format('YYYY-MM-DD');
+							}
+						},
+						{ "data": "explanation" },
 						{ "data": "name" },
+						{ "data": "isActivity",
+							"render": function(data) {
+								var truth = (data || 0);
+								if(truth)
+									return "YES"
+								else
+									return "NO"
+							}
+						},
+						{ "data": "isCompetition",
+							"render": function(data) {
+								var truth = (data || 0);
+								if(truth)
+									return "YES"
+								else
+									return "NO"
+							}
+						},
 						{
 							"orderable": false,
 							"render": function(data, type, row) {
-								return "<a href='/groups/" + row.id + "'><i class='material-icons'>description</i></a>&nbsp;&nbsp;&nbsp;"+
-                 			 "<a href='/groups/" + row.id + "/edit'><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;"+
-                			 "<a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/groups/" + row.id + "'><i class='material-icons'>delete</i></a>";
+								return "<a href='/events/" + row.id + "'><i class='material-icons'>description</i></a>&nbsp;&nbsp;&nbsp;"+
+                 			 "<a href='/events/" + row.id + "/edit'><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;"+
+                			 "<a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/events/" + row.id + "'><i class='material-icons'>delete</i></a>";
 							}
 						}
         ]

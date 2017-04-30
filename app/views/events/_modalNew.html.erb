@@ -1,0 +1,21 @@
+
+<div id="modal-add" class="modal modal-fixed-footer modal-fixed-header">
+  <%= form_for(:event) do |f| %>
+    <div class="modal-header">
+      <h5>Add event</h5>
+    </div>
+    <div class="modal-content">
+      <%= render 'form', event: Event.new %>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="waves-effect waves-green btn-flat">Add</button>
+      <a class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
+    </div>
+  <% end %>
+</div>
+
+<div class="fixed-action-btn horizontal">
+  <a data-target="modal-add" class="btn btn-floating btn-large waves-effect waves-light red">
+    <i class="material-icons">add</i>
+  </a>
+</div>

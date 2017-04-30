@@ -1,9 +1,12 @@
-<p id="notice"><%= notice %></p>
 
-<h5>All event</h5>
+<h5>Event Info : <%= @event.id %></h5>
 <hr>
 
-<%= render 'list' %>
-
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<%= form_for(:event, url: "/event_pdf") do |f| %>
+  <div class="row">
+    <input type="text" name="id" value="<%= @event.id %>" hidden />
+    <button class="btn waves-effect waves-light" type="submit" name="action" style="float:right;">
+      Print
+    </button>
+  </div>
+<% end %>
