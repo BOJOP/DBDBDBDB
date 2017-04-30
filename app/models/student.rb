@@ -7,7 +7,7 @@ class Student < ApplicationRecord
 	has_many :gpas
 	belongs_to :curriculum
 
-	#Unfinished
+	#Done
 	def update_grade
 		@grade_table = Array.new
 
@@ -62,6 +62,33 @@ class Student < ApplicationRecord
 	end
 
 	#Unfinished
+	def updateProbation
+		#puts self.gpax
+		if self.gpax <= 1.5
+			self.status = "Probation";
+		end
+		self.save
+	end
+
+	#Unfinished
+	def updateIsLeave
+		in_group = BelongTo.where(student_id: self.id);
+		in_group.each do |group|
+			in_leave = Leave.where(group_id: group.group_id);
+			in_leave.each do |leave|
+				if(leave.start_date <= Date.today && Date.today <= leave.end_date)
+					if(!PersonalLeave.find_by(leave_id: leave.id).nil?)
+						self.status = "Business Leave"
+					else
+						self.status = "Sick Leave"
+					end
+				end
+			end
+		end 
+		self.save
+	end
+
+	#Done
 	def updateGraduation
 
 		#Curriculum
@@ -95,6 +122,8 @@ class Student < ApplicationRecord
 	def updateData
 		update_grade
 		updateGraduation
+		updateProbation
+		updateIsLeave
 	end
 
 	def gpax

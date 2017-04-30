@@ -20,6 +20,10 @@
                 <option value="Studying" <%= !@params.nil? and @params[:status]=="Studying" ? "selected" : "" %>>Studying</option>
                 <option value="Graduated" <%= !@params.nil? and @params[:status]=="Graduated" ? "selected" : "" %>>Graduated</option>
                 <option value="Dropped" <%= !@params.nil? and @params[:status]=="Dropped" ? "selected" : "" %>>Dropped</option>
+                <option value="Intermission Leave" <%= !@params.nil? and @params[:status]=="Dropped" ? "selected" : "" %>>Intermission Leave</option>
+                <option value="Probation" <%= !@params.nil? and @params[:status]=="Dropped" ? "selected" : "" %>>Probation</option>
+                <option value="Sick Leave" <%= !@params.nil? and @params[:status]=="Dropped" ? "selected" : "" %>>Sick Leave</option>
+                <option value="Business Leave" <%= !@params.nil? and @params[:status]=="Dropped" ? "selected" : "" %>>Business Leave</option>
               </select>
             </div>
           </div>

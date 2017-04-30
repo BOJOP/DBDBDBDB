@@ -17,6 +17,9 @@ class StudentsController < ApplicationController
   # GET /students/1
   # GET /students/1.json
   def show
+    #puts "Update All"
+    @student.updateData
+
     @colorList = [
         '#f44336',
         '#ff5722',
@@ -120,21 +123,13 @@ class StudentsController < ApplicationController
               .where("enrollments.student_id = \'#{@student.id}\' and enrollments.grade > 0")
               .order("sections.course_id")
 
-    @enrolled_course.each do |subject|
-      puts "learned "+ subject.course_id.to_s
-      #@enrolled_course.where("course_id = #{subject[1].id}").first.nil?
-    end
 
     @temp = Enrollment
               .select("*")
               .where("enrollments.student_id = \'#{@student.id}\'")
-
-    @temp.each do |temp|
-      puts "Section ID " + temp.section_id.to_s
-    end    
+  
 
     @required_subject_arr.each do |subject|
-      puts "required "+ subject[1].id.to_s
       @enrolled_course.where("course_id = #{subject[1].id}").first.nil?
     end
 
