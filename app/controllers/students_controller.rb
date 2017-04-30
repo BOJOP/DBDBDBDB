@@ -85,6 +85,7 @@ class StudentsController < ApplicationController
         '#03a9f4',
         '#2196f3'
     ]
+    @gradeAlphabet = {4.0 => 'A', 3.5 => 'B+', 3.0 => 'B', 2.5 => 'C+', 2.0 => 'C', 1.5 => 'D+', 1.0 => 'D', 0.0 => 'F', -1.0 => 'W', -2.0 => 'I'}
 
     @advisor_name_arr = Array.new
     @advisor = Advisor.where(student_id: @student.id)
@@ -183,6 +184,12 @@ class StudentsController < ApplicationController
     @required_subject_arr.each do |subject|
       @enrolled_course.where("course_id = #{subject[1].id}").first.nil?
     end
+
+    @enrollment_arr = Enrollment
+              .joins("INNER JOIN sections ON enrollments.section_id = sections.id")
+              .select("sections.*, enrollments.grade as grade")
+              .where("enrollments.student_id = \'#{@student.id}\'")
+              .order("sections.year desc, sections.semester desc")
 
     respond_to do |format|
       format.html { render :show }
