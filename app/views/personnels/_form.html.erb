@@ -86,3 +86,20 @@
     </div>
   </div>
 </div>
+
+
+<script>
+  $(function() {
+      $('input.autocomplete').autocomplete({
+        data: {
+          <% departments.each do |dep| %>
+            "<%= dep.name %>":null,
+          <% end %>
+        },
+        limit: 10,
+        onAutocomplete: function(val){
+        },
+        minLength: 1,
+      });
+  });
+</script>

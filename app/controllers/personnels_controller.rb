@@ -62,6 +62,7 @@ class PersonnelsController < ApplicationController
 
   # GET /personnels/1/edit
   def edit
+		@departments = Department.all
   end
 
   # POST /personnels

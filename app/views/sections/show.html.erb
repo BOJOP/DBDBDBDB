@@ -1,4 +1,114 @@
 
+<div class="row">
+	<div class="col s8">
+		<h5>Section Info : <%= @section.id %>	</h5>
+	</div>
+	
+	<%= form_for(:section, url: "/section_pdf") do |f| %>
+		<div class="col s4">
+			<input type="text" name="id" value="<%= @section.id %>" hidden />
+			<button class="btn waves-effect waves-light button-pdf" type="submit" name="action">
+				Print
+			</button>
+		</div>
+	<% end %>
+</div>
+<hr>
 
-<%= link_to 'Edit', edit_section_path(@section) %> |
-<%= link_to 'Back', sections_path %>
+
+<div class="container">
+	<div class="row">
+		<div class="col s10 offset-s1">
+			<table class="bordered highlight">
+
+				<tbody>
+					<tr>
+						<th>Course</th>
+						<td><%= @section.course.code.id %> | <%= @section.course.name %></td>
+					</tr>
+
+					<tr>
+						<th>Semester</th>
+						<td><%= @section.year %>-<%= @section.semester %></td>
+					</tr>
+
+					<tr>
+						<th>Section no.</th>
+						<td><%= @section.sec %></td>
+					</tr>
+
+					<tr>
+						<th>Personnels</th>
+						<td>
+							<% @section.personnels.each do |personnel| %>
+								<%= (personnel.first_name || "") + " " + (personnel.last_name || "") %>
+								<br>
+							<% end %>
+						</td>
+					</tr>
+
+					<tr>
+						<th>Times</th>
+						<td>
+							<% @section.personnels.each do |personnel| %>
+								<%= (personnel.first_name || "") + " " + (personnel.last_name || "") %>
+								<br>
+							<% end %>
+						</td>			
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<br>
+
+<div class="container">
+  <ul class="collapsible" data-collapsible="expandable">
+		<li class="active">
+			<div class="collapsible-header active"><i class="material-icons">class</i>Student list</div>
+			<div class="collapsible-body">
+				<div class="container">
+					<h6>Add student</h6>
+					<%= form_for(Enrollment.new) do |f| %>
+						<div class="row">
+							<div class="input-field col s5">
+								<input id="student_id" type="text" class="validate" name="enrollment[student_id]" required/>
+								<label for="student_id" class="active">Student Id</label>
+							</div>
+							<div class="input-field col s5">
+								<input id="grade" type="text" class="validate" name="enrollment[grade]" placeholder="0, 0.5, 2, 4"/>
+								<label for="grade" class="active">Grade</label>
+							</div>
+							<div class="input-field col s2">
+								<button type="submit" class="waves-effect waves-green btn" style="float:right;">Add</button>
+							</div>
+							<input id="section_id"type="text" class="validate" name="enrollment[section_id]" value="<%= @section.id %>" hidden/>
+						</div>
+					<% end %>
+					
+					<table class="bordered highlight striped">
+						<thead>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Grade</th>
+						</thead>
+						<tbody>
+							<% @section.enrollments.each do |enroll| %>
+								<tr>
+									<td><%= enroll.student.id %></td>
+									<td><%= (enroll.student.first_name || "") + " " + (enroll.student.last_name || "")%></td>
+									<td><%= enroll.getGrade %></td>
+								</tr>	
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>
+
+
+<%= link_to 'Back', courses_path(@section.course) %>

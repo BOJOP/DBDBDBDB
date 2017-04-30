@@ -1,15 +1,21 @@
 
-<h5>Student Info : <%= @student.id %></h5>
+
+<div class="row">
+	<div class="col s8">
+		<h5>Student Info : <%= @student.id %></h5>
+	</div>
+	
+	<%= form_for(:student, url: "/student_pdf") do |f| %>
+		<div class="col s4">
+			<input type="text" name="id" value="<%= @student.id %>" hidden />
+			<button class="btn waves-effect waves-light button-pdf" type="submit" name="action">
+				Print
+			</button>
+		</div>
+	<% end %>
+</div>
 <hr>
 
-<%= form_for(:student, url: "/student_pdf") do |f| %>
-   <div class="row">
-     <input type="text" name="id" value="<%= @student.id %>" hidden />
-     <button class="btn waves-effect waves-light" type="submit" name="action" style="float:right;">
-       Print
-     </button>
-   </div>
-<% end %>
 
 <div class="container">
   <div class="row">

@@ -1,17 +1,75 @@
-<%= form_for(student) do |f| %>
-  <% if student.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
-
-      <ul>
-      <% student.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
+<div class="row">
+  <div class="input-field col s6">
+    <input id="first_name" name="student[first_name]" type="text" class="validate" value="<%= student.first_name %>">
+    <label for="first_name" class="active">First Name</label>
   </div>
-<% end %>
+  <div class="input-field col s6">
+    <input id="last_name" name="student[last_name]" type="text" class="validate" value="<%= student.last_name %>">
+    <label for="last_name" class="active">Last Name</label>
+  </div>
+</div>
+
+<div class="row">
+  <div class="input-field col s12">
+    <input id="email" name="student[email]" type="email" class="validate" required value="<%= student.email %>">
+    <label for="email" class="active">E-mail</label>
+  </div>
+</div>
+
+<div class="row">
+  <div class="input-field col s6">
+    <input type="text" name="student[curriculum]" id="curriculum" class="autocomplete">
+    <label for="curriculum" class="active">Curriculum</label>
+  </div>
+</div>
+
+<div class="row">
+  <div class="input-field col s6">
+    <input id="ssn" name="student[ssn]" type="text" class="validate" value="<%= student.ssn %>">
+    <label for="ssn" class="active">SSN</label>
+  </div>
+  <div class="input-field col s6">
+    <input id="birth_date" name="student[birth_date]" type="date" class="datepicker">
+    <label for="birth_date" class="active">Birth date</label>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="input-field col s12">
+    <input name="student[gender\" type="radio" id="male" />
+    <label for="male">Male</label>
+    <input name="student[gender]" type="radio" id="female" />
+    <label for="female">Female</label>
+  </div>
+</div>
+
+<div class="row">
+  <div class="input-field col s12">
+    <div class="file-field input-field">
+      <div class="btn">
+        <span>Picture</span>
+        <input type="file" name="student[picture]">
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function() {
+      $('input.autocomplete').autocomplete({
+        data: {
+          <% curriculums.each do |cur| %>
+            "<%= cur.department.name %> | <%= cur.name %>":null,
+          <% end %>
+        },
+        limit: 10,
+        onAutocomplete: function(val){
+        },
+        minLength: 1,
+      });
+  });
+</script>

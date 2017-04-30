@@ -34,6 +34,9 @@ Rails.application.routes.draw do
 
   get 'sessions/new'
   post '/signup', to: 'users#create'
+	
+	post '/search_student', to: 'students#search'
+	
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

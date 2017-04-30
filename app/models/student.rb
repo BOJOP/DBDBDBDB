@@ -6,6 +6,9 @@ class Student < ApplicationRecord
 
 	has_many :gpas
 	belongs_to :curriculum
+	
+	has_many :enrollments
+	has_many :sections, :through => :enrollments
 
 	#Done
 	def update_grade

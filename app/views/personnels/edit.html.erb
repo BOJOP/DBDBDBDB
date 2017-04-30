@@ -4,7 +4,7 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@personnel) do |f| %>
-      <%= render 'form', personnel: @personnel %>
+      <%= render 'form', personnel: @personnel, departments: @departments %>
       <button type="submit" class="waves-effect waves-green btn" style="float:right;">Update</button>
     <% end %>
   </div>

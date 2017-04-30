@@ -34,10 +34,25 @@ class EnrollmentsController < ApplicationController
   # POST /enrollments.json
   def create
     @enrollment = Enrollment.new(enrollment_params)
+		
+		
+		if(!@enrollment.grade)
+			@enrollment.grade = nil
+		#else 
+		#	@grade = 0
+		#	if (@enrollment.grade.length==2)
+		#		@grade = 0.5;
+		#	end
+		#	
+		#	if (@enrollment.grade != "F")
+		#		@enrollment.grade = @enrollment.grade[0].ord - "D".ord
+		#	end
+		#	@enrollment.grade += @grade;
+		end
 
-    respond_to do |format|
+		respond_to do |format|
       if @enrollment.save
-        format.html { redirect_to @enrollment, notice: 'Enrollment was successfully created.' }
+        format.html { redirect_to :back, notice: 'Enrollment was successfully created.' }
         format.json { render :show, status: :created, location: @enrollment }
       else
         format.html { render :new }
@@ -78,6 +93,6 @@ class EnrollmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def enrollment_params
-      params.fetch(:enrollment, {})
+      params.fetch(:enrollment, {}).permit(:student_id, :grade, :section_id)
     end
 end

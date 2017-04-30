@@ -1,11 +1,11 @@
 
 <div id="modal-add" class="modal modal-fixed-footer modal-fixed-header">
-  <%= form_for(:personnel) do |f| %>
+  <%= form_for(:student) do |f| %>
     <div class="modal-header">
-      <h5>Add personnel</h5>
+      <h5>Add student</h5>
     </div>
     <div class="modal-content">
-      <%= render 'form', personnel: Personnel.new, departments: departments %>
+      <%= render 'form', student: Student.new, curriculums: curriculums %>
     </div>
     <div class="modal-footer">
       <button type="submit" class="waves-effect waves-green btn-flat">Add</button>
@@ -19,3 +19,5 @@
     <i class="material-icons">add</i>
   </a>
 </div>
+
+

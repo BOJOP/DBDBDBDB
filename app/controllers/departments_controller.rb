@@ -17,8 +17,10 @@ class DepartmentsController < ApplicationController
   # GET /departments/1.json
   def show
     @curriculums = Curriculum.where(department_id: @department.id);
+		
+		@fail = Student.where("enroll_year < ?", Date.today.year-4).where(curriculum_id: @curriculums.to_a).count();
 
-    @numStudentYear = Student.where("enroll_year > ? ", Date.today.year-90).where(curriculum_id: @curriculums.to_a).select("COUNT(*) as num, enroll_year as year").group("enroll_year").order(enroll_year: :asc)
+    @numStudentYear = Student.where("enroll_year > ? ", Date.today.year-8).where(curriculum_id: @curriculums.to_a).select("COUNT(*) as num, enroll_year as year").group("enroll_year").order(enroll_year: :desc)
     @numStudentStatus = Student.where(curriculum_id: @curriculums.to_a).select("COUNT(*) as num, status").group("status").order(status: :asc)
     @numStudentCurriculum= Curriculum.where(id: @curriculums.to_a).joins(:students).select("COUNT(*) as num, name").group("id").order(id: :asc)
 

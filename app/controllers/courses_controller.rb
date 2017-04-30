@@ -67,26 +67,6 @@ class CoursesController < ApplicationController
                           ON codes.id = #{@course.code_id}")
 
 
-    puts @currentYearSem[:year].to_s + " " + @currentYearSem[:semester].to_s + " " + @course.id.to_s
-    puts @section.count
-    puts 'end'
-
-    @section.each do |sec|
-      if sec.course_id == @course.id
-        puts sec.year.to_s + " " + sec.semester.to_s
-      end
-    end
-    puts 'end2'
-    @section_data_arr = Array.new
-    @section.each do |sec|
-      @time.each do |time|
-        puts sec.id
-        puts time.section_id
-        if sec.id == time.section_id
-          @section_data_arr.push([sec, time])
-        end
-      end
-    end
 
     @StudentYearSem = Enrollment.find_by_sql("
                             SELECT COUNT(*) as num, sections.year, sections.semester
@@ -130,7 +110,7 @@ class CoursesController < ApplicationController
       @current_grade = 0
     end
 
-    @current_section_count = @section_data_arr.length
+    @current_section_count = @section.length
 
 
     render 'show'
