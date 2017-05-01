@@ -38,10 +38,10 @@ class ParticipatesController < ApplicationController
 
     respond_to do |format|
       if @participate.save
-        format.html { redirect_to @participate, notice: 'Participate was successfully created.' }
+        format.html { redirect_to :back, notice: 'Participate was successfully created.' }
         format.json { render :show, status: :created, location: @participate }
       else
-        format.html { render :new }
+        format.html { redirect_to :back, notice: @participate.errors }
         format.json { render json: @participate.errors, status: :unprocessable_entity }
       end
     end
@@ -79,6 +79,6 @@ class ParticipatesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def participate_params
-      params.fetch(:participate, {})
+      params.fetch(:participate, {}).permit(:event_id,:group_id,:position,:duration)
     end
 end

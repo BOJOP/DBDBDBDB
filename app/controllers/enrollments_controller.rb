@@ -34,16 +34,16 @@ class EnrollmentsController < ApplicationController
   # POST /enrollments.json
   def create
     @enrollment = Enrollment.new(enrollment_params)
-		
-		
+
+
 		if(!@enrollment.grade)
 			@enrollment.grade = nil
-		#else 
+		#else
 		#	@grade = 0
 		#	if (@enrollment.grade.length==2)
 		#		@grade = 0.5;
 		#	end
-		#	
+		#
 		#	if (@enrollment.grade != "F")
 		#		@enrollment.grade = @enrollment.grade[0].ord - "D".ord
 		#	end
@@ -55,7 +55,7 @@ class EnrollmentsController < ApplicationController
         format.html { redirect_to :back, notice: 'Enrollment was successfully created.' }
         format.json { render :show, status: :created, location: @enrollment }
       else
-        format.html { render :new }
+        format.html { redirect_to :back, notice: @enrollment.errors }
         format.json { render json: @enrollment.errors, status: :unprocessable_entity }
       end
     end

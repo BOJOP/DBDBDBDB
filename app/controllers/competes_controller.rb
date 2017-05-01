@@ -38,10 +38,10 @@ class CompetesController < ApplicationController
 
     respond_to do |format|
       if @compete.save
-        format.html { redirect_to @compete, notice: 'Compete was successfully created.' }
+        format.html { redirect_to :back, notice: 'Compete was successfully created.' }
         format.json { render :show, status: :created, location: @compete }
       else
-        format.html { render :new }
+        format.html { redirect_to :back, notice: @compete.errors }
         format.json { render json: @compete.errors, status: :unprocessable_entity }
       end
     end
@@ -79,6 +79,7 @@ class CompetesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def compete_params
-      params.fetch(:compete, {})
+      params.fetch(:compete, {}).permit(:event_id,:group_id,:award)
+
     end
 end
