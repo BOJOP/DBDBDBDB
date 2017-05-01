@@ -21,7 +21,7 @@
   <div class="row">
     <div class="col s6">
       <div class="container">
-      	<img class="materialboxed" src="http://www.fineartprinter.de/var/ezflow_site/storage/images/media/images/dummy-person/30282-1-ger-DE/dummy-person_imagelarge.jpg" height="100%" width="100%" >
+      	<img class="materialboxed" src="http://www.fineartprinter.de/var/ezflow_site/storage/images/media/images/dummy-person/30282-1-ger-DE/dummy-person_imagelarge.jpg" height="120%" width="120%" >
       </div>
     </div>
     <div class="col s6">
@@ -66,6 +66,11 @@
             <tr>
   	          <th>Curriculum</th>
               <td><%= Curriculum.find(@student.curriculum_id).name %></td>
+            </tr>
+
+            <tr>
+              <th>Behavioral Score Reduced</th>
+              <td><%= @sum_score_reduced %></td>
             </tr>
 
             
@@ -359,12 +364,14 @@
   							 		<th>Score Reduced</th>
   							 	</thead>
   						        <tbody>
+                        <% @sum_score_reduced = 0 %>
   							        <% @breaking_arr.each do |_break| %>
   							        	<tr>
   							            	<td><%= _break[0].when  %></td>
   							            	<td><%= _break[0].remark %></td>
   							            	<td><%= _break[1].rule_detail %></td>
   							            	<td><%= _break[1].behavior_score_reduction  %></td>
+                              <% @sum_score_reduced += _break[1].behavior_score_reduction %>
   							          	</tr>
   							        <% end %>
   						        </tbody>

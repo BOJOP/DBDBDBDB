@@ -33,7 +33,7 @@ class StudentsController < ApplicationController
   	end
 
   	if !params[:searchinput][:advisor_id].nil? && !params[:searchinput][:advisor_id].blank?
-  		@search_result = @search_result.joins(:advisors)
+  		@search_result = @search_result.joins(:advisors).where("advisors.personnel_id = #{params[:searchinput][:advisor_id]}")
   	end
 
   	if !params[:searchinput][:status].nil? && !params[:searchinput][:status].blank?
@@ -190,6 +190,12 @@ class StudentsController < ApplicationController
               .select("sections.*, enrollments.grade as grade")
               .where("enrollments.student_id = \'#{@student.id}\'")
               .order("sections.year desc, sections.semester desc")
+
+
+    @sum_score_reduced = 0
+    @breaking_arr.each do |_break|
+      @sum_score_reduced += _break[1].behavior_score_reduction
+    end      
 
     respond_to do |format|
       format.html { render :show }
