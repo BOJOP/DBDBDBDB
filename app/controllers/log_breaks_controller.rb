@@ -78,6 +78,6 @@ class LogBreaksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def log_break_params
-      params.fetch(:log_break, {})
+      params.fetch(:log_break, {}).permit(:student_id, :remark, :rule_id)
     end
 end

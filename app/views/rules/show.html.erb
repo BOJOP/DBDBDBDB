@@ -1,3 +1,114 @@
 
-<%= link_to 'Edit', edit_rule_path(@rule) %> |
-<%= link_to 'Back', rules_path %>
+<div class="row">
+	<div class="col s8">
+		<h5>Rule Info : <%= @rule.id %>	</h5>
+	</div>
+
+	<%= form_for(:rule, url: "/rule_pdf") do |f| %>
+		<div class="col s4">
+			<input type="text" name="id" value="<%= @rule.id %>" hidden />
+			<button class="btn waves-effect waves-light button-pdf" type="submit" name="action">
+				Print
+			</button>
+		</div>
+	<% end %>
+</div>
+<hr>
+
+
+<div class="container">
+	<div class="row">
+		<div class="col s10 offset-s1">
+			<table class="bordered highlight">
+
+				<tbody>
+          <tr>
+						<th>Rule detail</th>
+						<td><%= @rule.rule_detail %></td>
+					</tr>
+
+          <tr>
+						<th>Score reduction</th>
+						<td><%= @rule.behavior_score_reduction %> score(s)</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<br>
+
+<div class="container">
+  <ul class="collapsible" data-collapsible="expandable">
+		<li class="active">
+			<div class="collapsible-header active"><i class="material-icons">class</i>Studens that broke this rule</div>
+			<div class="collapsible-body">
+				<div class="container">
+					<h6>Add student who broke rule</h6>
+					<%= form_for(LogBreak.new) do |f| %>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="student_id" type="text" class="validate" name="log_break[student_id]" required/>
+                <label for="student_id" class="active">Student Id</label>
+              </div>
+              <div class="input-field col s6">
+                <input id="remark" type="text" class="validate" name="log_break[remark]" required/>
+                <label for="remark" class="active">Remark</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s5">
+                <input id="date_picker" name="date" type="date" class="datepicker">
+								<label for="date" class="active">Date</label>
+							</div>
+              <div class="input-field col s5">
+                <input id="time_picker" name="time" type="time" class="timepicker">
+                <label for="time_picker" class="active">Time</label>
+              </div>
+              <div class="input-field col s2">
+								<button type="submit" class="waves-effect waves-green btn" style="float:right;">Add</button>
+							</div>
+            </div>
+						<input id="rule_id"type="text" class="validate" name="log_break[rule_id]" value="<%= @rule.id %>" hidden/>
+					<% end %>
+
+					<table class="bordered highlight striped">
+						<thead>
+							<th>ID</th>
+							<th>Name</th>
+              <th>When</th>
+              <th>Remark</th>
+              <th>Total score reduced</th>
+						</thead>
+						<tbody>
+							<% @rule.log_breaks.each do |log_break| %>
+								<tr>
+									<td><%= log_break.student.id %></td>
+									<td><%= (log_break.student.first_name || "") + " " + (log_break.student.last_name || "")%></td>
+                  <td><%= log_break.when %></td>
+                  <td><%= log_break.remark %></td>
+                  <td><center><%= log_break.student.getScoreReduced %></center></td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>
+
+
+<script>
+	$(function() {
+		$('#time_picker').pickatime({
+			autoclose: false,
+			twelvehour: false,
+			afterDone: function(Element, Time) {
+	        console.log(Element, Time);
+	    }
+		});
+
+	});
+
+</script>

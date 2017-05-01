@@ -6,9 +6,12 @@ class Student < ApplicationRecord
 
 	has_many :gpas
 	belongs_to :curriculum
-	
+
 	has_many :enrollments
 	has_many :sections, :through => :enrollments
+
+	has_many :log_breaks
+	has_many :rules, :through => :log_breaks
 
 	#Done
 	def update_grade
@@ -87,7 +90,7 @@ class Student < ApplicationRecord
 					end
 				end
 			end
-		end 
+		end
 		self.save
 	end
 
@@ -133,5 +136,10 @@ class Student < ApplicationRecord
 
 		@gpax = Gpa.find_by_sql("SELECT SUM(credit*gpa)/SUM(credit) as gpax FROM gpas WHERE student_id = '" + self.id + "'")
 		@gpax.first.gpax.round(2)
+	end
+
+	def getScoreReduced
+		@score = LogBreak.joins(:rule).where("student_id = \'#{self.id}\'").select("student_id, SUM(rules.behavior_score_reduction)").group("student_id")
+		@score[0].sum
 	end
 end
