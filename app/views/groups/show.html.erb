@@ -1,58 +1,283 @@
-<h3>Students in group</h3>
-<table id="list" class="bordered highlight" cellspacing="0" width="100%">
-	<thead>
-			<tr>
-					<th>Student Code</th>
-					<th>Name</th>
-          <th>E-mail</th>
-          <th>Gender</th>
-          <th>Status</th>
-					<th></th>
-			</tr>
-	</thead>
-  <tbody>
-    <% @students.each do |student| %>
-      <tr>
-        <td><%= student.id %></td>
-        <td><%= (student.first_name || "") + " " + (student.last_name || "") %></td>
-        <td><%= student.email %></td>
-        <td><%= student.gender  %></td>
-        <td><%= student.status  %></td>
-        <td>
-          <a href='/students/<%= student.id %>'><i class='material-icons'>description</i></a>&nbsp;&nbsp;&nbsp;
-          <a href='/students/<%= student.id %>/edit'><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;
-          <a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/students/<%= student.id %>'><i class='material-icons'>delete</i></a>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<br>
-<h3>Group's leaves</h3>
-<table id="list" class="bordered highlight" cellspacing="0" width="100%">
-	<thead>
-			<tr>
-					<th>Leave Id</th>
-					<th>Start date</th>
-          <th>End date</th>
-					<th></th>
-			</tr>
-	</thead>
-  <tbody>
-    <% @leaves.each do |leave| %>
-      <tr>
-        <td><%= leave.id %></td>
-        <td><%= leave.start_date %></td>
-        <td><%= leave.end_date  %></td>
-        <td>
-          <a href='/leaves/<%= leave.id %>'><i class='material-icons'>description</i></a>&nbsp;&nbsp;&nbsp;
-          <a href='/leaves/<%= leave.id %>/edit'><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;
-          <a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/leaves/<%= leave.id %>'><i class='material-icons'>delete</i></a>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<br><br>
-<%= link_to 'Edit', edit_group_path(@group) %> |
-<%= link_to 'Back', groups_path %>
+
+<div class="row">
+	<div class="col s8">
+		<h5>Group Info : <%= @group.name %></h5>
+	</div>
+
+	<%= form_for(:group, url: "/group_pdf") do |f| %>
+		<div class="col s4">
+			<input type="text" name="id" value="<%= @group.id %>" hidden />
+			<button class="btn waves-effect waves-light button-pdf" type="submit" name="action">
+				Print
+			</button>
+		</div>
+	<% end %>
+</div>
+<hr>
+
+
+<div class="container">
+  <ul class="collapsible" data-collapsible="expandable">
+		<li>
+			<div class="collapsible-header"><i class="material-icons">class</i>Student in group</div>
+			<div class="collapsible-body">
+				<div class="container">
+					<h6>Add student to group</h6>
+					<%= form_for(BelongTo.new) do |f| %>
+						<div class="row">
+							<div class="input-field col s6">
+								<input id="student_id" type="text" class="validate" name="belong_to[student_id]" required/>
+								<label for="student_id" class="active">Student Id</label>
+							</div>
+							<div class="input-field col s6">
+								<button type="submit" class="waves-effect waves-green btn" style="float:right;">Add</button>
+							</div>
+							<input id="belong_to"type="text" class="validate" name="belong_to[group_id]" value="<%= @group.id %>" hidden/>
+						</div>
+					<% end %>
+
+					<table id="list" class="bordered highlight" cellspacing="0" width="100%">
+						<thead>
+								<tr>
+										<th>Student Code</th>
+										<th>Name</th>
+					          <th>E-mail</th>
+					          <th>Gender</th>
+								</tr>
+						</thead>
+					  <tbody>
+					    <% @students.each do |student| %>
+					      <tr>
+					        <td><%= student.id %></td>
+					        <td><%= (student.first_name || "") + " " + (student.last_name || "") %></td>
+					        <td><%= student.email %></td>
+					        <td><%= student.gender  %></td>
+					        <td>
+					          <a href='/students/<%= student.id %>/edit'><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;
+					          <a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/students/<%= student.id %>'><i class='material-icons'>delete</i></a>
+					        </td>
+					      </tr>
+					    <% end %>
+					  </tbody>
+					</table>
+				</div>
+			</div>
+		</li>
+
+		<li>
+			<div class="collapsible-header"><i class="material-icons">class</i>Group's sick leaves</div>
+			<div class="collapsible-body">
+				<div class="container">
+					<h6>Add sick leave to group</h6>
+					<%= form_for(SickLeave.new) do |f| %>
+						<div class="row">
+							<div class="input-field col s6">
+								<input id="start_date" name="leave[start_date]" type="date" class="datepicker">
+								<label for="start_date" class="active">Start date</label>
+							</div>
+							<div class="input-field col s6">
+								<input id="end_date" name="leave[end_date]" type="date" class="datepicker">
+								<label for="end_date" class="active">End date</label>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="input-field col s6">
+								<input id="reason" type="text" class="validate" name="sick_leave[reason]" required/>
+								<label for="reason" class="active">Reason</label>
+							</div>
+
+							<div class="input-field col s6">
+								<button type="submit" class="waves-effect waves-green btn" style="float:right;">Add</button>
+							</div>
+							<input id="group_id"type="text" class="validate" name="leave[group_id]" value="<%= @group.id %>" hidden/>
+						</div>
+					<% end %>
+
+					<table id="list" class="bordered highlight" cellspacing="0" width="100%">
+						<thead>
+								<tr>
+										<th>Start date</th>
+					          <th>End date</th>
+										<th>Reason</th>
+										<th></th>
+								</tr>
+						</thead>
+					  <tbody>
+					    <% @group.leaves.each do |leave| %>
+								<% if (leave.sick_leave) %>
+						      <tr>
+						        <td><%= leave.start_date %></td>
+										<td><%= leave.end_date  %></td>
+										<td><%= leave.sick_leave.reason  %></td>
+						        <td>
+						          <a href='/leaves/<%= leave.id %>/edit'><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;
+						          <a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/leaves/<%= leave.id %>'><i class='material-icons'>delete</i></a>
+						        </td>
+						      </tr>
+								<% end %>
+					    <% end %>
+					  </tbody>
+					</table>
+				</div>
+			</div>
+		</li>
+
+		<li>
+			<div class="collapsible-header"><i class="material-icons">class</i>Group's personal leaves</div>
+			<div class="collapsible-body">
+				<div class="container">
+					<h6>Add personal leave to group</h6>
+					<%= form_for(SickLeave.new) do |f| %>
+						<div class="row">
+							<div class="input-field col s6">
+								<input id="start_date" name="leave[start_date]" type="date" class="datepicker">
+								<label for="start_date" class="active">Start date</label>
+							</div>
+							<div class="input-field col s6">
+								<input id="end_date" name="leave[end_date]" type="date" class="datepicker">
+								<label for="end_date" class="active">End date</label>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="input-field col s6">
+								<input id="project_name" type="text" class="validate" name="personal_leave[project_name]" required/>
+								<label for="project_name" class="active">Project name</label>
+							</div>
+
+							<div class="input-field col s6">
+								<button type="submit" class="waves-effect waves-green btn" style="float:right;">Add</button>
+							</div>
+							<input id="group_id"type="text" class="validate" name="leave[group_id]" value="<%= @group.id %>" hidden/>
+						</div>
+					<% end %>
+
+					<table id="list" class="bordered highlight" cellspacing="0" width="100%">
+						<thead>
+								<tr>
+										<th>Start date</th>
+					          <th>End date</th>
+										<th>Reason</th>
+										<th></th>
+								</tr>
+						</thead>
+					  <tbody>
+					    <% @group.leaves.each do |leave| %>
+								<% if (leave.personal_leave) %>
+						      <tr>
+						        <td><%= leave.start_date %></td>
+										<td><%= leave.end_date  %></td>
+										<td><%= leave.personal_leave.project_name  %></td>
+						        <td>
+						          <a href='/leaves/<%= leave.id %>/edit'><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;
+						          <a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/leaves/<%= leave.id %>'><i class='material-icons'>delete</i></a>
+						        </td>
+						      </tr>
+								<% end %>
+					    <% end %>
+					  </tbody>
+					</table>
+				</div>
+			</div>
+		</li>
+
+
+		<li>
+			<div class="collapsible-header"><i class="material-icons">class</i>Group's participate</div>
+			<div class="collapsible-body">
+				<div class="container">
+					<h6>Add participate to group</h6>
+					<%= form_for(Participate.new) do |f| %>
+						<div class="row">
+							<div class="input-field col s4">
+								<input id="event_id" type="text" class="validate" name="participate[event_id]" required/>
+								<label for="event_id" class="active">Event code</label>
+							</div>
+							<div class="input-field col s4">
+								<input id="position" type="text" class="validate" name="participate[position]">
+								<label for="position" class="active">Position</label>
+							</div>
+							<div class="input-field col s2">
+								<input id="duration" type="text" class="validate" name="participate[duration]" placeholder="day">
+								<label for="duration" class="active">Duration</label>
+							</div>
+							<div class="input-field col s2">
+								<button type="submit" class="waves-effect waves-green btn" style="float:right;">Add</button>
+							</div>
+							<input id="group_id"type="text" class="validate" name="participate[group_id]" value="<%= @group.id %>" hidden/>
+						</div>
+					<% end %>
+
+					<table class="bordered highlight striped">
+						<thead>
+							<th>Event name</th>
+							<th>Explanation</th>
+							<th>Date</th>
+							<th>Position</th>
+							<th>Duration</th>
+						</thead>
+						<tbody>
+							<% @group.participates.each do |participate| %>
+								<tr>
+									<td><%= participate.event.name %></td>
+									<td><%= participate.event.explanation %></td>
+									<td><%= participate.event.date %></td>
+									<td><%= participate.position %></td>
+									<td><%= participate.duration %></td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</li>
+
+		<li>
+			<div class="collapsible-header"><i class="material-icons">class</i>Group's competes</div>
+			<div class="collapsible-body">
+				<div class="container">
+					<h6>Add compete to group</h6>
+					<%= form_for(Participate.new) do |f| %>
+						<div class="row">
+							<div class="input-field col s4">
+								<input id="event_id" type="text" class="validate" name="participate[event_id]" required/>
+								<label for="event_id" class="active">Event code</label>
+							</div>
+							<div class="input-field col s4">
+								<input id="award" type="text" class="validate" name="participate[award]">
+								<label for="award" class="active">Award</label>
+							</div>
+							<div class="input-field col s2">
+								<button type="submit" class="waves-effect waves-green btn" style="float:right;">Add</button>
+							</div>
+							<input id="group_id"type="text" class="validate" name="participate[group_id]" value="<%= @group.id %>" hidden/>
+						</div>
+					<% end %>
+
+					<table class="bordered highlight striped">
+						<thead>
+							<th>Event name</th>
+							<th>Explanation</th>
+							<th>Date</th>
+							<th>Award</th>
+						</thead>
+						<tbody>
+							<% @group.competes.each do |compete| %>
+								<tr>
+									<td><%= compete.event.name %></td>
+									<td><%= compete.event.explanation %></td>
+									<td><%= compete.event.date %></td>
+									<td><%= compete.award %></td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</li>
+
+	</ul>
+</div>

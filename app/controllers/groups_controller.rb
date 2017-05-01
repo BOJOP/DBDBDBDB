@@ -19,7 +19,7 @@ class GroupsController < ApplicationController
 
     #Get all student in the same group
     @students = @group.students;
-    @leaves = Leave.where(group_id: params[:id]);
+
     respond_to do |format|
       format.html { render :show }
       format.json { render json: Oj.dump(@group) }

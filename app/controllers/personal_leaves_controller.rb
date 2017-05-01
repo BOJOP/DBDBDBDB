@@ -1,5 +1,5 @@
 class PersonalLeavesController < ApplicationController
-  before_action :set_personal_leafe, only: [:show, :edit, :update, :destroy]
+  before_action :set_personal_leave, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_personnel
 
   # GET /personal_leaves
@@ -23,7 +23,7 @@ class PersonalLeavesController < ApplicationController
 
   # GET /personal_leaves/new
   def new
-    @personal_leafe = PersonalLeave.new
+    @personal_leave = PersonalLeave.new
   end
 
   # GET /personal_leaves/1/edit
@@ -33,15 +33,16 @@ class PersonalLeavesController < ApplicationController
   # POST /personal_leaves
   # POST /personal_leaves.json
   def create
-    @personal_leafe = PersonalLeave.new(personal_leafe_params)
+    @personal_leave = PersonalLeave.new(personal_leave_params)
+    @leave = Leave.new(leave_params)
 
     respond_to do |format|
-      if @personal_leafe.save
-        format.html { redirect_to @personal_leafe, notice: 'Personal leave was successfully created.' }
-        format.json { render :show, status: :created, location: @personal_leafe }
+      if @personal_leave.save
+        format.html { redirect_to @personal_leave, notice: 'Personal leave was successfully created.' }
+        format.json { render :show, status: :created, location: @personal_leave }
       else
         format.html { render :new }
-        format.json { render json: @personal_leafe.errors, status: :unprocessable_entity }
+        format.json { render json: @personal_leave.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -50,12 +51,12 @@ class PersonalLeavesController < ApplicationController
   # PATCH/PUT /personal_leaves/1.json
   def update
     respond_to do |format|
-      if @personal_leafe.update(personal_leafe_params)
-        format.html { redirect_to @personal_leafe, notice: 'Personal leave was successfully updated.' }
-        format.json { render :show, status: :ok, location: @personal_leafe }
+      if @personal_leave.update(personal_leave_params)
+        format.html { redirect_to @personal_leave, notice: 'Personal leave was successfully updated.' }
+        format.json { render :show, status: :ok, location: @personal_leave }
       else
         format.html { render :edit }
-        format.json { render json: @personal_leafe.errors, status: :unprocessable_entity }
+        format.json { render json: @personal_leave.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -63,7 +64,7 @@ class PersonalLeavesController < ApplicationController
   # DELETE /personal_leaves/1
   # DELETE /personal_leaves/1.json
   def destroy
-    @personal_leafe.destroy
+    @personal_leave.destroy
     respond_to do |format|
       format.html { redirect_to personal_leaves_url, notice: 'Personal leave was successfully destroyed.' }
       format.json { head :no_content }
@@ -72,12 +73,17 @@ class PersonalLeavesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_personal_leafe
-      @personal_leafe = PersonalLeave.find(params[:id])
+    def set_personal_leave
+      @personal_leaves = PersonalLeave.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def personal_leafe_params
-      params.fetch(:personal_leafe, {})
+    def personal_leave_params
+      params.fetch(:personal_leave, {}).permit(:project_name)
     end
+
+    def leave_params
+      params.fetch(:leave, {}).permit(:start_date,:end_date,:group_id)
+    end
+
 end
