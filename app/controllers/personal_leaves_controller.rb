@@ -33,8 +33,17 @@ class PersonalLeavesController < ApplicationController
   # POST /personal_leaves
   # POST /personal_leaves.json
   def create
-    @personal_leave = PersonalLeave.new(personal_leave_params)
     @leave = Leave.new(leave_params)
+
+    @date = params[:date_start_sick].split('-')
+    @leave.start_date = Date.new(@date[0].to_i,@date[1].to_i,@date[2].to_i)
+    @date = params[:date_end_sick].split('-')
+    @leave.end_date = Date.new(@date[0].to_i,@date[1].to_i,@date[2].to_i)
+
+    @leave.save
+
+    @personal_leave = PersonalLeave.new(personal_leave_params)
+    @personal_leave.id = @leave.id
 
     respond_to do |format|
       if @personal_leave.save

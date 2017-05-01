@@ -173,6 +173,6 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.fetch(:course, {}).permit(:name, :course_category_id, :credit)
+      params.fetch(:course, {}).permit(:name, :code_id, :credit)
     end
 end

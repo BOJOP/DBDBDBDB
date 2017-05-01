@@ -33,8 +33,17 @@ class SickLeavesController < ApplicationController
   # POST /sick_leaves
   # POST /sick_leaves.json
   def create
-    @sick_leave = SickLeave.new(sick_leave_params)
     @leave = Leave.new(leave_params)
+
+    @date = params[:date_start_sick].split('-')
+    @leave.start_date = Date.new(@date[0].to_i,@date[1].to_i,@date[2].to_i)
+    @date = params[:date_end_sick].split('-')
+    @leave.end_date = Date.new(@date[0].to_i,@date[1].to_i,@date[2].to_i)
+
+    @leave.save
+
+    @sick_leave = SickLeave.new(sick_leave_params)
+    @sick_leave.id = @leave.id
 
     respond_to do |format|
       if @sick_leave.save

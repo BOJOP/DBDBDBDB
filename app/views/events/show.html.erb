@@ -125,17 +125,17 @@
             <%= form_for(Compete.new) do |f| %>
               <div class="row">
                 <div class="input-field col s5">
-                  <input id="group_id" type="text" class="validate" name="participate[group_id]" required/>
+                  <input id="group_id" type="text" class="validate" name="compete[group_id]" required/>
                   <label for="group_id" class="active">Group Id</label>
                 </div>
                 <div class="input-field col s5">
-                  <input id="award" type="text" class="validate" name="participate[award]">
+                  <input id="award" type="text" class="validate" name="compete[award]">
                   <label for="award" class="active">Award</label>
                 </div>
                 <div class="input-field col s2">
                   <button type="submit" class="waves-effect waves-green btn" style="float:right;">Add</button>
                 </div>
-                <input id="event_id"type="text" class="validate" name="participate[event_id]" value="<%= @event.id %>" hidden/>
+                <input id="event_id"type="text" class="validate" name="compete[event_id]" value="<%= @event.id %>" hidden/>
               </div>
             <% end %>
 

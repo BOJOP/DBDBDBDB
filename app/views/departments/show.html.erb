@@ -4,7 +4,7 @@
 	<div class="col s8">
 		<h5> <%= "Department: " + @department.name + "(" + @department.id.to_s + ")" %></h5>
 	</div>
-	
+
 	<%= form_for(:department, url: "/department_pdf") do |f| %>
 		<div class="col s4">
 			<input type="text" name="id" value="<%= @department.id %>" hidden />
@@ -45,7 +45,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="col s12 m4 l4">
     <div class="card">
       <div class="border-space">
@@ -102,6 +102,60 @@
       </div>
     </div>
   </div>
+</div>
+
+
+
+<div class="container">
+  <ul class="collapsible" data-collapsible="expandable">
+		<li>
+			<div class="collapsible-header"><i class="material-icons">class</i>Code list</div>
+			<div class="collapsible-body">
+				<div class="container">
+					<h6>Add code to department</h6>
+					<%= form_for(Code.new) do |f| %>
+						<div class="row">
+							<div class="input-field col s5">
+								<input id="code" type="text" class="validate" name="code[id]" required/>
+								<label for="code" class="active">Code</label>
+							</div>
+							<div class="input-field col s5">
+								<input id="category" type="text" class="validate" name="code[category]" required/>
+								<label for="category" class="active">Category</label>
+							</div>
+							<div class="input-field col s2">
+								<button type="submit" class="waves-effect waves-green btn" style="float:right;">Add</button>
+							</div>
+						</div>
+						<input id="department_id" type="text" class="validate" name="code[department_id]" value="<%= @department.id %>" hidden/>
+					<% end %>
+
+					<table id="list" class="bordered highlight" cellspacing="0" width="100%">
+						<thead>
+								<tr>
+										<th>Code</th>
+										<th>Category</th>
+										<th></th>
+								</tr>
+						</thead>
+					  <tbody>
+					    <% @department.codes.each do |code| %>
+					      <tr>
+					        <td><%= code.id %></td>
+					        <td><%= code.category %></td>
+					        <td>
+					          <a href='/codes/<%= code.id %>/edit'><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;
+					          <a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/codes/<%= code.id %>'><i class='material-icons'>delete</i></a>
+					        </td>
+					      </tr>
+					    <% end %>
+					  </tbody>
+					</table>
+				</div>
+			</div>
+		</li>
+
+	</ul>
 </div>
 
 

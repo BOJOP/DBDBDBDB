@@ -72,12 +72,14 @@
 					<%= form_for(SickLeave.new) do |f| %>
 						<div class="row">
 							<div class="input-field col s6">
-								<input id="start_date" name="leave[start_date]" type="date" class="datepicker">
-								<label for="start_date" class="active">Start date</label>
+								<input id="date_start_sick" name="date_start_sick" type="text" class="validate" hidden />
+								<input id="date_picker_start_sick" name="date_picker_start_sick" type="date" class="datepicker" required>
+								<label for="date_picker_start_sick" class="active">Start date</label>
 							</div>
 							<div class="input-field col s6">
-								<input id="end_date" name="leave[end_date]" type="date" class="datepicker">
-								<label for="end_date" class="active">End date</label>
+								<input id="date_end_sick" name="date_end_sick" type="text" class="validate" hidden />
+								<input id="date_picker_end_sick" name="date_picker_end_sick" type="date" class="datepicker" required>
+								<label for="date_picker_end_sick" class="active">End date</label>
 							</div>
 						</div>
 
@@ -131,12 +133,14 @@
 					<%= form_for(SickLeave.new) do |f| %>
 						<div class="row">
 							<div class="input-field col s6">
-								<input id="start_date" name="leave[start_date]" type="date" class="datepicker">
-								<label for="start_date" class="active">Start date</label>
+								<input id="date_start_personal" name="date_start_personal" type="text" class="validate" hidden />
+								<input id="date_picker_start_personal" name="date_picker_start_personal" type="date" class="datepicker">
+								<label for="date_picker_start_sick" class="active">Start date</label>
 							</div>
 							<div class="input-field col s6">
-								<input id="end_date" name="leave[end_date]" type="date" class="datepicker">
-								<label for="end_date" class="active">End date</label>
+								<input id="date_end_personal" name="date_end_personal" type="text" class="validate" hidden />
+								<input id="date_picker_end_personal" name="date_picker_end_personal" type="date" class="datepicker">
+								<label for="date_picker_end_personal" class="active">End date</label>
 							</div>
 						</div>
 
@@ -239,7 +243,7 @@
 			<div class="collapsible-body">
 				<div class="container">
 					<h6>Add compete to group</h6>
-					<%= form_for(Participate.new) do |f| %>
+					<%= form_for(Compete.new) do |f| %>
 						<div class="row">
 							<div class="input-field col s4">
 								<input id="event_id" type="text" class="validate" name="participate[event_id]" required/>
@@ -281,3 +285,46 @@
 
 	</ul>
 </div>
+
+
+<script>
+	$(function() {
+		$("#date_picker_start_sick").pickadate({
+			selectMonths: true,
+			selectYears: 25,
+			format: 'yyyy-mm-dd',
+			onSet: function() {
+				$('#date_start_sick')[0].value = $('#date_picker_start_sick')[0].value
+	    }
+		});
+
+		$("#date_picker_end_sick").pickadate({
+			selectMonths: true,
+			selectYears: 25,
+			format: 'yyyy-mm-dd',
+			onSet: function() {
+				$('#date_end_sick')[0].value = $('#date_picker_end_sick')[0].value
+	    }
+		});
+
+		$("#date_picker_start_personal").pickadate({
+			selectMonths: true,
+			selectYears: 25,
+			format: 'yyyy-mm-dd',
+			onSet: function() {
+				$('#date_start_personal')[0].value = $('#date_picker_start_personal')[0].value
+	    }
+		});
+
+		$("#date_picker_end_personal").pickadate({
+			selectMonths: true,
+			selectYears: 25,
+			format: 'yyyy-mm-dd',
+			onSet: function() {
+				$('#date_end_personal')[0].value = $('#date_picker_end_personal')[0].value
+	    }
+		});
+
+	});
+
+</script>

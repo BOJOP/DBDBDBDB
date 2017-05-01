@@ -37,10 +37,10 @@ class CodesController < ApplicationController
 
     respond_to do |format|
       if @code.save
-        format.html { redirect_to @code, notice: 'Code was successfully created.' }
+        format.html { redirect_to :back, notice: 'Code was successfully created.' }
         format.json { render :show, status: :created, location: @code }
       else
-        format.html { render :new }
+        format.html { redirect_to :back, notice: @code.errors }
         format.json { render json: @code.errors, status: :unprocessable_entity }
       end
     end
@@ -78,6 +78,6 @@ class CodesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def code_params
-      params.fetch(:code, {}).permit(:id, :name, :category)
+      params.fetch(:code, {}).permit(:id, :department_id, :category)
     end
 end

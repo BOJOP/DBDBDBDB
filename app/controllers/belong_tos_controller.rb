@@ -78,6 +78,6 @@ class BelongTosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def belong_to_params
-      params.fetch(:belong_to, {})
+      params.fetch(:belong_to, {}).permit(:group_id,:student_id)
     end
 end
