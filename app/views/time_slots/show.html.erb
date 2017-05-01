@@ -1,4 +1,68 @@
 
+<div class="row">
+	<div class="col s8">
+		<h5>time_slot Info : <%= @time_slot.id %>	</h5>
+	</div>
+</div>
+<hr>
 
-<%= link_to 'Edit', edit_time_slot_path(@time_slot) %> |
-<%= link_to 'Back', time_slots_path %>
+
+<div class="container">
+	<div class="row">
+		<div class="col s10 offset-s1">
+			<table class="bordered highlight">
+				<tbody>
+          <tr>
+						<th>Day</th>
+						<td><%= @time_slot.day %></td>
+					</tr>
+
+          <tr>
+						<th>Start time</th>
+						<td><%= DateTime.parse(@time_slot.start.to_s).localtime.strftime('%H:%M') %></td>
+					</tr>
+
+          <tr>
+						<th>End time</th>
+						<td><%= DateTime.parse(@time_slot.end.to_s).localtime.strftime('%H:%M') %></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<br>
+
+<div class="container">
+  <ul class="collapsible" data-collapsible="expandable">
+		<li class="active">
+			<div class="collapsible-header active"><i class="material-icons">class</i>Course list</div>
+			<div class="collapsible-body">
+				<div class="container">
+
+					<table class="bordered highlight striped">
+						<thead>
+							<th>Code</th>
+							<th>Course name</th>
+              <th>Personnel</th>
+						</thead>
+						<tbody>
+							<% @time_slot.sections.each do |section| %>
+								<tr>
+									<td><%= section.course.code_id %></td>
+									<td><%= section.course.name %></td>
+                  <td>
+                    <% section.personnels.each do |personnel| %>
+                      <%= (personnel.first_name || "") + " " + (personnel.last_name || "") %>
+                      <br>
+                    <% end %>
+                  </td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>
