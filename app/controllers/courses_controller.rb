@@ -42,7 +42,11 @@ class CoursesController < ApplicationController
       @currentYearSem = {year: params[:year], semester: params[:semester]}
     else
       @section_maxYearSem = @listYearSem.first
-      @currentYearSem = {year: @section_maxYearSem.year, semester: @section_maxYearSem.semester}
+      if(!@section_maxYearSem.nil?)
+        @currentYearSem = {year: @section_maxYearSem.year, semester: @section_maxYearSem.semester}
+      else
+        @currentYearSem = {year: 2017, semester: 2}
+      end
 
 
       puts "CURRENT YEAR SEM: " + @currentYearSem[:year].to_s + " " + @currentYearSem[:semester].to_s
