@@ -20,7 +20,7 @@
   <div class="col s12 m6 l6">
     <div class="card">
       <div class="border-space">
-        <b>Number of Student</b><hr>
+        <b>Number of Students</b><hr>
         <canvas id="chartNumYear"></canvas>
       </div>
     </div>
@@ -84,6 +84,26 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="col s12 m6 l6">
+    <div class="card">
+      <div class="border-space">
+        <b>Number of Activities Participation</b><hr>
+        <canvas id="chartNumActivity"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="col s12 m6 l6">
+    <div class="card">
+      <div class="border-space">
+        <b>Number of Awards Received</b><hr>
+        <canvas id="chartNumAward"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <%= link_to 'Edit', edit_department_path(@department) %> |
 <%= link_to 'Back', departments_path %>
@@ -115,6 +135,13 @@
         options: {
             legend: {
                 display: false
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
             }
         }
 		});
@@ -143,7 +170,15 @@
         options: {
             legend: {
                 display: false
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
             }
+
         }
     });
 
@@ -175,6 +210,85 @@
         options: {
             legend: {
                 display: false
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    var act = new Chart($("#chartNumActivity"), {
+        type: 'bar',
+        data: {
+            labels: [
+                <% @numActivity.each do |act| %>
+                  '<%= act.year.floor %>',
+                <% end %>
+            ],
+            datasets: [{
+                label: 'Year',
+                data: [
+                    <% @numActivity.each do |act| %>
+                      '<%= act.count %>',
+                    <% end %>
+                ],
+                backgroundColor: [
+                  <% @numActivity.each do |act| %>
+                    "rgba(<%= rand(255).to_s + ',' + rand(255).to_s + ',' + (255-act.count).to_s %>,0.6)",
+                  <% end %>
+                ],
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    var awards = new Chart($("#chartNumAward"), {
+        type: 'bar',
+        data: {
+            labels: [
+                <% @numAward.each do |awd| %>
+                  '<%= awd.year.floor %>',
+                <% end %>
+            ],
+            datasets: [{
+                label: 'Year',
+                data: [
+                    <% @numAward.each do |awd| %>
+                      '<%= awd.count %>',
+                    <% end %>
+                ],
+                backgroundColor: [
+                  <% @numAward.each do |awd| %>
+                    "rgba(<%= rand(255).to_s + ',' + rand(255).to_s + ',' + (255-awd.count).to_s %>,0.6)",
+                  <% end %>
+                ],
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
             }
         }
     });

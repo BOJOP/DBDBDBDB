@@ -26,6 +26,44 @@ class DepartmentsController < ApplicationController
 
     @gpaxEachSemester =  Curriculum.where(curriculums: {id: @curriculums.to_a}).joins(:students).joins(:gpas).select("SUM(credit*gpa)/SUM(credit) as gpax , year, semester").group("gpas.year","gpas.semester").order("gpas.year asc, gpas.semester asc")
 
+
+    @studentInCurriculum_arr = Array.new()
+    @curriculums.each do |c|
+      temp = Student.where(curriculum_id: c.id)
+      temp.each do |t|
+        @studentInCurriculum_arr.push(t)
+      end
+    end
+
+    @groupInCurriculum_arr = Array.new()
+    @studentInCurriculum_arr.each do |std|
+      temp = BelongTo.where(student_id: std.id)
+      temp.each do |t|
+        @groupInCurriculum_arr.push(t)
+      end
+    end
+
+    @numActivity_arr = Array.new()
+    @numActivity = Participate.select("EXTRACT(YEAR FROM events.date) AS year, COUNT(*) as count").joins("INNER JOIN events ON participates.event_id = events.id").group("EXTRACT(YEAR FROM events.date)");
+    @numActivity.each do |act|
+      count = 0
+      @groupInCurriculum_arr.each do |group|
+        count += Participate.select("*").joins("INNER JOIN events ON participates.event_id = events.id").where("EXTRACT(YEAR FROM events.date) = #{act.year} and participates.group_id = #{group.group_id}").count;
+      end
+      act.count = count
+    end
+
+    @numAward_arr = Array.new()
+    @numAward = Compete.select("EXTRACT(YEAR FROM events.date) AS year, COUNT(*) as count").joins("INNER JOIN events ON competes.event_id = events.id").group("EXTRACT(YEAR FROM events.date)");
+    @numAward.each do |awd|
+      count = 0
+      @groupInCurriculum_arr.each do |group|
+        count += Compete.select("*").joins("INNER JOIN events ON competes.event_id = events.id").where("EXTRACT(YEAR FROM events.date) = #{awd.year} and competes.group_id = #{group.group_id}").count;
+      end
+      awd.count = count
+    end
+
+
 		respond_to do |format|
 			format.html { render :show }
 			format.json { render json: Oj.dump(@department) }

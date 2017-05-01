@@ -73,7 +73,7 @@ class Student < ApplicationRecord
 		self.save
 	end
 
-	#Unfinished
+	#Done
 	def updateIsLeave
 		in_group = BelongTo.where(student_id: self.id);
 		in_group.each do |group|
