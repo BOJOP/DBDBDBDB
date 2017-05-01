@@ -1,12 +1,127 @@
 
-<h5>Event Info : <%= @event.id %></h5>
+<div class="row">
+	<div class="col s8">
+		<h5>Event Info : <%= @event.id %></h5>
+	</div>
+
+	<%= form_for(:event, url: "/event_pdf") do |f| %>
+		<div class="col s4">
+			<input type="text" name="id" value="<%= @event.id %>" hidden />
+			<button class="btn waves-effect waves-light button-pdf" type="submit" name="action">
+				Print
+			</button>
+		</div>
+	<% end %>
+</div>
 <hr>
 
-<%= form_for(:event, url: "/event_pdf") do |f| %>
-  <div class="row">
-    <input type="text" name="id" value="<%= @event.id %>" hidden />
-    <button class="btn waves-effect waves-light" type="submit" name="action" style="float:right;">
-      Print
-    </button>
-  </div>
-<% end %>
+
+
+<div class="container">
+	<div class="row">
+		<div class="col s10 offset-s1">
+			<table class="bordered highlight">
+
+  			<tbody>
+          <tr>
+  					<th>Name</th>
+  					<td><%= @event.name %></td>
+  				</tr>
+
+          <tr>
+  					<th>Date</th>
+  					<td><%= @event.date %></td>
+  				</tr>
+
+  				<tr>
+  					<th>Explanation</th>
+  					<td><%= @event.explanation %></td>
+  				</tr>
+
+  				<tr>
+  					<th>Activity</th>
+  					<td><%= @event.isActivity ? "Yes" : "No" %></td>
+  				</tr>
+
+  				<tr>
+            <th>Competition</th>
+  					<td><%= @event.isCompetition ? "Yes" : "No" %></td>
+  				</tr>
+
+  			</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<br>
+
+<div class="container">
+  <ul class="collapsible" data-collapsible="expandable">
+    <% if @event.isActivity %>
+      <li>
+  			<div class="collapsible-header active"><i class="material-icons">class</i>Group participate</div>
+  			<div class="collapsible-body">
+  				<div class="container">
+
+  					<table class="bordered highlight striped">
+  						<thead>
+  							<th>Group name</th>
+  							<th>Student</th>
+                <th>Position</th>
+                <th>Duration</th>
+  						</thead>
+  						<tbody>
+  							<% @event.participates.each do |participate| %>
+  								<tr>
+  									<td><%= participate.group.name %></td>
+                    <td>
+                      <% participate.group.students.each do |student| %>
+                        <%= (student.first_name || "") + " " + (student.last_name || "")%>
+                        <br>
+                      <% end %>
+                    </td>
+                    <td><%= participate.position %></td>
+                    <td><%= participate.duration %></td>
+  								</tr>
+  							<% end %>
+  						</tbody>
+  					</table>
+  				</div>
+  			</div>
+  		</li>
+    <% end %>
+
+    <% if @event.isCompetition %>
+      <li>
+        <div class="collapsible-header active"><i class="material-icons">class</i>Group competition</div>
+        <div class="collapsible-body">
+          <div class="container">
+
+
+            <table class="bordered highlight striped">
+              <thead>
+                <th>Group name</th>
+                <th>Student</th>
+                <th>Award</th>
+              </thead>
+              <tbody>
+                <% @event.competes.each do |compete| %>
+                  <tr>
+                    <td><%= compete.group.name %></td>
+                    <td>
+                      <% compete.group.students.each do |student| %>
+                        <%= (student.first_name || "") + " " + (student.last_name || "")%>
+                        <br>
+                      <% end %>
+                    </td>
+                    <td><%= compete.award %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </li>
+    <% end %>
+	</ul>
+</div>
