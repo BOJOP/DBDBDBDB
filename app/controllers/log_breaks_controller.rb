@@ -35,12 +35,17 @@ class LogBreaksController < ApplicationController
   def create
     @log_break = LogBreak.new(log_break_params)
 
+    @date = params[:date].split('-')
+    @time = params[:time].split(':')
+
+    @log_break.when = DateTime.new(@date[0].to_i,@date[1].to_i,@date[2].to_i,@time[0].to_i,@time[1].to_i,0);
+
     respond_to do |format|
       if @log_break.save
-        format.html { redirect_to @log_break, notice: 'Log break was successfully created.' }
+        format.html { redirect_to :back, notice: 'Log break was successfully created.' }
         format.json { render :show, status: :created, location: @log_break }
       else
-        format.html { render :new }
+        format.html { redirect_to :back, notice: @log_break.errors }
         format.json { render json: @log_break.errors, status: :unprocessable_entity }
       end
     end

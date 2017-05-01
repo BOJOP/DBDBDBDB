@@ -52,17 +52,19 @@
                 <label for="student_id" class="active">Student Id</label>
               </div>
               <div class="input-field col s6">
-                <input id="remark" type="text" class="validate" name="log_break[remark]" required/>
+                <input id="remark" type="text" class="validate" name="log_break[remark]" />
                 <label for="remark" class="active">Remark</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s5">
-                <input id="date_picker" name="date" type="date" class="datepicker">
+								<input id="date" name="date" type="text" class="validate" hidden />
+                <input id="date_picker" name="date_picker" type="date" class="datepicker" required>
 								<label for="date" class="active">Date</label>
 							</div>
               <div class="input-field col s5">
-                <input id="time_picker" name="time" type="time" class="timepicker">
+								<input id="time" name="time" type="text" class="validate" hidden />
+                <input id="time_picker" name="time_picker" type="time" class="timepicker" required>
                 <label for="time_picker" class="active">Time</label>
               </div>
               <div class="input-field col s2">
@@ -105,10 +107,18 @@
 			autoclose: false,
 			twelvehour: false,
 			afterDone: function(Element, Time) {
-	        console.log(Element, Time);
+				$('#time')[0].value = $('#time_picker')[0].value
 	    }
 		});
 
+		$("#date_picker").pickadate({
+			selectMonths: true,
+			selectYears: 25,
+			format: 'yyyy-mm-dd',
+			onSet: function() {
+				$('#date')[0].value = $('#date_picker')[0].value
+	    }
+		});
 	});
 
 </script>
