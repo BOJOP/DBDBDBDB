@@ -153,7 +153,7 @@ class CoursesController < ApplicationController
         format.html { redirect_to @course, notice: 'Course was successfully updated.' }
         format.json { render :show, status: :ok, location: @course }
       else
-        format.html { render :edit }
+        format.html { redirect_to :back, notice: @course.errors }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
     end

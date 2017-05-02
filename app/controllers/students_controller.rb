@@ -263,7 +263,7 @@ class StudentsController < ApplicationController
   def create
     @student = Student.new(student_params)
 
-    if ( @date && @date != "" )
+    if ( params[:date] && params[:date] != "" )
       @date = params[:date].split('-')
       @student.birth_date = Date.new(@date[0].to_i,@date[1].to_i,@date[2].to_i)
     end
@@ -278,7 +278,7 @@ class StudentsController < ApplicationController
         format.html { redirect_to @student, notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else
-        format.html { render }
+        format.html { redirect_to students_url, notice: @student.errors }
         format.json { render json: @student.errors, status: :unprocessable_entity }
       end
     end
@@ -287,8 +287,20 @@ class StudentsController < ApplicationController
   # PATCH/PUT /students/1
   # PATCH/PUT /students/1.json
   def update
+    @student_params = student_params
+
+    if ( params[:date] && params[:date] != "" )
+      @date = params[:date].split('-')
+      @student_params.birth_date = Date.new(@date[0].to_i,@date[1].to_i,@date[2].to_i)
+    end
+
+    if ( params[:curriculum] && params[:curriculum].split(' | ')[1])
+      @curriculum = Curriculum.where(name: params[:curriculum].split(' | ')[1])[0]
+      @student_params.curriculum_id = @curriculum.id
+    end
+
     respond_to do |format|
-      if @student.update(student_params)
+      if @student.update(@student_params)
         format.html { redirect_to @student, notice: 'Student was successfully updated.' }
         format.json { render :show, status: :ok, location: @student }
       else

@@ -142,7 +142,11 @@ class Student < ApplicationRecord
 	end
 
 	def getScoreReduced
-		@score = LogBreak.joins(:rule).where("student_id = \'#{self.id}\'").select("student_id, SUM(rules.behavior_score_reduction)").group("student_id")
-		@score[0].sum
+		@score = LogBreak.joins(:rule).where("student_id = \'#{self.id}\'").select("student_id, SUM(rules.behavior_score_reduction) as sum").group("student_id")
+		if(@score[0])
+			@score[0].sum
+		else
+			0
+		end
 	end
 end

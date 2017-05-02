@@ -59,7 +59,7 @@ class GroupsController < ApplicationController
         format.html { redirect_to @group, notice: 'Group was successfully updated.' }
         format.json { render :show, status: :ok, location: @group }
       else
-        format.html { render :edit }
+        format.html { redirect_to :back, notice: @group.errors }
         format.json { render json: @group.errors, status: :unprocessable_entity }
       end
     end

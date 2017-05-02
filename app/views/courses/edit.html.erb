@@ -1,10 +1,10 @@
-<% provide(:title, "Edit profile") %>
-<h5>Update your profile</h5>
+<% provide(:title, "Edit course") %>
+<h5>Update course</h5>
 <hr><br>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@personnel) do |f| %>
-      <%= render 'form', personnel: @personnel %>
+    <%= form_for(@course) do |f| %>
+      <%= render 'form', course: @course %>
       <button type="submit" class="waves-effect waves-green btn" style="float:right;">Update</button>
     <% end %>
   </div>
