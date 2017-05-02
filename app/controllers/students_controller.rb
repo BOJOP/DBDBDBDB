@@ -14,7 +14,7 @@ class StudentsController < ApplicationController
   end
 
   def search
-	
+
 		@curriculums = Curriculum.all
   	@search_result = Student.all
 
@@ -96,7 +96,7 @@ class StudentsController < ApplicationController
 
     #Academic Info
     @gpa = Gpa.where(student_id:@student.id).order(year: :desc, semester: :desc)
-    @gpax = Gpa.find_by_sql("SELECT SUM(credit*gpa)/SUM(credit) as gpax 
+    @gpax = Gpa.find_by_sql("SELECT SUM(credit*gpa)/SUM(credit) as gpax
             FROM gpas WHERE student_id = \'"+params[:id]+"\'
             HAVING SUM(credit) > 0")
 
@@ -167,7 +167,7 @@ class StudentsController < ApplicationController
       @required_subject_arr.push([subject, subject_detail])
     end
 
-    
+
 
     @enrolled_course = Enrollment
               .joins("INNER JOIN sections ON enrollments.section_id = sections.id")
@@ -179,7 +179,7 @@ class StudentsController < ApplicationController
     @temp = Enrollment
               .select("*")
               .where("enrollments.student_id = \'#{@student.id}\'")
-  
+
 
     @required_subject_arr.each do |subject|
       @enrolled_course.where("course_id = #{subject[1].id}").first.nil?
@@ -195,7 +195,7 @@ class StudentsController < ApplicationController
     @sum_score_reduced = 0
     @breaking_arr.each do |_break|
       @sum_score_reduced += _break[1].behavior_score_reduction
-    end      
+    end
 
     respond_to do |format|
       format.html { render :show }
@@ -263,12 +263,22 @@ class StudentsController < ApplicationController
   def create
     @student = Student.new(student_params)
 
+    if ( @date && @date != "" )
+      @date = params[:date].split('-')
+      @student.birth_date = Date.new(@date[0].to_i,@date[1].to_i,@date[2].to_i)
+    end
+
+    if ( params[:curriculum] && params[:curriculum].split(' | ')[1])
+      @curriculum = Curriculum.where(name: params[:curriculum].split(' | ')[1])[0]
+      @student.curriculum_id = @curriculum.id
+    end
+
     respond_to do |format|
       if @student.save
         format.html { redirect_to @student, notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else
-        format.html { render :new }
+        format.html { render }
         format.json { render json: @student.errors, status: :unprocessable_entity }
       end
     end
@@ -282,7 +292,7 @@ class StudentsController < ApplicationController
         format.html { redirect_to @student, notice: 'Student was successfully updated.' }
         format.json { render :show, status: :ok, location: @student }
       else
-        format.html { render :edit }
+        format.html { redirect_to students_url, notice: @student.errors }
         format.json { render json: @student.errors, status: :unprocessable_entity }
       end
     end
@@ -306,6 +316,6 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.fetch(:student, {})
+      params.fetch(:student, {}).permit(:first_name,:last_name,:email,:ssn,:gender,:picture,:id)
     end
 end

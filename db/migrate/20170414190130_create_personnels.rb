@@ -8,11 +8,11 @@ class CreatePersonnels < ActiveRecord::Migration[5.0]
       t.date :birth_date
       t.string :gender
       t.string :role, null: false
-      
+
       t.string :email, null: false
       t.string :password_digest
       t.string :remember_digest
-      
+
       t.references :manage_department
       t.references :workin_department
 

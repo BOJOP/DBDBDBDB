@@ -35,9 +35,9 @@ class PersonalLeavesController < ApplicationController
   def create
     @leave = Leave.new(leave_params)
 
-    @date = params[:date_start_sick].split('-')
+    @date = params[:date_start_personal].split('-')
     @leave.start_date = Date.new(@date[0].to_i,@date[1].to_i,@date[2].to_i)
-    @date = params[:date_end_sick].split('-')
+    @date = params[:date_end_personal].split('-')
     @leave.end_date = Date.new(@date[0].to_i,@date[1].to_i,@date[2].to_i)
 
     @leave.save

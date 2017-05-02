@@ -37,10 +37,10 @@ class BelongTosController < ApplicationController
 
     respond_to do |format|
       if @belong_to.save
-        format.html { redirect_to @belong_to, notice: 'Belong to was successfully created.' }
+        format.html { redirect_to :back, notice: 'Belong to was successfully created.' }
         format.json { render :show, status: :created, location: @belong_to }
       else
-        format.html { render :new }
+        format.html { redirect_to :back, notice: @belong_to.errors }
         format.json { render json: @belong_to.errors, status: :unprocessable_entity }
       end
     end

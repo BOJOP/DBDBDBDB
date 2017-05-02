@@ -70,12 +70,27 @@ class PersonnelsController < ApplicationController
   def create
     @personnel = Personnel.new(personnel_params)
 
+    if ( @date && @date != "" )
+      @date = params[:date].split('-')
+      @personnel.birth_date = Date.new(@date[0].to_i,@date[1].to_i,@date[2].to_i)
+    end
+
+    if ( params[:department] && params[:department] != "")
+      @deparment = Department.where(name: params[:department])[0]
+      @personnel.workin_department_id = @deparment.id
+    end
+
+    if ( params[:department_manager] && params[:department_manager] != "")
+      @department_manager = Department.where(name: params[:department_manager])[0]
+      @personnel.manage_department_id = @department_manager.id
+    end
+
     respond_to do |format|
       if @personnel.save
         format.html { redirect_to @personnel, notice: 'Personnel was successfully created.' }
         format.json { render :show, status: :created, location: @personnel }
       else
-        format.html { render :new }
+        format.html { redirect_to personnels_url, notice: @personnel.errors }
         format.json { render json: @personnel.errors, status: :unprocessable_entity }
       end
     end
@@ -89,7 +104,7 @@ class PersonnelsController < ApplicationController
         format.html { redirect_to @personnel, notice: 'Personnel was successfully updated.' }
         format.json { render :show, status: :ok, location: @personnel }
       else
-        format.html { render :edit }
+        format.html { render :edit, notice: @personnel.errors }
         format.json { render json: @personnel.errors, status: :unprocessable_entity }
       end
     end

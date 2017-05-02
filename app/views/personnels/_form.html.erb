@@ -27,17 +27,14 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" style="padding: 30px 0px 10px 0px;">
   <div class="input-field col s6">
-    <input type="text" name="personnel[department]" id="department" class="autocomplete">
+    <input type="text" name="department" id="department" class="autocomplete">
     <label for="department" class="active">Department</label>
   </div>
-</div>
-
-<div class="row" style="padding: 30px 0px 10px 0px;">
-  <div class="col s6">
-    <input type="checkbox" name="personnel[manager]" class="filled-in" id="manager">
-    <label for="manager" class="active">Manager</label>
+  <div class="input-field col s6">
+    <input type="text" name="department_manager" id="department_manager" class="autocomplete">
+    <label for="department_manager" class="active">Manager At</label>
   </div>
 </div>
 
@@ -47,17 +44,18 @@
     <label for="ssn" class="active">SSN</label>
   </div>
   <div class="input-field col s6">
-    <input id="birth_date" name="personnel[birth_date]" type="date" class="datepicker">
-    <label for="birth_date" class="active">Birth date</label>
+    <input id="date" name="date" type="text" class="validate" hidden />
+    <input id="date_picker" name="date_picker" type="date" class="datepicker">
+    <label for="date_picker" class="active">Birth date</label>
   </div>
 </div>
 
 
 <div class="row">
   <div class="input-field col s12">
-    <input name="personnel[gender\" type="radio" id="male" />
+    <input name="personnel[gender\" type="radio" id="male" value="Male"/>
     <label for="male">Male</label>
-    <input name="personnel[gender]" type="radio" id="female" />
+    <input name="personnel[gender]" type="radio" id="female" value="Female"/>
     <label for="female">Female</label>
   </div>
 </div>
@@ -101,5 +99,14 @@
         },
         minLength: 1,
       });
+
+      $("#date_picker").pickadate({
+  			selectMonths: true,
+  			selectYears: 25,
+  			format: 'yyyy-mm-dd',
+  			onSet: function() {
+  				$('#date')[0].value = $('#date_picker')[0].value
+  	    }
+  		});
   });
 </script>

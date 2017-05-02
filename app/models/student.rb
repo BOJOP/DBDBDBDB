@@ -133,9 +133,12 @@ class Student < ApplicationRecord
 	end
 
 	def gpax
-
 		@gpax = Gpa.find_by_sql("SELECT SUM(credit*gpa)/SUM(credit) as gpax FROM gpas WHERE student_id = '" + self.id + "'")
-		@gpax.first.gpax.round(2)
+		if(@gpax.first.gpax)
+			@gpax.first.gpax.round(2)
+		else
+			4
+		end
 	end
 
 	def getScoreReduced

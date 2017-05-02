@@ -1,5 +1,12 @@
 <div class="row">
   <div class="input-field col s6">
+    <input id="id" name="student[id]" type="text" class="validate" value="<%= student.id %>">
+    <label for="id" class="active">Student Id</label>
+  </div>
+</div>
+
+<div class="row">
+  <div class="input-field col s6">
     <input id="first_name" name="student[first_name]" type="text" class="validate" value="<%= student.first_name %>">
     <label for="first_name" class="active">First Name</label>
   </div>
@@ -17,8 +24,8 @@
 </div>
 
 <div class="row">
-  <div class="input-field col s6">
-    <input type="text" name="student[curriculum]" id="curriculum" class="autocomplete">
+  <div class="input-field col s12">
+    <input type="text" name="curriculum" id="curriculum" class="autocomplete">
     <label for="curriculum" class="active">Curriculum</label>
   </div>
 </div>
@@ -29,17 +36,18 @@
     <label for="ssn" class="active">SSN</label>
   </div>
   <div class="input-field col s6">
-    <input id="birth_date" name="student[birth_date]" type="date" class="datepicker">
-    <label for="birth_date" class="active">Birth date</label>
+    <input id="date" name="date" type="text" class="validate" hidden />
+    <input id="date_picker" name="date_picker" type="date" class="datepicker">
+    <label for="date_picker" class="active">Birth date</label>
   </div>
 </div>
 
 
 <div class="row">
   <div class="input-field col s12">
-    <input name="student[gender\" type="radio" id="male" />
+    <input name="student[gender]" type="radio" id="male" value="Male"/>
     <label for="male">Male</label>
-    <input name="student[gender]" type="radio" id="female" />
+    <input name="student[gender]" type="radio" id="female" value="Female"/>
     <label for="female">Female</label>
   </div>
 </div>
@@ -71,5 +79,14 @@
         },
         minLength: 1,
       });
+
+      $("#date_picker").pickadate({
+  			selectMonths: true,
+  			selectYears: 25,
+  			format: 'yyyy-mm-dd',
+  			onSet: function() {
+  				$('#date')[0].value = $('#date_picker')[0].value
+  	    }
+  		});
   });
 </script>
