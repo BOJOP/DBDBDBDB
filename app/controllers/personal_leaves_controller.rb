@@ -43,7 +43,7 @@ class PersonalLeavesController < ApplicationController
     @leave.save
 
     @personal_leave = PersonalLeave.new(personal_leave_params)
-    @personal_leave.id = @leave.id
+    @personal_leave.leave_id = @leave.id
 
     respond_to do |format|
       if @personal_leave.save

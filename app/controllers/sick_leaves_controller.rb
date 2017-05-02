@@ -43,7 +43,7 @@ class SickLeavesController < ApplicationController
     @leave.save
 
     @sick_leave = SickLeave.new(sick_leave_params)
-    @sick_leave.id = @leave.id
+    @sick_leave.leave_id = @leave.id
 
     respond_to do |format|
       if @sick_leave.save

@@ -7,9 +7,6 @@
 	<%= form_for(:rule, url: "/rule_pdf") do |f| %>
 		<div class="col s4">
 			<input type="text" name="id" value="<%= @rule.id %>" hidden />
-			<button class="btn waves-effect waves-light button-pdf" type="submit" name="action">
-				Print
-			</button>
 		</div>
 	<% end %>
 </div>

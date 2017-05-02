@@ -4,14 +4,6 @@
 		<h5>Group Info : <%= @group.name %></h5>
 	</div>
 
-	<%= form_for(:group, url: "/group_pdf") do |f| %>
-		<div class="col s4">
-			<input type="text" name="id" value="<%= @group.id %>" hidden />
-			<button class="btn waves-effect waves-light button-pdf" type="submit" name="action">
-				Print
-			</button>
-		</div>
-	<% end %>
 </div>
 <hr>
 
@@ -130,7 +122,7 @@
 			<div class="collapsible-body">
 				<div class="container">
 					<h6>Add personal leave to group</h6>
-					<%= form_for(SickLeave.new) do |f| %>
+					<%= form_for(PersonalLeave.new) do |f| %>
 						<div class="row">
 							<div class="input-field col s6">
 								<input id="date_start_personal" name="date_start_personal" type="text" class="validate" hidden />
@@ -246,17 +238,17 @@
 					<%= form_for(Compete.new) do |f| %>
 						<div class="row">
 							<div class="input-field col s4">
-								<input id="event_id" type="text" class="validate" name="participate[event_id]" required/>
+								<input id="event_id" type="text" class="validate" name="compete[event_id]" required/>
 								<label for="event_id" class="active">Event code</label>
 							</div>
 							<div class="input-field col s4">
-								<input id="award" type="text" class="validate" name="participate[award]">
+								<input id="award" type="text" class="validate" name="compete[award]">
 								<label for="award" class="active">Award</label>
 							</div>
 							<div class="input-field col s2">
 								<button type="submit" class="waves-effect waves-green btn" style="float:right;">Add</button>
 							</div>
-							<input id="group_id"type="text" class="validate" name="participate[group_id]" value="<%= @group.id %>" hidden/>
+							<input id="group_id"type="text" class="validate" name="compete[group_id]" value="<%= @group.id %>" hidden/>
 						</div>
 					<% end %>
 

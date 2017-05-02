@@ -4,15 +4,7 @@
 	<div class="col s8">
 		<h5> <%= (@course.name || "") %> </h5>
 	</div>
-	
-	<%= form_for(:course, url: "/course_pdf") do |f| %>
-		<div class="col s4">
-			<input type="text" name="id" value="<%= @course.id %>" hidden />
-			<button class="btn waves-effect waves-light button-pdf" type="submit" name="action">
-				Print
-			</button>
-		</div>
-	<% end %>
+	 
 </div>
 <hr>
 
@@ -140,7 +132,7 @@
 										<% end %>
 									</td>
 									<td>
-										<a href="/sections/<%= sec.id %>"><i class='material-icons'>description</i></a>&nbsp;&nbsp;&nbsp
+										<a href="/sections/<%= sec.id %>"><i class='material-icons'>description</i></a>&nbsp;&nbsp;&nbsp;
                  		<a href="/sections/<%= sec.id %>/edit"><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;
                 		<a data-confirm='You sure?' rel='nofollow' data-method='delete' href="/sections/<%= sec.id %>"><i class='material-icons'>delete</i></a>
 									</td>

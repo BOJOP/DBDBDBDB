@@ -7,9 +7,6 @@
 	<%= form_for(:section, url: "/section_pdf") do |f| %>
 		<div class="col s4">
 			<input type="text" name="id" value="<%= @section.id %>" hidden />
-			<button class="btn waves-effect waves-light button-pdf" type="submit" name="action">
-				Print
-			</button>
 		</div>
 	<% end %>
 </div>
@@ -50,9 +47,11 @@
 					<tr>
 						<th>Times</th>
 						<td>
-							<% @section.personnels.each do |personnel| %>
-								<%= (personnel.first_name || "") + " " + (personnel.last_name || "") %>
-								<br>
+							<% @section.schedules.each do |ts| %>
+								<% TimeSlot.where("time_slots.id = #{ts.time_slot_id}").each do |e| %>
+									<%= DateTime.parse(e.start.to_s).localtime.strftime('%H:%M')  + " - " + DateTime.parse(e.end.to_s).localtime.strftime('%H:%M')  %>
+									<br>
+								<% end %>
 							<% end %>
 						</td>			
 					</tr>

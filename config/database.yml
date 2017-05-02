@@ -15,7 +15,6 @@
 # gem 'pg'
 #
 default: &default
-  # host: localhost # dont forget to clear before push to git
   adapter: postgresql
   encoding: unicode
   # For details on connection pooling, see rails configuration guide
@@ -24,15 +23,10 @@ default: &default
 
 development:
   <<: *default
-  adapter: mysql2
-  encoding: utf8
-  pool: 5
-  host: localhost
-  # host: localhost
   database: organize_cu_development
   username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
-  
+
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
@@ -64,11 +58,6 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  adapter: mysql2
-  encoding: utf8
-  pool: 5
-  host: localhost
-  # host: localhost
   database: organize_cu_test
   username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
