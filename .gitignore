@@ -49,4 +49,4 @@ bower.json
 # Ignore Byebug command history file.
 .byebug_history
 
-db/seeds.rb
+# db/seeds.rb
