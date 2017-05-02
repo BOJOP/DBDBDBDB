@@ -7,5 +7,7 @@ class CreateCodes < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
+    add_foreign_key :codes, :departments, on_delete: :cascade, on_update: :cascade
+
   end
 end

@@ -221,7 +221,7 @@ ActiveRecord::Schema.define(version: 20170423131326) do
     t.integer  "enroll_year"
     t.string   "status"
     t.string   "email",         null: false
-    t.integer  "curriculum_id", null: false
+    t.integer  "curriculum_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["curriculum_id"], name: "index_students_on_curriculum_id", using: :btree
@@ -244,4 +244,33 @@ ActiveRecord::Schema.define(version: 20170423131326) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "advisors", "personnels", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "advisors", "students", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "belong_tos", "groups", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "belong_tos", "students", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "codes", "departments", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "competes", "events", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "competes", "groups", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "courses", "codes", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "curriculums", "departments", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "enrollments", "sections", on_update: :cascade
+  add_foreign_key "enrollments", "students", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "gpas", "students", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "leaves", "groups", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "log_breaks", "rules"
+  add_foreign_key "log_breaks", "students", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "participates", "events", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "participates", "groups", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "personal_leaves", "leaves", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "personnels", "departments", column: "manage_department_id"
+  add_foreign_key "personnels", "departments", column: "workin_department_id"
+  add_foreign_key "requires", "courses", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "requires", "curriculums", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "schedules", "sections", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "schedules", "time_slots"
+  add_foreign_key "sections", "courses", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "sick_leaves", "leaves", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "students", "curriculums", on_update: :cascade
+  add_foreign_key "teaches", "personnels", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "teaches", "sections", on_update: :cascade, on_delete: :cascade
 end

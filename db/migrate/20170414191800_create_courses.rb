@@ -9,5 +9,8 @@ class CreateCourses < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
+
+    add_foreign_key :courses, :codes, on_delete: :cascade, on_update: :cascade
+
   end
 end

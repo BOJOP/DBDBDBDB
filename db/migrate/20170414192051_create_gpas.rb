@@ -6,13 +6,15 @@ class CreateGpas < ActiveRecord::Migration[5.0]
       t.integer :semester, null: false
       t.integer :credit, null: false
       t.float :gpa
-      
+
       t.references :student, null: false
-      
+
       t.timestamps
     end
-			
+
 		change_column :gpas, :student_id, :string
+
+    add_foreign_key :gpas, :students, on_delete: :cascade, on_update: :cascade
 
   end
 end

@@ -20,5 +20,8 @@ class CreatePersonnels < ActiveRecord::Migration[5.0]
     end
 
     add_index :personnels, :email, unique: true
+
+    add_foreign_key :personnels, :departments, column: :manage_department_id, primary_key: :id
+    add_foreign_key :personnels, :departments, column: :workin_department_id, primary_key: :id
   end
 end

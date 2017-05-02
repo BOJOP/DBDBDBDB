@@ -14,5 +14,8 @@ class CreateLogBreaks < ActiveRecord::Migration[5.0]
 
 		change_column :log_breaks, :student_id, :string
 
+    add_foreign_key :log_breaks, :rules
+    add_foreign_key :log_breaks, :students, on_delete: :cascade, on_update: :cascade
+
   end
 end

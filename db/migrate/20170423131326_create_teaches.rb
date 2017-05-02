@@ -4,8 +4,12 @@ class CreateTeaches < ActiveRecord::Migration[5.0]
 
 			t.references :personnel, null: false
 			t.references :section, null: false
-		
+
       t.timestamps
     end
+
+    add_foreign_key :teaches, :personnels, on_delete: :cascade, on_update: :cascade
+    add_foreign_key :teaches, :sections, on_delete: :cascade, on_update: :cascade
+
   end
 end

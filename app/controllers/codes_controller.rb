@@ -51,10 +51,10 @@ class CodesController < ApplicationController
   def update
     respond_to do |format|
       if @code.update(code_params)
-        format.html { redirect_to @code, notice: 'Code was successfully updated.' }
+        format.html { redirect_to departments_url(@code.department_id), notice: 'Code was successfully updated.' }
         format.json { render :show, status: :ok, location: @code }
       else
-        format.html { render :edit }
+        format.html { redirect_to :back, @code.errors }
         format.json { render json: @code.errors, status: :unprocessable_entity }
       end
     end
@@ -65,7 +65,7 @@ class CodesController < ApplicationController
   def destroy
     @code.destroy
     respond_to do |format|
-      format.html { redirect_to codes_url, notice: 'Code was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Code was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
