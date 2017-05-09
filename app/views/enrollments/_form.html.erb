@@ -1,17 +1,21 @@
-<%= form_for(enrollment) do |f| %>
-  <% if enrollment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(enrollment.errors.count, "error") %> prohibited this enrollment from being saved:</h2>
-
-      <ul>
-      <% enrollment.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
+<div class="row">
+  <div class="input-field col s6">
+    <input id="code"  type="text" class="validate" value="<%= enrollment.section.course.name %>" disabled>
+    <label for="code" class="active">Course</label>
   </div>
-<% end %>
+  <div class="input-field col s6">
+    <input id="name" type="text" class="validate" value="<%= enrollment.section.sec %>" disabled>
+    <label for="name" class="active">Section</label>
+  </div>
+</div>
+
+<div class="row">
+  <div class="input-field col s6">
+    <input id="name" type="text" class="validate" value="<%= enrollment.student.id %>" disabled>
+    <label for="name" class="active">Student</label>
+  </div>
+  <div class="input-field col s6">
+    <input id="credit" name="enrollment[grade]" type="text" class="validate" required value="<%= enrollment.grade %>" placeholder="0, 0.5, 2, 4">
+    <label for="credit" class="active">Grade</label>
+  </div>
+</div>

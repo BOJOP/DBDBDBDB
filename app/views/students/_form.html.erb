@@ -51,18 +51,11 @@
     <label for="female">Female</label>
   </div>
 </div>
-
+<br>
 <div class="row">
-  <div class="input-field col s12">
-    <div class="file-field input-field">
-      <div class="btn">
-        <span>Picture</span>
-        <input type="file" name="student[picture]">
-      </div>
-      <div class="file-path-wrapper">
-        <input class="file-path validate" type="text">
-      </div>
-    </div>
+  <div class="input-field col s6">
+    <input id="enroll_year" name="student[enroll_year]" type="text" class="validate" value="<%= student.enroll_year %>">
+    <label for="enroll_year" class="active">Enroll year</label>
   </div>
 </div>
 

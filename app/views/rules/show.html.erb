@@ -77,16 +77,21 @@
 							<th>Name</th>
               <th>When</th>
               <th>Remark</th>
-              <th>Total score reduced</th>
+              <th>Total score</th>
+							<th></th>
 						</thead>
 						<tbody>
 							<% @rule.log_breaks.each do |log_break| %>
 								<tr>
 									<td><%= log_break.student.id %></td>
 									<td><%= (log_break.student.first_name || "") + " " + (log_break.student.last_name || "")%></td>
-                  <td><%= log_break.when %></td>
+                  <td><%= (log_break.when.year.to_s || "") + "-" + (log_break.when.month.to_s || "") + "-" + (log_break.when.day.to_s || "")%></td>
                   <td><%= log_break.remark %></td>
                   <td><center><%= log_break.student.getScoreReduced %></center></td>
+									<td>
+										<a href='/students/<%= log_break.student.id %>'><i class='material-icons'>description</i></a>&nbsp;&nbsp;&nbsp;
+										<a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/log_breaks/<%= log_break.id %>'><i class='material-icons'>delete</i></a>
+									</td>
 								</tr>
 							<% end %>
 						</tbody>

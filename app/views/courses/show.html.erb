@@ -4,7 +4,7 @@
 	<div class="col s8">
 		<h5> <%= (@course.name || "") %> </h5>
 	</div>
-	 
+
 </div>
 <hr>
 
@@ -77,7 +77,7 @@
 
 		<div class="container">
 
-			
+
 
 			<div class="row">
 				<div class="col s5 offset-s1">
@@ -123,17 +123,16 @@
 											<%= (personnel.first_name || "") + " " + (personnel.last_name || "") %>
 											<br>
 										<% end %>
-									</td>												
+									</td>
 									<td>
 										<% sec.time_slots.each do |time| %>
 											<%= time.day %>
-											<%= DateTime.parse(time.start.to_s).localtime.strftime('%H:%M') + " - " + DateTime.parse(time.end.to_s).localtime.strftime('%H:%M') %>
+											<%= DateTime.parse(time.start.to_s).strftime('%H:%M') + " - " + DateTime.parse(time.end.to_s).strftime('%H:%M') %>
 											<br>
 										<% end %>
 									</td>
 									<td>
 										<a href="/sections/<%= sec.id %>"><i class='material-icons'>description</i></a>&nbsp;&nbsp;&nbsp;
-                 		<a href="/sections/<%= sec.id %>/edit"><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;
                 		<a data-confirm='You sure?' rel='nofollow' data-method='delete' href="/sections/<%= sec.id %>"><i class='material-icons'>delete</i></a>
 									</td>
 								</tr>

@@ -45,12 +45,13 @@ class PersonalLeavesController < ApplicationController
     @personal_leave = PersonalLeave.new(personal_leave_params)
     @personal_leave.leave_id = @leave.id
 
+
     respond_to do |format|
       if @personal_leave.save
-        format.html { redirect_to @personal_leave, notice: 'Personal leave was successfully created.' }
+        format.html { redirect_to :back, notice: 'Personal leave was successfully created.' }
         format.json { render :show, status: :created, location: @personal_leave }
       else
-        format.html { render :new }
+        format.html { redirect_to :back, notice: @personal_leave.errors  }
         format.json { render json: @personal_leave.errors, status: :unprocessable_entity }
       end
     end
@@ -75,7 +76,7 @@ class PersonalLeavesController < ApplicationController
   def destroy
     @personal_leave.destroy
     respond_to do |format|
-      format.html { redirect_to personal_leaves_url, notice: 'Personal leave was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Personal leave was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

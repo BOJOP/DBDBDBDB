@@ -28,12 +28,12 @@
 						{ "data": "day" },
 						{ "data": "start",
 							"render": function(data) {
-								return moment(data).format('HH:mm');
+								return moment.utc(data).format('HH:mm');
 							}
 						},
 						{ "data": "end",
 							"render": function(data) {
-								return moment(data).format('HH:mm');
+								return moment.utc(data).format('HH:mm');
 							}
 						},
 						{

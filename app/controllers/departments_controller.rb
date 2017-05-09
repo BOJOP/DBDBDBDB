@@ -17,7 +17,7 @@ class DepartmentsController < ApplicationController
   # GET /departments/1.json
   def show
     @curriculums = Curriculum.where(department_id: @department.id);
-		
+
 		@fail = Student.where("enroll_year < ?", Date.today.year-4).where(curriculum_id: @curriculums.to_a).count();
 
     @numStudentYear = Student.where("enroll_year > ? ", Date.today.year-8).where(curriculum_id: @curriculums.to_a).select("COUNT(*) as num, enroll_year as year").group("enroll_year").order(enroll_year: :desc)
@@ -114,7 +114,7 @@ class DepartmentsController < ApplicationController
   def destroy
     @department.destroy
     respond_to do |format|
-      format.html { redirect_to departments_url, notice: 'Department was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Department was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

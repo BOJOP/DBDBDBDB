@@ -4,7 +4,7 @@
 	<div class="col s8">
 		<h5>Personnel Info : <%= @personnel.id %></h5>
 	</div>
-	
+
 	<%= form_for(:personnel, url: "/personnel_pdf") do |f| %>
 		<div class="col s4">
 			<input type="text" name="id" value="<%= @personnel.id %>" hidden />
@@ -86,16 +86,15 @@
                   <th></th>
                 </thead>
                   <tbody>
-                    <% @personnel.sections.each do |section| %>
+                    <% @personnel.teaches.each do |teach| %>
                       <tr>
-                        <td><%= section.course.code.id  %></td>
-                        <td><%= section.course.name %></td>
-                        <td><%= section.year.to_s + "-" + section.semester.to_s  %></td>
-                        <td><%= section.sec  %></td>
+                        <td><%= teach.section.course.code.id  %></td>
+                        <td><%= teach.section.course.name %></td>
+                        <td><%= teach.section.year.to_s + "-" + teach.section.semester.to_s  %></td>
+                        <td><%= teach.section.sec  %></td>
                         <td>
-                          <a href='/sections/<%= section.id %>'><i class='material-icons'>description</i></a>&nbsp;&nbsp;&nbsp;
-                          <a href='/sections/<%= section.id %>/edit'><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;
-                          <a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/students/<%= section.id %>'><i class='material-icons'>delete</i></a>
+                          <a href='/sections/<%= teach.section.id %>'><i class='material-icons'>description</i></a>&nbsp;&nbsp;&nbsp;
+                          <a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/teaches/<%= teach.id %>'><i class='material-icons'>delete</i></a>
                         </td>
                       </tr>
                     <% end %>
@@ -124,18 +123,17 @@
                   <th></th>
                 </thead>
                   <tbody>
-                    <% @students.each do |student| %>
+                    <% @personnel.advisors.each do |advisor| %>
                       <tr>
-                        <td><%= student.id  %></td>
-                        <td><%= (student.first_name || "") + " " + (student.last_name || "") %></td>
-                        <td><%= student.email %></td>
-                        <td><%= student.gender  %></td>
-                        <td><%= student.status  %></td>
-                        <td><%= student.gpax  %></td>
+                        <td><%= advisor.student.id  %></td>
+                        <td><%= (advisor.student.first_name || "") + " " + (advisor.student.last_name || "") %></td>
+                        <td><%= advisor.student.email %></td>
+                        <td><%= advisor.student.gender  %></td>
+                        <td><%= advisor.student.status  %></td>
+                        <td><%= advisor.student.gpax  %></td>
                         <td>
-                          <a href='/students/<%= student.id %>'><i class='material-icons'>description</i></a>&nbsp;&nbsp;&nbsp;
-                          <a href='/students/<%= student.id %>/edit'><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;
-                          <a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/students/<%= student.id %>'><i class='material-icons'>delete</i></a>
+                          <a href='/students/<%= advisor.student.id %>'><i class='material-icons'>description</i></a>&nbsp;&nbsp;&nbsp;
+                          <a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/advisors/<%= advisor.id %>'><i class='material-icons'>delete</i></a>
                         </td>
                       </tr>
                     <% end %>

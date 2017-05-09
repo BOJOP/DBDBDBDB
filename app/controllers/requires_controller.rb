@@ -65,7 +65,7 @@ class RequiresController < ApplicationController
   def destroy
     @require.destroy
     respond_to do |format|
-      format.html { redirect_to requires_url, notice: 'Require was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Require was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

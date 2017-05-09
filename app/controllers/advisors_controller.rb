@@ -63,9 +63,10 @@ class AdvisorsController < ApplicationController
   # DELETE /advisors/1
   # DELETE /advisors/1.json
   def destroy
+
     @advisor.destroy
     respond_to do |format|
-      format.html { redirect_to advisors_url, notice: 'Advisor was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Advisor was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

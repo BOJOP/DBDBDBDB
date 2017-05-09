@@ -65,7 +65,7 @@ class CurriculumsController < ApplicationController
   def destroy
     @curriculum.destroy
     respond_to do |format|
-      format.html { redirect_to curriculums_url, notice: 'Curriculum was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Curriculum was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

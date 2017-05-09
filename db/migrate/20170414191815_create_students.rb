@@ -19,7 +19,7 @@ class CreateStudents < ActiveRecord::Migration[5.0]
 
 		change_column :students, :id, :string
 
-    add_foreign_key :students, :curriculums, on_update: :cascade
+    add_foreign_key :students, :curriculums, on_update: :cascade, on_delete: :nullify
 
   end
 end

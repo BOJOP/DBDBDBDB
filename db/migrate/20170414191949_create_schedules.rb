@@ -9,7 +9,7 @@ class CreateSchedules < ActiveRecord::Migration[5.0]
     end
 
     add_foreign_key :schedules, :sections, on_delete: :cascade, on_update: :cascade
-    add_foreign_key :schedules, :time_slots
+    add_foreign_key :schedules, :time_slots, on_delete: :cascade, on_update: :cascade
 
   end
 end

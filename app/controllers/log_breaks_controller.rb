@@ -70,7 +70,7 @@ class LogBreaksController < ApplicationController
   def destroy
     @log_break.destroy
     respond_to do |format|
-      format.html { redirect_to log_breaks_url, notice: 'Log break was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Log break was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

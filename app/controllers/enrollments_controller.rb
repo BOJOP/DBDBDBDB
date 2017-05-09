@@ -50,13 +50,17 @@ class EnrollmentsController < ApplicationController
 		#	@enrollment.grade += @grade;
 		end
 
-		respond_to do |format|
-      if @enrollment.save
-        format.html { redirect_to :back, notice: 'Enrollment was successfully created.' }
-        format.json { render :show, status: :created, location: @enrollment }
-      else
-        format.html { redirect_to :back, notice: @enrollment.errors }
-        format.json { render json: @enrollment.errors, status: :unprocessable_entity }
+    if(Enrollment.where(section_id: @enrollment.section_id).where(student_id: @enrollment.student_id).count() > 0)
+      redirect_to :back, notice: "duplicate enrollments"
+    else
+  		respond_to do |format|
+        if @enrollment.save
+          format.html { redirect_to :back, notice: 'Enrollment was successfully created.' }
+          format.json { render :show, status: :created, location: @enrollment }
+        else
+          format.html { redirect_to :back, notice: @enrollment.errors }
+          format.json { render json: @enrollment.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -64,9 +68,10 @@ class EnrollmentsController < ApplicationController
   # PATCH/PUT /enrollments/1
   # PATCH/PUT /enrollments/1.json
   def update
+
     respond_to do |format|
       if @enrollment.update(enrollment_params)
-        format.html { redirect_to @enrollment, notice: 'Enrollment was successfully updated.' }
+        format.html { redirect_to @enrollment.section, notice: 'Enrollment was successfully updated.' }
         format.json { render :show, status: :ok, location: @enrollment }
       else
         format.html { render :edit }
@@ -78,9 +83,10 @@ class EnrollmentsController < ApplicationController
   # DELETE /enrollments/1
   # DELETE /enrollments/1.json
   def destroy
+
     @enrollment.destroy
     respond_to do |format|
-      format.html { redirect_to enrollments_url, notice: 'Enrollment was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Enrollment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -35,13 +35,17 @@ class BelongTosController < ApplicationController
   def create
     @belong_to = BelongTo.new(belong_to_params)
 
-    respond_to do |format|
-      if @belong_to.save
-        format.html { redirect_to :back, notice: 'Belong to was successfully created.' }
-        format.json { render :show, status: :created, location: @belong_to }
-      else
-        format.html { redirect_to :back, notice: @belong_to.errors }
-        format.json { render json: @belong_to.errors, status: :unprocessable_entity }
+    if(BelongTo.where(student_id: @belong_to.student.id).where(group_id: @belong_to.group.id).count() > 0)
+      redirect_to :back, notice: "duplicate student in this group"
+    else
+      respond_to do |format|
+        if @belong_to.save
+          format.html { redirect_to :back, notice: 'Belong to was successfully created.' }
+          format.json { render :show, status: :created, location: @belong_to }
+        else
+          format.html { redirect_to :back, notice: @belong_to.errors }
+          format.json { render json: @belong_to.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -65,7 +69,7 @@ class BelongTosController < ApplicationController
   def destroy
     @belong_to.destroy
     respond_to do |format|
-      format.html { redirect_to belong_tos_url, notice: 'Belong to was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Belong to was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20170423131326) do
     t.string   "student_id",            null: false
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.index ["section_id", "student_id"], name: "index_enrollments_on_section_id_and_student_id", unique: true, using: :btree
     t.index ["section_id"], name: "index_enrollments_on_section_id", using: :btree
     t.index ["student_id"], name: "index_enrollments_on_student_id", using: :btree
   end
@@ -253,11 +254,11 @@ ActiveRecord::Schema.define(version: 20170423131326) do
   add_foreign_key "competes", "groups", on_update: :cascade, on_delete: :cascade
   add_foreign_key "courses", "codes", on_update: :cascade, on_delete: :cascade
   add_foreign_key "curriculums", "departments", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "enrollments", "sections", on_update: :cascade
+  add_foreign_key "enrollments", "sections", on_update: :cascade, on_delete: :cascade
   add_foreign_key "enrollments", "students", on_update: :cascade, on_delete: :cascade
   add_foreign_key "gpas", "students", on_update: :cascade, on_delete: :cascade
   add_foreign_key "leaves", "groups", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "log_breaks", "rules"
+  add_foreign_key "log_breaks", "rules", on_update: :cascade, on_delete: :cascade
   add_foreign_key "log_breaks", "students", on_update: :cascade, on_delete: :cascade
   add_foreign_key "participates", "events", on_update: :cascade, on_delete: :cascade
   add_foreign_key "participates", "groups", on_update: :cascade, on_delete: :cascade
@@ -267,10 +268,10 @@ ActiveRecord::Schema.define(version: 20170423131326) do
   add_foreign_key "requires", "courses", on_update: :cascade, on_delete: :cascade
   add_foreign_key "requires", "curriculums", on_update: :cascade, on_delete: :cascade
   add_foreign_key "schedules", "sections", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "schedules", "time_slots"
+  add_foreign_key "schedules", "time_slots", on_update: :cascade, on_delete: :cascade
   add_foreign_key "sections", "courses", on_update: :cascade, on_delete: :cascade
   add_foreign_key "sick_leaves", "leaves", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "students", "curriculums", on_update: :cascade
+  add_foreign_key "students", "curriculums", on_update: :cascade, on_delete: :nullify
   add_foreign_key "teaches", "personnels", on_update: :cascade, on_delete: :cascade
   add_foreign_key "teaches", "sections", on_update: :cascade, on_delete: :cascade
 end

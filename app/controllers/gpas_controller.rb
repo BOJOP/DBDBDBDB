@@ -65,7 +65,7 @@ class GpasController < ApplicationController
   def destroy
     @gpa.destroy
     respond_to do |format|
-      format.html { redirect_to gpas_url, notice: 'Gpa was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Gpa was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

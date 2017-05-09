@@ -263,6 +263,8 @@ class StudentsController < ApplicationController
   def create
     @student = Student.new(student_params)
 
+    @student.status = "Studying"
+
     if ( params[:date] && params[:date] != "" )
       @date = params[:date].split('-')
       @student.birth_date = Date.new(@date[0].to_i,@date[1].to_i,@date[2].to_i)
@@ -272,6 +274,8 @@ class StudentsController < ApplicationController
       @curriculum = Curriculum.where(name: params[:curriculum].split(' | ')[1])[0]
       @student.curriculum_id = @curriculum.id
     end
+
+    @student.updateData
 
     respond_to do |format|
       if @student.save
@@ -328,6 +332,6 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.fetch(:student, {}).permit(:first_name,:last_name,:email,:ssn,:gender,:picture,:id)
+      params.fetch(:student, {}).permit(:first_name,:last_name,:email,:ssn,:gender,:picture,:id,:enroll_year)
     end
 end

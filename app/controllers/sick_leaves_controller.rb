@@ -47,10 +47,10 @@ class SickLeavesController < ApplicationController
 
     respond_to do |format|
       if @sick_leave.save
-        format.html { redirect_to @sick_leave, notice: 'Sick leave was successfully created.' }
+        format.html { redirect_to :back, notice: 'Sick leave was successfully created.' }
         format.json { render :show, status: :created, location: @sick_leave }
       else
-        format.html { render :new }
+        format.html { redirect_to :back, notice: @sick_leave.errors  }
         format.json { render json: @sick_leave.errors, status: :unprocessable_entity }
       end
     end
@@ -75,7 +75,7 @@ class SickLeavesController < ApplicationController
   def destroy
     @sick_leave.destroy
     respond_to do |format|
-      format.html { redirect_to sick_leaves_url, notice: 'Sick leave was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Sick leave was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

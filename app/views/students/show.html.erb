@@ -4,7 +4,7 @@
 	<div class="col s8">
 		<h5>Student Info : <%= @student.id %></h5>
 	</div>
-	
+
 	<%= form_for(:student, url: "/student_pdf") do |f| %>
 		<div class="col s4">
 			<input type="text" name="id" value="<%= @student.id %>" hidden />
@@ -62,7 +62,7 @@
 
             <tr>
   	          <th>Curriculum</th>
-              <td><%= Curriculum.find(@student.curriculum_id).name %></td>
+              <td><%= !@student.curriculum.nil? ? @student.curriculum.name : "-" %></td>
             </tr>
 
             <tr>
@@ -70,7 +70,7 @@
               <td><%= @sum_score_reduced %></td>
             </tr>
 
-            
+
   	          <% count = 1 %>
               <% @advisor_name_arr.each do |advisor| %>
                 <tr>
@@ -79,7 +79,7 @@
                 </tr>
                 <% count += 1 %>
               <% end %>
-            
+
 
           </tbody>
   	    </table>

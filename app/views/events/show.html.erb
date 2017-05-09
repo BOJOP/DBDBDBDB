@@ -89,6 +89,7 @@
   							<th>Student</th>
                 <th>Position</th>
                 <th>Duration</th>
+								<th></th>
   						</thead>
   						<tbody>
   							<% @event.participates.each do |participate| %>
@@ -102,6 +103,9 @@
                     </td>
                     <td><%= participate.position %></td>
                     <td><%= participate.duration %>day(s)</td>
+										<td>
+											<a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/participates/<%= participate.id %>'><i class='material-icons'>delete</i></a>
+										</td>
   								</tr>
   							<% end %>
   						</tbody>
@@ -142,6 +146,7 @@
                 <th>Group name</th>
                 <th>Student</th>
                 <th>Award</th>
+								<th></th>
               </thead>
               <tbody>
                 <% @event.competes.each do |compete| %>
@@ -154,6 +159,9 @@
                       <% end %>
                     </td>
                     <td><%= compete.award %></td>
+										<td>
+											<a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/competes/<%= compete.id %>'><i class='material-icons'>delete</i></a>
+										</td>
                   </tr>
                 <% end %>
               </tbody>

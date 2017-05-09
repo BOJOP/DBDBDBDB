@@ -19,12 +19,12 @@
 
           <tr>
 						<th>Start time</th>
-						<td><%= DateTime.parse(@time_slot.start.to_s).localtime.strftime('%H:%M') %></td>
+						<td><%= DateTime.parse(@time_slot.start.to_s).strftime('%H:%M') %></td>
 					</tr>
 
           <tr>
 						<th>End time</th>
-						<td><%= DateTime.parse(@time_slot.end.to_s).localtime.strftime('%H:%M') %></td>
+						<td><%= DateTime.parse(@time_slot.end.to_s).strftime('%H:%M') %></td>
 					</tr>
 				</tbody>
 			</table>

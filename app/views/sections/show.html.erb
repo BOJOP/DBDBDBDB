@@ -3,7 +3,7 @@
 	<div class="col s8">
 		<h5>Section Info : <%= @section.id %>	</h5>
 	</div>
-	
+
 	<%= form_for(:section, url: "/section_pdf") do |f| %>
 		<div class="col s4">
 			<input type="text" name="id" value="<%= @section.id %>" hidden />
@@ -49,11 +49,11 @@
 						<td>
 							<% @section.schedules.each do |ts| %>
 								<% TimeSlot.where("time_slots.id = #{ts.time_slot_id}").each do |e| %>
-									<%= DateTime.parse(e.start.to_s).localtime.strftime('%H:%M')  + " - " + DateTime.parse(e.end.to_s).localtime.strftime('%H:%M')  %>
+									<%= DateTime.parse(e.start.to_s).strftime('%H:%M')  + " - " + DateTime.parse(e.end.to_s).strftime('%H:%M')  %>
 									<br>
 								<% end %>
 							<% end %>
-						</td>			
+						</td>
 					</tr>
 
 				</tbody>
@@ -86,12 +86,13 @@
 							<input id="section_id"type="text" class="validate" name="enrollment[section_id]" value="<%= @section.id %>" hidden/>
 						</div>
 					<% end %>
-					
+
 					<table class="bordered highlight striped">
 						<thead>
 							<th>ID</th>
 							<th>Name</th>
 							<th>Grade</th>
+							<th></th>
 						</thead>
 						<tbody>
 							<% @section.enrollments.each do |enroll| %>
@@ -99,7 +100,11 @@
 									<td><%= enroll.student.id %></td>
 									<td><%= (enroll.student.first_name || "") + " " + (enroll.student.last_name || "")%></td>
 									<td><%= enroll.getGrade %></td>
-								</tr>	
+									<td>
+										<a href='/enrollments/<%= enroll.id %>/edit'><i class='material-icons'>build</i></a>&nbsp;&nbsp;&nbsp;
+										<a data-confirm='You sure?' rel='nofollow' data-method='delete' href='/enrollments/<%= enroll.id %>'><i class='material-icons'>delete</i></a>
+									</td>
+								</tr>
 							<% end %>
 						</tbody>
 					</table>

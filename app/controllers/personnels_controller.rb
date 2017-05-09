@@ -19,9 +19,6 @@ class PersonnelsController < ApplicationController
   # GET /personnels/1.json
   def show
 
-    #Get all student in advisors
-    @students = @personnel.students;
-
     #Get department
     @workin = if @personnel.workin.nil? then "" else @personnel.workin.name end
     @manage = if @personnel.manage.nil? then "" else @personnel.manage.name end
@@ -115,7 +112,7 @@ class PersonnelsController < ApplicationController
   def destroy
     @personnel.destroy
     respond_to do |format|
-      format.html { redirect_to personnels_url, notice: 'Personnel was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Personnel was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

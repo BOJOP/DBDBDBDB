@@ -381,7 +381,7 @@ day_list = ["MON", "TUE", "WED", "TUE", "FRI", "SAT", "SUN"]
 #Time_slot_create
 puts "TimeSlot create"
 for i in 0..50
-	startTime = Time.parse("2015-11-16 8:00:00") + 60*60*(rand(3)+1)
+	startTime = Time.parse("2015-11-16 15:00:00") + 60*60*(rand(3)+1)
 	finishTime = startTime + 60*60*(rand(3)+1)
 	TimeSlot.create(day: day_list[i % day_list.length],
 					start: startTime,

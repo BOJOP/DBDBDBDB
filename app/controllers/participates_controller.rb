@@ -66,7 +66,7 @@ class ParticipatesController < ApplicationController
   def destroy
     @participate.destroy
     respond_to do |format|
-      format.html { redirect_to participates_url, notice: 'Participate was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Participate was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

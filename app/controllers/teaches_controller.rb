@@ -66,7 +66,7 @@ class TeachesController < ApplicationController
   def destroy
     @teach.destroy
     respond_to do |format|
-      format.html { redirect_to teaches_url, notice: 'Teach was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Teach was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
