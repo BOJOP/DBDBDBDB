@@ -20,7 +20,7 @@ This project is term project of DB MGT SYS DESIGN course
 * password: dbdbdbdb
 
 
-# Things you may want to cover:
+# Overview system
 
 * Ruby version : 2.3.3
 
