@@ -22,20 +22,12 @@ This project is term project of DB MGT SYS DESIGN course
 
 # Things you may want to cover:
 
-* Ruby version
+* Ruby version : 2.3.3
 
-* System dependencies
+* System dependencies : wkhtmltopdf, ruby on rails, mysql, postgresql
 
-* Configuration
+* Configuration : .env (username, password for database)
 
-* Database creation
+* Database creation : using rails db:create command
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Database initialization : using rails db:migrate, rails db:seed command
